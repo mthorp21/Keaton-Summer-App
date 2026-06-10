@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keaton's Summer Academy 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* Pokemon palette */
+  --poke-yellow:#FFD700;
+  --poke-yellow-dark:#CC9900;
+  --poke-red:#CC0000;
+  --poke-blue:#3B4CCA;
+  --poke-blue-light:#6C79DC;
+  --poke-green:#4DAD5B;
+  --poke-card-bg:#FFFDE7;
+  --poke-card-border:#C8A000;
+  --poke-card-inner:#FFF8DC;
+  --poke-hp-green:#44AA44;
+  --poke-hp-yellow:#DDAA00;
+  --poke-hp-red:#CC2222;
+  /* Stage colors */
+  --stage-basic:#A8D8A8;
+  --stage-1:#74B9FF;
+  --stage-2:#A29BFE;
+  --stage-ex:#FFD700;
+  /* General */
+  --navy:#1A1A2E;
+  --navy2:#16213E;
+  --orange:#F46D1B;
+  --gold:#FFD700;
+  --green:#22C55E;
+  --green-light:#DCFCE7;
+  --red:#EF4444;
+  --red-light:#FEE2E2;
+  --gray-bg:#F0F4FF;
+  --card-bg:#FFFFFF;
+  --text:#1A1A2E;
+  --muted:#6B7280;
+  --border:rgba(26,26,46,0.12);
+  --radius:14px;
+  --font-d:'Bebas Neue','Impact',sans-serif;
+  --font-b:'DM Sans','Segoe UI',sans-serif;
+  --shadow:0 2px 12px rgba(0,0,0,0.08);
+  --shadow-lg:0 8px 32px rgba(0,0,0,0.15);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--gray-bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5}
+.app{max-width:680px;margin:0 auto;padding-bottom:80px;min-height:100vh;background:var(--gray-bg)}
+
+/* ===== HEADER / POKEMON CARD ===== */
+.header{
+  background:linear-gradient(160deg,#1A1A2E 0%,#16213E 50%,#0F3460 100%);
+  padding:20px 16px 16px;
+  position:relative;overflow:hidden;
+}
+.header::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,215,0,0.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;position:relative}
+.app-title{font-family:var(--font-d);font-size:26px;color:var(--poke-yellow);letter-spacing:2px;line-height:1;text-shadow:0 2px 8px rgba(255,215,0,0.4)}
+.app-subtitle{font-size:10px;color:rgba(255,255,255,.45);margin-top:3px;letter-spacing:1.5px;text-transform:uppercase}
+.streak-badge{background:var(--poke-red);color:white;border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;white-space:nowrap;flex-shrink:0;border:1.5px solid rgba(255,255,255,.2)}
+
+/* ===== POKEMON CARD ===== */
+.poke-card{
+  background:linear-gradient(145deg,#FFFDE7 0%,#FFF8DC 40%,#FFFACD 100%);
+  border-radius:16px;
+  border:3px solid var(--poke-card-border);
+  box-shadow:0 0 0 1px rgba(200,160,0,.3),0 4px 20px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.8);
+  padding:10px;
+  position:relative;
+  overflow:hidden;
+}
+.poke-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.4) 0%,transparent 50%,rgba(255,215,0,.08) 100%);
+  pointer-events:none;border-radius:13px;
+}
+.poke-card-inner{
+  background:rgba(255,255,255,.5);
+  border-radius:10px;
+  border:1.5px solid rgba(200,160,0,.25);
+  padding:10px 12px;
+  position:relative;
+}
+.card-name-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
+.card-name{font-family:var(--font-d);font-size:20px;color:#1A1A2E;letter-spacing:1px}
+.card-stage{font-size:9px;font-weight:800;padding:2px 8px;border-radius:99px;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0}
+.card-stage.basic{background:var(--stage-basic);color:#1A3A1A}
+.card-stage.stage1{background:var(--stage-1);color:#0A1A4A}
+.card-stage.stage2{background:var(--stage-2);color:#2A1A5A}
+.card-stage.stagex{background:linear-gradient(90deg,#FFD700,#FFA500);color:#3A2000}
+
+.hp-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.hp-label{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;min-width:20px}
+.hp-value{font-family:var(--font-d);font-size:22px;color:var(--poke-red);letter-spacing:1px;line-height:1;min-width:50px}
+.hp-bar-wrap{flex:1;background:rgba(0,0,0,.1);border-radius:99px;height:10px;overflow:hidden;border:1px solid rgba(0,0,0,.1)}
+.hp-bar{height:100%;border-radius:99px;transition:width .7s cubic-bezier(.4,0,.2,1),background .5s ease;min-width:4px}
+.hp-type{font-size:10px;font-weight:800;padding:2px 7px;border-radius:99px;text-transform:uppercase;letter-spacing:.3px;background:#E3F2FD;color:#1565C0}
+
+.card-art-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.card-pokemon-art{
+  width:72px;height:72px;border-radius:10px;
+  background:linear-gradient(135deg,#FFF8DC 0%,#FFE8A0 100%);
+  border:2px solid rgba(200,160,0,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:42px;flex-shrink:0;
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.08);
+}
+.card-flavor{flex:1}
+.card-flavor-text{font-size:11px;color:#555;font-style:italic;line-height:1.5;margin-bottom:5px}
+.card-xp-display{font-family:var(--font-d);font-size:13px;color:var(--poke-yellow-dark);letter-spacing:.5px}
+
+.card-moves{border-top:1px solid rgba(200,160,0,.2);padding-top:8px}
+.card-move{display:flex;align-items:center;gap:8px;padding:4px 0}
+.move-energy{display:flex;gap:2px}
+.energy-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(0,0,0,.15);flex-shrink:0}
+.move-name{font-size:12px;font-weight:700;flex:1;color:#1A1A2E}
+.move-dmg{font-family:var(--font-d);font-size:16px;color:#1A1A2E;letter-spacing:.5px}
+
+.card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding-top:6px;border-top:1px solid rgba(200,160,0,.2)}
+.card-footer-txt{font-size:9px;color:var(--muted);letter-spacing:.3px}
+.card-weakness{font-size:9px;font-weight:700;color:var(--poke-red)}
+.evolution-path{display:flex;align-items:center;gap:4px;margin-top:8px;justify-content:center}
+.evo-step{text-align:center;font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
+.evo-step .evo-name{font-size:10px;color:#444;margin-top:1px}
+.evo-step.current .evo-name{color:var(--poke-yellow-dark);font-weight:800}
+.evo-arrow{font-size:12px;color:var(--poke-yellow-dark);margin:0 2px}
+
+/* ===== TABS ===== */
+.tabs{display:flex;background:white;border-bottom:3px solid var(--poke-yellow);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.08);overflow-x:auto}
+.tab{flex:1;min-width:54px;padding:12px 3px 9px;text-align:center;font-size:9px;font-weight:800;letter-spacing:.4px;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .2s;text-transform:uppercase;user-select:none;white-space:nowrap}
+.tab:hover{color:var(--poke-blue)}
+.tab.active{color:var(--poke-blue);border-bottom-color:var(--poke-blue);background:rgba(59,76,202,.05)}
+.tab-icon{font-size:17px;display:block;margin-bottom:2px}
+
+.content{padding:16px}
+
+/* ===== STAT CARDS ===== */
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.stat-card{background:var(--card-bg);border-radius:12px;padding:12px 8px;text-align:center;border:2px solid var(--border);box-shadow:var(--shadow)}
+.stat-num{font-family:var(--font-d);font-size:26px;color:var(--poke-blue);line-height:1;letter-spacing:1px}
+.stat-lbl{font-size:9px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+.section-title{font-family:var(--font-d);font-size:22px;color:var(--navy);margin-bottom:10px;letter-spacing:1px}
+
+/* ===== FILTER CHIPS ===== */
+.filter-chips{display:flex;gap:7px;overflow-x:auto;padding-bottom:6px;margin-bottom:14px;scrollbar-width:none}
+.filter-chips::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;padding:5px 13px;border-radius:99px;border:2px solid var(--border);font-size:11px;font-weight:700;cursor:pointer;background:white;color:var(--muted);transition:all .15s;text-transform:uppercase;letter-spacing:.3px;user-select:none}
+.chip:hover{border-color:var(--poke-blue);color:var(--poke-blue)}
+.chip.active{background:var(--poke-blue);color:white;border-color:var(--poke-blue)}
+
+/* ===== ASSIGNMENT CARDS (Pokemon style) ===== */
+.assignment-card{
+  background:linear-gradient(145deg,#FFFDE7,#FFF8DC);
+  border-radius:12px;border:2px solid var(--poke-card-border);
+  margin-bottom:10px;overflow:hidden;
+  box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s;
+}
+.assignment-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.assignment-card.completed{opacity:.7}
+.card-header{display:flex;align-items:center;gap:10px;padding:12px;cursor:pointer;user-select:none}
+.cat-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;border:1.5px solid rgba(200,160,0,.3)}
+.card-meta{flex:1;min-width:0}
+.card-title{font-weight:700;font-size:13px;line-height:1.3;margin-bottom:1px;color:#1A1A2E}
+.card-sub{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+.card-xp{background:var(--poke-blue);color:white;font-size:11px;font-weight:800;padding:4px 10px;border-radius:99px;flex-shrink:0;white-space:nowrap;border:1.5px solid rgba(255,255,255,.3)}
+.card-xp.done{background:var(--poke-green);border-color:rgba(255,255,255,.3)}
+.chevron{font-size:12px;color:var(--muted);margin-left:2px;transition:transform .2s;flex-shrink:0}
+.chevron.open{transform:rotate(180deg)}
+.card-body{border-top:1.5px solid rgba(200,160,0,.2);padding:12px;display:none;animation:fadeIn .2s ease;background:rgba(255,255,255,.6)}
+.card-body.open{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.card-question{font-size:13px;line-height:1.65;margin-bottom:12px;font-weight:600;color:#1A1A2E}
+.card-options{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.option-btn{
+  background:white;border:2px solid var(--poke-blue);border-radius:10px;
+  padding:10px 14px;font-size:13px;font-family:var(--font-b);cursor:pointer;
+  text-align:left;transition:all .15s;font-weight:600;color:#1A1A2E;
+}
+.option-btn:hover:not(:disabled){background:var(--poke-blue);color:white}
+.option-btn.correct{background:var(--green-light);border-color:var(--green);color:#15803D;font-weight:700}
+.option-btn.wrong{background:var(--red-light);border-color:var(--red);color:#B91C1C}
+.option-btn:disabled{cursor:not-allowed}
+.result-msg{font-size:12px;padding:10px 14px;border-radius:10px;margin-bottom:8px;font-weight:600;line-height:1.5}
+.result-msg.win{background:var(--green-light);color:#15803D;border:1.5px solid var(--green)}
+.result-msg.lose{background:var(--red-light);color:#B91C1C;border:1.5px solid var(--red)}
+.done-stamp{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#15803D;background:var(--green-light);border:1.5px solid var(--green);border-radius:10px;padding:10px 12px;line-height:1.5}
+
+/* ===== TASK CARDS ===== */
+.task-card{background:white;border-radius:12px;border:2px solid var(--border);padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow);transition:opacity .2s}
+.task-card.done-task{opacity:.6}
+.task-icon{font-size:26px;flex-shrink:0}
+.task-info{flex:1;min-width:0}
+.task-name{font-weight:700;font-size:13px}
+.task-desc{font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4}
+.task-xp-badge{font-size:10px;color:var(--poke-blue);font-weight:800;margin-top:3px;text-transform:uppercase;letter-spacing:.3px}
+.task-check{width:34px;height:34px;border-radius:50%;border:2.5px solid var(--poke-yellow-dark);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s;flex-shrink:0;font-family:var(--font-b)}
+.task-check:hover{background:rgba(255,215,0,.2)}
+.task-check.done{background:var(--poke-yellow);border-color:var(--poke-yellow-dark);color:#3A2000;font-weight:900}
+
+/* ===== FUN FACTS ===== */
+.facts-card{background:white;border-radius:12px;border:2px solid var(--border);padding:14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:14px;box-shadow:var(--shadow)}
+.facts-icon{font-size:30px;flex-shrink:0;margin-top:2px}
+.facts-name{font-weight:700;font-size:14px;margin-bottom:2px}
+.facts-stat{font-family:var(--font-d);font-size:26px;color:var(--poke-blue);line-height:1.1;letter-spacing:1px}
+.facts-lbl{font-size:10px;font-weight:700;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.facts-note{font-size:12px;color:var(--text);line-height:1.55}
+
+/* ===== CALENDAR ===== */
+.cal-header-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-month-title{font-family:var(--font-d);font-size:24px;color:var(--navy);letter-spacing:1px}
+.cal-nav-btn{background:white;border:2px solid var(--poke-yellow-dark);border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:background .15s;color:var(--poke-yellow-dark)}
+.cal-nav-btn:hover{background:var(--poke-yellow);color:#3A2000}
+.cal-nav-btn:disabled{opacity:.3;cursor:not-allowed}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:12px}
+.cal-dow{text-align:center;font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;padding:5px 0}
+.cal-dow.wknd{color:var(--poke-blue)}
+.cal-day{background:white;border-radius:8px;border:1.5px solid var(--border);min-height:58px;padding:4px 3px 3px;cursor:pointer;transition:transform .12s,box-shadow .12s;position:relative;overflow:hidden}
+.cal-day:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.cal-day.empty{background:transparent;border-color:transparent;cursor:default;pointer-events:none}
+.cal-day.out{background:rgba(255,255,255,.3);border:1px dashed rgba(26,26,46,.06);cursor:default}
+.cal-day.out .cal-dn{color:rgba(26,26,46,.2)}
+.cal-day.wknd-day{background:#F8F9FF}
+.cal-day.logged{background:#E8F5E9;border-color:var(--poke-green)}
+.cal-day.logged .cal-dn{color:#2E7D32}
+.cal-day.bday{background:linear-gradient(135deg,#FFF9C4,#FFECB3);border:2.5px solid var(--poke-yellow);box-shadow:0 0 0 3px rgba(255,215,0,.25);animation:bdayPulse 2.5s ease-in-out infinite}
+@keyframes bdayPulse{0%,100%{box-shadow:0 0 0 3px rgba(255,215,0,.25)}50%{box-shadow:0 0 0 6px rgba(255,215,0,.4)}}
+.cal-day.bday .cal-dn{color:var(--poke-yellow-dark);font-size:12px}
+.cal-dn{font-size:11px;font-weight:800;line-height:1;margin-bottom:3px;color:var(--text)}
+.cal-events{display:flex;flex-direction:column;gap:2px}
+.cc{font-size:7px;font-weight:800;padding:1px 3px;border-radius:3px;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.2px}
+.cc-bday{background:var(--poke-yellow);color:#5A3E00}
+.cc-hol{background:#FFE0E0;color:#C62828;border:1px solid rgba(198,40,40,.2)}
+.cc-sm{background:#E3F2FD;color:#1565C0;border:1px solid rgba(21,101,192,.2)}
+.cc-note{background:#F3E5F5;color:#7B1FA2;border:1px solid rgba(123,31,162,.2)}
+.cal-check-dot{position:absolute;top:2px;right:2px;width:12px;height:12px;border-radius:50%;background:var(--poke-green);color:white;font-size:8px;display:flex;align-items:center;justify-content:center;font-weight:800}
+.cal-legend{display:flex;flex-wrap:wrap;gap:6px 12px;padding:8px 0 12px}
+.cal-li{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:var(--muted)}
+.cal-dot{width:9px;height:9px;border-radius:3px;flex-shrink:0}
+.cal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.cal-stat{background:white;border:2px solid var(--border);border-radius:10px;padding:10px 6px;text-align:center}
+.cs-num{font-family:var(--font-d);font-size:22px;color:var(--poke-blue);line-height:1}
+.cs-lbl{font-size:9px;color:var(--muted);margin-top:2px;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+
+/* ===== DAY MODAL ===== */
+.overlay{position:fixed;inset:0;background:rgba(26,26,46,.55);z-index:500;display:flex;align-items:flex-end;animation:oIn .2s ease}
+@keyframes oIn{from{opacity:0}to{opacity:1}}
+.day-modal{background:white;width:100%;max-width:680px;margin:0 auto;border-radius:20px 20px 0 0;padding:20px;max-height:82vh;overflow-y:auto;animation:sUp .25s cubic-bezier(.34,1.4,.64,1)}
+@keyframes sUp{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-handle{width:36px;height:4px;background:var(--border);border-radius:99px;margin:0 auto 14px}
+.modal-title{font-family:var(--font-d);font-size:24px;color:var(--navy);letter-spacing:1px;margin-bottom:3px}
+.modal-sub{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+.modal-sl{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:7px;margin-top:12px}
+.modal-note{width:100%;min-height:78px;padding:12px;border:2px solid var(--border);border-radius:10px;font-family:var(--font-b);font-size:14px;color:var(--text);background:var(--gray-bg);resize:none;outline:none;transition:border-color .15s;line-height:1.5}
+.modal-note:focus{border-color:var(--poke-blue)}
+.modal-cb{width:100%;padding:13px;border-radius:10px;border:none;font-family:var(--font-d);font-size:18px;letter-spacing:1px;cursor:pointer;transition:all .2s;margin-top:12px}
+.modal-cb.unc{background:var(--poke-yellow);color:#3A2000;border:2px solid var(--poke-yellow-dark)}
+.modal-cb.chk{background:var(--green-light);color:#15803D;border:2px solid var(--green)}
+.modal-cl{width:100%;padding:11px;border-radius:10px;border:2px solid var(--border);background:transparent;font-family:var(--font-b);font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;color:var(--muted)}
+
+.bday-modal-box{background:linear-gradient(135deg,#FFFDE7,#FFF9C4);border:3px solid var(--poke-yellow);border-radius:14px;padding:16px;margin-bottom:12px;text-align:center;box-shadow:0 0 0 4px rgba(255,215,0,.2)}
+.bday-modal-title{font-family:var(--font-d);font-size:26px;color:var(--poke-yellow-dark);letter-spacing:1px}
+.bday-modal-sub{font-size:13px;color:#5A3E00;margin-top:5px;line-height:1.5}
+
+/* PENALTY */
+.penalty-box{background:#FFF5F5;border:1.5px solid #FFCDD2;border-radius:10px;padding:12px;margin-top:12px}
+.penalty-title{font-size:11px;font-weight:800;color:#C62828;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.penalty-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.penalty-input{flex:1;min-width:140px;padding:8px 10px;border:1.5px solid #FFCDD2;border-radius:8px;font-family:var(--font-b);font-size:13px;outline:none;background:white}
+.penalty-input:focus{border-color:var(--red)}
+.penalty-select{padding:8px 10px;border:1.5px solid #FFCDD2;border-radius:8px;font-family:var(--font-b);font-size:13px;background:white;outline:none;cursor:pointer}
+.penalty-btn{background:var(--red);color:white;border:none;border-radius:8px;padding:8px 14px;font-family:var(--font-d);font-size:15px;letter-spacing:.5px;cursor:pointer;transition:background .15s}
+.penalty-btn:hover{background:#B91C1C}
+.penalty-history{display:flex;flex-direction:column;gap:4px;margin-top:6px}
+.penalty-chip{font-size:11px;padding:5px 10px;background:#FFEBEE;border-radius:6px;color:#B71C1C;font-weight:700;border:1px solid #FFCDD2}
+
+/* ===== TOAST ===== */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--navy);color:white;padding:12px 22px;border-radius:12px;font-weight:700;font-size:16px;font-family:var(--font-d);letter-spacing:1.5px;z-index:9999;transition:transform .35s cubic-bezier(.34,1.56,.64,1);box-shadow:var(--shadow-lg);pointer-events:none;white-space:nowrap;border:2px solid var(--poke-yellow)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ===== RESET BOX ===== */
+.reset-box{background:white;border:2px solid var(--border);border-radius:12px;padding:16px;margin-top:16px}
+.reset-box h3{font-size:14px;font-weight:700;margin-bottom:5px}
+.reset-box p{font-size:12px;color:var(--muted);margin-bottom:10px}
+.reset-btn{background:var(--red-light);border:1.5px solid #FCA5A5;color:#B91C1C;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;font-family:var(--font-b)}
+
+/* ===== PROFILE POKEMON CARD ===== */
+.profile-poke-card{
+  background:linear-gradient(145deg,#FFFDE7 0%,#FFF8DC 40%,#FFFACD 100%);
+  border-radius:18px;border:3px solid var(--poke-card-border);
+  box-shadow:0 0 0 1px rgba(200,160,0,.3),0 6px 24px rgba(0,0,0,.2);
+  padding:14px;margin-bottom:16px;position:relative;overflow:hidden;
+}
+.profile-poke-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.5) 0%,transparent 60%);pointer-events:none;border-radius:15px;}
+.profile-card-inner{background:rgba(255,255,255,.55);border-radius:12px;border:1.5px solid rgba(200,160,0,.3);padding:14px;position:relative}
+.profile-name-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.profile-name{font-family:var(--font-d);font-size:26px;color:#1A1A2E;letter-spacing:1px}
+.profile-hp-display{font-family:var(--font-d);font-size:28px;color:var(--poke-red);letter-spacing:1px}
+.profile-art-row{display:flex;gap:14px;margin-bottom:12px}
+.profile-pokemon-art{width:90px;height:90px;border-radius:12px;background:linear-gradient(135deg,#FFF8DC,#FFE8A0);border:2px solid rgba(200,160,0,.3);display:flex;align-items:center;justify-content:center;font-size:52px;flex-shrink:0}
+.profile-stats-block{flex:1}
+.profile-stat-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.profile-stat-label{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
+.profile-stat-val{font-family:var(--font-d);font-size:16px;color:#1A1A2E;letter-spacing:.5px}
+.badge-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px}
+.badge-item{background:white;border-radius:10px;border:2px solid var(--border);padding:10px 6px;text-align:center;box-shadow:var(--shadow);transition:transform .15s}
+.badge-item:hover{transform:translateY(-2px)}
+.badge-emoji{font-size:22px}
+.badge-name{font-size:9px;color:var(--muted);margin-top:4px;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
+.badge-item.locked{opacity:.3;filter:grayscale(1)}
+.badge-item.earned{border-color:var(--poke-yellow);background:rgba(255,215,0,.1)}
+.category-progress{display:flex;flex-direction:column;gap:8px}
+.prog-row{display:flex;align-items:center;gap:8px}
+.prog-emoji{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+.prog-label{font-size:11px;font-weight:700;min-width:72px;text-transform:uppercase;letter-spacing:.3px;color:var(--muted)}
+.prog-bar-bg{flex:1;background:var(--border);border-radius:99px;height:7px;overflow:hidden}
+.prog-bar-fill{border-radius:99px;height:100%;background:var(--poke-blue);transition:width .5s cubic-bezier(.4,0,.2,1)}
+.prog-count{font-size:11px;color:var(--muted);min-width:26px;text-align:right;font-weight:700}
+
+@media(max-width:480px){.stat-num{font-size:22px}.app-title{font-size:20px}.cal-day{min-height:50px}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="app-title">KEATON'S SUMMER ACADEMY</div>
+        <div class="app-subtitle">Summer 2026 &nbsp;·&nbsp; Gotta Learn Em All</div>
+      </div>
+      <div class="streak-badge">&#128293; <span id="streakCount">0</span> day streak</div>
+    </div>
+
+    <!-- POKEMON CARD (XP / Level Display) -->
+    <div class="poke-card" id="pokeCard">
+      <div class="poke-card-inner">
+        <div class="card-name-row">
+          <div class="card-name">KEATON</div>
+          <div class="card-stage basic" id="cardStage">Basic</div>
+        </div>
+        <div class="hp-row">
+          <div class="hp-label">HP</div>
+          <div class="hp-value" id="hpValue">30</div>
+          <div class="hp-bar-wrap"><div class="hp-bar" id="hpBar" style="width:5%;background:var(--poke-hp-green)"></div></div>
+          <div class="hp-type" id="hpType">&#9889; Lightning</div>
+        </div>
+        <div class="card-art-row">
+          <div class="card-pokemon-art" id="cardArt" style="background:linear-gradient(135deg,#FFF8DC,#FFE8A0)">&#128008;</div>
+          <div class="card-flavor">
+            <div class="card-flavor-text" id="cardFlavor">A curious Pokemon beginning its summer journey. Loves to discover new things and level up.</div>
+            <div class="card-xp-display" id="cardXpDisplay">0 / 500 XP</div>
+          </div>
+        </div>
+        <div class="card-moves">
+          <div class="card-move">
+            <div class="move-energy">
+              <div class="energy-dot" style="background:#FFD700;border-color:#CC9900"></div>
+            </div>
+            <div class="move-name" id="moveName1">Read a Book</div>
+            <div class="move-dmg" id="moveDmg1">10</div>
+          </div>
+          <div class="card-move">
+            <div class="move-energy">
+              <div class="energy-dot" style="background:#FFD700;border-color:#CC9900"></div>
+              <div class="energy-dot" style="background:#FFD700;border-color:#CC9900"></div>
+            </div>
+            <div class="move-name" id="moveName2">Brain Blast</div>
+            <div class="move-dmg" id="moveDmg2">30</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="card-footer-txt" id="cardFooter">Keaton · Summer 2026 · #001</div>
+          <div class="card-weakness" id="cardWeakness">Weakness: Lazy Days &#10005;2</div>
+        </div>
+        <div class="evolution-path" id="evoPath">
+          <div class="evo-step current"><div>Stage</div><div class="evo-name">Basic</div></div>
+          <div class="evo-arrow">&#9658;</div>
+          <div class="evo-step"><div>Stage</div><div class="evo-name">Stage 1</div></div>
+          <div class="evo-arrow">&#9658;</div>
+          <div class="evo-step"><div>Stage</div><div class="evo-name">Stage 2</div></div>
+          <div class="evo-arrow">&#9658;</div>
+          <div class="evo-step"><div>Stage</div><div class="evo-name">Keaton-EX</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" data-tab="learn" onclick="switchTab('learn')"><span class="tab-icon">&#128218;</span>Learn</div>
+    <div class="tab" data-tab="tasks" onclick="switchTab('tasks')"><span class="tab-icon">&#127939;</span>Move</div>
+    <div class="tab" data-tab="fun" onclick="switchTab('fun')"><span class="tab-icon">&#11088;</span>Fun Facts</div>
+    <div class="tab" data-tab="calendar" onclick="switchTab('calendar')"><span class="tab-icon">&#128197;</span>Calendar</div>
+    <div class="tab" data-tab="profile" onclick="switchTab('profile')"><span class="tab-icon">&#127942;</span>Profile</div>
+  </div>
+
+  <div class="content" id="mainContent"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div id="modalContainer"></div>
+
+<script>
+const SK='keaton_academy_2026_v1';
+
+// Pokemon card evolution stages keyed to XP thresholds
+const CHEETKIT_ART='<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><ellipse cx="40" cy="52" rx="18" ry="14" fill="#F5C842"/><circle cx="40" cy="30" r="13" fill="#F5C842"/><ellipse cx="30" cy="21" rx="5" ry="7" fill="#F5C842"/><ellipse cx="50" cy="21" rx="5" ry="7" fill="#F5C842"/><ellipse cx="30" cy="20" rx="3" ry="5" fill="#FFE8A0"/><ellipse cx="50" cy="20" rx="3" ry="5" fill="#FFE8A0"/><circle cx="35" cy="29" r="4" fill="#3A2800"/><circle cx="45" cy="29" r="4" fill="#3A2800"/><circle cx="36" cy="28" r="1.5" fill="white"/><circle cx="46" cy="28" r="1.5" fill="white"/><ellipse cx="40" cy="34" rx="4" ry="3" fill="#E8A060"/><ellipse cx="40" cy="35" rx="2.5" ry="1.5" fill="#CC7040"/><line x1="30" y1="33" x2="20" y2="31" stroke="#3A2800" stroke-width="1.2"/><line x1="30" y1="34" x2="19" y2="34" stroke="#3A2800" stroke-width="1.2"/><line x1="30" y1="35" x2="20" y2="37" stroke="#3A2800" stroke-width="1.2"/><line x1="50" y1="33" x2="60" y2="31" stroke="#3A2800" stroke-width="1.2"/><line x1="50" y1="34" x2="61" y2="34" stroke="#3A2800" stroke-width="1.2"/><line x1="50" y1="35" x2="60" y2="37" stroke="#3A2800" stroke-width="1.2"/><circle cx="34" cy="26" r="1.2" fill="#3A2800" opacity="0.6"/><circle cx="37" cy="24" r="1.2" fill="#3A2800" opacity="0.6"/><circle cx="43" cy="24" r="1.2" fill="#3A2800" opacity="0.6"/><circle cx="46" cy="26" r="1.2" fill="#3A2800" opacity="0.6"/><path d="M28 37 Q24 42 26 50 Q28 56 32 58" stroke="#E8A060" stroke-width="2" fill="none"/><path d="M52 37 Q56 42 54 50 Q52 56 48 58" stroke="#E8A060" stroke-width="2" fill="none"/><ellipse cx="32" cy="60" rx="4" ry="3" fill="#F5C842"/><ellipse cx="48" cy="60" rx="4" ry="3" fill="#F5C842"/><path d="M44 52 Q50 54 58 50 Q64 58 60 64" stroke="#F5C842" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="37" cy="42" r="1.5" fill="#3A2800" opacity="0.5"/><circle cx="43" cy="42" r="1.5" fill="#3A2800" opacity="0.5"/><circle cx="40" cy="47" r="1.5" fill="#3A2800" opacity="0.5"/></svg>';
+
+const CHEETLEN_ART='<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><ellipse cx="40" cy="54" rx="20" ry="13" fill="#E8B830"/><circle cx="40" cy="28" r="14" fill="#E8B830"/><ellipse cx="29" cy="18" rx="5.5" ry="8" fill="#E8B830"/><ellipse cx="51" cy="18" rx="5.5" ry="8" fill="#E8B830"/><ellipse cx="29" cy="17" rx="3.5" ry="5.5" fill="#FFE090"/><ellipse cx="51" cy="17" rx="3.5" ry="5.5" fill="#FFE090"/><circle cx="34" cy="27" r="4.5" fill="#2A1A00"/><circle cx="46" cy="27" r="4.5" fill="#2A1A00"/><circle cx="35.5" cy="26" r="1.8" fill="white"/><circle cx="47.5" cy="26" r="1.8" fill="white"/><ellipse cx="40" cy="33" rx="4.5" ry="3.5" fill="#D07840"/><ellipse cx="40" cy="34.5" rx="3" ry="2" fill="#B85030"/><line x1="29" y1="32" x2="17" y2="29" stroke="#2A1A00" stroke-width="1.3"/><line x1="29" y1="33" x2="16" y2="33" stroke="#2A1A00" stroke-width="1.3"/><line x1="29" y1="34" x2="17" y2="37" stroke="#2A1A00" stroke-width="1.3"/><line x1="51" y1="32" x2="63" y2="29" stroke="#2A1A00" stroke-width="1.3"/><line x1="51" y1="33" x2="64" y2="33" stroke="#2A1A00" stroke-width="1.3"/><line x1="51" y1="34" x2="63" y2="37" stroke="#2A1A00" stroke-width="1.3"/><circle cx="33" cy="24" r="1.5" fill="#2A1A00" opacity="0.65"/><circle cx="37" cy="22" r="1.5" fill="#2A1A00" opacity="0.65"/><circle cx="40" cy="21" r="1.5" fill="#2A1A00" opacity="0.65"/><circle cx="43" cy="22" r="1.5" fill="#2A1A00" opacity="0.65"/><circle cx="47" cy="24" r="1.5" fill="#2A1A00" opacity="0.65"/><path d="M26 36 Q21 43 23 52 Q25 59 30 62" stroke="#D8A828" stroke-width="2.5" fill="none"/><path d="M54 36 Q59 43 57 52 Q55 59 50 62" stroke="#D8A828" stroke-width="2.5" fill="none"/><ellipse cx="30" cy="63" rx="5" ry="3.5" fill="#E8B830"/><ellipse cx="50" cy="63" rx="5" ry="3.5" fill="#E8B830"/><path d="M46 54 Q54 56 62 51 Q70 60 65 67" stroke="#E8B830" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="36" cy="45" r="2" fill="#2A1A00" opacity="0.55"/><circle cx="40" cy="43" r="2" fill="#2A1A00" opacity="0.55"/><circle cx="44" cy="45" r="2" fill="#2A1A00" opacity="0.55"/><circle cx="34" cy="51" r="2" fill="#2A1A00" opacity="0.55"/><circle cx="40" cy="52" r="2" fill="#2A1A00" opacity="0.55"/><circle cx="46" cy="51" r="2" fill="#2A1A00" opacity="0.55"/><line x1="38" y1="66" x2="36" y2="74" stroke="#D8A828" stroke-width="2"/><line x1="42" y1="66" x2="44" y2="74" stroke="#D8A828" stroke-width="2"/></svg>';
+
+const CHEETARA_ART='<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><ellipse cx="39" cy="55" rx="21" ry="12" fill="#CC9A1A"/><circle cx="39" cy="27" r="15" fill="#CC9A1A"/><ellipse cx="27" cy="15" rx="6" ry="9" fill="#CC9A1A"/><ellipse cx="51" cy="15" rx="6" ry="9" fill="#CC9A1A"/><ellipse cx="27" cy="14" rx="4" ry="6.5" fill="#FFD878"/><ellipse cx="51" cy="14" rx="4" ry="6.5" fill="#FFD878"/><circle cx="33" cy="25" r="5" fill="#1A0A00"/><circle cx="45" cy="25" r="5" fill="#1A0A00"/><circle cx="34.5" cy="23.5" r="2" fill="white"/><circle cx="46.5" cy="23.5" r="2" fill="white"/><ellipse cx="39" cy="32" rx="5" ry="4" fill="#C06030"/><ellipse cx="39" cy="33.5" rx="3.5" ry="2.5" fill="#A03A20"/><line x1="27" y1="30" x2="14" y2="27" stroke="#1A0A00" stroke-width="1.5"/><line x1="27" y1="31.5" x2="13" y2="31.5" stroke="#1A0A00" stroke-width="1.5"/><line x1="27" y1="33" x2="14" y2="36" stroke="#1A0A00" stroke-width="1.5"/><line x1="51" y1="30" x2="64" y2="27" stroke="#1A0A00" stroke-width="1.5"/><line x1="51" y1="31.5" x2="65" y2="31.5" stroke="#1A0A00" stroke-width="1.5"/><line x1="51" y1="33" x2="64" y2="36" stroke="#1A0A00" stroke-width="1.5"/><circle cx="31" cy="22" r="2" fill="#1A0A00" opacity="0.7"/><circle cx="35" cy="19.5" r="2" fill="#1A0A00" opacity="0.7"/><circle cx="39" cy="19" r="2" fill="#1A0A00" opacity="0.7"/><circle cx="43" cy="19.5" r="2" fill="#1A0A00" opacity="0.7"/><circle cx="47" cy="22" r="2" fill="#1A0A00" opacity="0.7"/><path d="M24 36 Q18 44 20 54 Q22 62 28 65" stroke="#C08A18" stroke-width="3" fill="none"/><path d="M54 36 Q60 44 58 54 Q56 62 50 65" stroke="#C08A18" stroke-width="3" fill="none"/><ellipse cx="28" cy="66" rx="6" ry="4" fill="#CC9A1A"/><ellipse cx="50" cy="66" rx="6" ry="4" fill="#CC9A1A"/><path d="M47 56 Q57 58 67 52 Q76 63 70 71" stroke="#CC9A1A" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="34" cy="46" r="2.5" fill="#1A0A00" opacity="0.6"/><circle cx="39" cy="44" r="2.5" fill="#1A0A00" opacity="0.6"/><circle cx="44" cy="46" r="2.5" fill="#1A0A00" opacity="0.6"/><circle cx="32" cy="52" r="2.5" fill="#1A0A00" opacity="0.6"/><circle cx="38" cy="53" r="2.5" fill="#1A0A00" opacity="0.6"/><circle cx="44" cy="52" r="2.5" fill="#1A0A00" opacity="0.6"/><line x1="37" y1="67" x2="35" y2="76" stroke="#C08A18" stroke-width="2.5"/><line x1="41" y1="67" x2="43" y2="76" stroke="#C08A18" stroke-width="2.5"/></svg>';
+
+const KEATONEX_ART='<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><defs><radialGradient id="gg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#FFE840"/><stop offset="100%" stop-color="#FF8C00"/></radialGradient></defs><ellipse cx="40" cy="54" rx="22" ry="13" fill="url(#gg)"/><circle cx="40" cy="26" r="16" fill="url(#gg)"/><ellipse cx="27" cy="12" rx="6.5" ry="10" fill="url(#gg)"/><ellipse cx="53" cy="12" rx="6.5" ry="10" fill="url(#gg)"/><ellipse cx="27" cy="11" rx="4.5" ry="7" fill="#FFF4A0"/><ellipse cx="53" cy="11" rx="4.5" ry="7" fill="#FFF4A0"/><circle cx="33" cy="24" r="5.5" fill="#1A0500"/><circle cx="47" cy="24" r="5.5" fill="#1A0500"/><circle cx="34.5" cy="22.5" r="2.2" fill="white"/><circle cx="48.5" cy="22.5" r="2.2" fill="white"/><circle cx="35" cy="22.8" r="0.9" fill="#FFE840"/><circle cx="49" cy="22.8" r="0.9" fill="#FFE840"/><ellipse cx="40" cy="32" rx="5.5" ry="4.5" fill="#C05820"/><ellipse cx="40" cy="33.5" rx="4" ry="3" fill="#902A00"/><line x1="27" y1="29" x2="12" y2="26" stroke="#1A0500" stroke-width="1.8"/><line x1="27" y1="31" x2="11" y2="31" stroke="#1A0500" stroke-width="1.8"/><line x1="27" y1="33" x2="12" y2="36" stroke="#1A0500" stroke-width="1.8"/><line x1="53" y1="29" x2="68" y2="26" stroke="#1A0500" stroke-width="1.8"/><line x1="53" y1="31" x2="69" y2="31" stroke="#1A0500" stroke-width="1.8"/><line x1="53" y1="33" x2="68" y2="36" stroke="#1A0500" stroke-width="1.8"/><circle cx="30" cy="21" r="2.2" fill="#1A0500" opacity="0.75"/><circle cx="34.5" cy="18" r="2.2" fill="#1A0500" opacity="0.75"/><circle cx="40" cy="17" r="2.2" fill="#1A0500" opacity="0.75"/><circle cx="45.5" cy="18" r="2.2" fill="#1A0500" opacity="0.75"/><circle cx="50" cy="21" r="2.2" fill="#1A0500" opacity="0.75"/><path d="M23 36 Q16 45 18 56 Q20 65 27 68" stroke="#FF8C00" stroke-width="3.5" fill="none"/><path d="M57 36 Q64 45 62 56 Q60 65 53 68" stroke="#FF8C00" stroke-width="3.5" fill="none"/><ellipse cx="27" cy="69" rx="7" ry="4.5" fill="url(#gg)"/><ellipse cx="53" cy="69" rx="7" ry="4.5" fill="url(#gg)"/><path d="M48 57 Q60 59 70 53 Q80 65 73 74" stroke="#FF8C00" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="33" cy="44" r="3" fill="#1A0500" opacity="0.65"/><circle cx="40" cy="42" r="3" fill="#1A0500" opacity="0.65"/><circle cx="47" cy="44" r="3" fill="#1A0500" opacity="0.65"/><circle cx="30" cy="51" r="3" fill="#1A0500" opacity="0.65"/><circle cx="37" cy="53" r="3" fill="#1A0500" opacity="0.65"/><circle cx="43" cy="53" r="3" fill="#1A0500" opacity="0.65"/><circle cx="50" cy="51" r="3" fill="#1A0500" opacity="0.65"/><polygon points="40,2 42.5,9 50,9 44,14 46.5,21 40,16.5 33.5,21 36,14 30,9 37.5,9" fill="#FFD700" opacity="0.95"/><line x1="37" y1="69" x2="34" y2="79" stroke="#FF8C00" stroke-width="3"/><line x1="43" y1="69" x2="46" y2="79" stroke="#FF8C00" stroke-width="3"/></svg>';
+
+const EVOLUTIONS=[
+  {min:0,   max:300,  stage:'Basic',     stageClass:'basic',  get pokemon(){return CHEETKIT_ART;},
+   name:'CHEETKIT',  hp:30,  hpMax:30,  type:'&#128168; Normal',
+   flavor:'A tiny cheetah cub Pokemon. Clumsy but determined. Its spots are still forming, just like its knowledge.',
+   move1:'Pounce',      dmg1:10, move2:'Cub Scratch',    dmg2:30,
+   footer:'Cheetkit \xb7 Summer 2026 \xb7 #001', weakness:'Weakness: Homework &#10005;2',
+   color:'var(--stage-basic)'},
+  {min:300, max:800,  stage:'Stage 1',   stageClass:'stage1', get pokemon(){return CHEETLEN_ART;},
+   name:'CHEETLEN',  hp:70,  hpMax:70,  type:'&#9889; Electric',
+   flavor:'A juvenile cheetah Pokemon growing fast. Its speed is increasing and its spots are sharp. Watch out!',
+   move1:'Sprint',      dmg1:20, move2:'Quick Study',    dmg2:50,
+   footer:'Cheetlen \xb7 Summer 2026 \xb7 #002', weakness:'Weakness: Screen Time &#10005;2',
+   color:'var(--stage-1)'},
+  {min:800, max:1800, stage:'Stage 2',   stageClass:'stage2', get pokemon(){return CHEETARA_ART;},
+   name:'CHEETARA',  hp:120, hpMax:120, type:'&#128293; Fire',
+   flavor:'A fully evolved cheetah Pokemon. Fastest creature on the savanna. Its knowledge is as sharp as its claws.',
+   move1:'Blaze Sprint', dmg1:40, move2:'Summer Surge',   dmg2:80,
+   footer:'Cheetara \xb7 Summer 2026 \xb7 #003', weakness:'Weakness: Boredom &#10005;2',
+   color:'var(--stage-2)'},
+  {min:1800,max:99999,stage:'Keaton-EX', stageClass:'stagex', get pokemon(){return KEATONEX_ART;},
+   name:'KEATON-EX', hp:200, hpMax:200, type:'&#10024; Psychic',
+   flavor:'KEATON-EX! The legendary golden cheetah. Glowing eyes. Crown of stars. Unstoppable. Best summer ever.',
+   move1:'EX Blitz',    dmg1:80, move2:'Champion Roar',  dmg2:150,
+   footer:'Keaton-EX \xb7 Summer 2026 \xb7 #EX', weakness:'None. Keaton fears nothing.',
+   color:'linear-gradient(90deg,#FFD700,#FF8C00)'}
+];
+
+const LEVELS=[
+  {min:0,   name:'Basic',      max:300},
+  {min:300, name:'Stage 1',    max:800},
+  {min:800, name:'Stage 2',    max:1800},
+  {min:1800,name:'Keaton-EX',  max:99999}
+];
+
+const MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const MS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+const CAL_START=new Date(2026,5,1);
+const CAL_END=new Date(2026,7,25);
+
+const SPECIALS={
+  '2026-06-01':{type:'summer', label:'Summer!',   info:"Keaton's Summer Academy begins!"},
+  '2026-06-19':{type:'hol',    label:'Juneteenth', info:'Federal holiday.'},
+  '2026-06-25':{type:'bday',   label:'BIRTHDAY!',  info:"Happy 8th Birthday Keaton! You're a Stage 2 today!"},
+  '2026-07-04':{type:'hol',    label:'4th of July',info:'Independence Day!'},
+  '2026-08-25':{type:'summer', label:'Last Day',   info:"Summer Academy ends. How far did you evolve, Keaton?"}
+};
+
+// Category labels and emoji
+const CL={'all':'All','math':'Math','reading':'Reading','science':'Science','bible':'Bible','pokemon':'Pokemon'};
+const CE={'math':'&#10135;','reading':'&#128214;','science':'&#128300;','bible':'&#9997;','pokemon':'&#129418;'};
+
+// 3rd grade level assignments
+const ASSIGNMENTS=[
+  // MATH
+  {id:'m01',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Adding Big Numbers',sub:'Math',xp:40,
+   q:'What is 47 + 36?',
+   opts:['73','83','93','63'],answer:'83',
+   fact:'47 + 36 = 83. When adding, always add the ones place first. 7+6=13, carry the 1, then 4+3+1=8. You got this!'},
+  {id:'m02',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Subtraction',sub:'Math',xp:40,
+   q:'What is 92 - 47?',
+   opts:['35','45','55','65'],answer:'45',
+   fact:'92 - 47 = 45. Subtraction is the opposite of addition. If you add 45 + 47 you get 92 back!'},
+  {id:'m03',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Multiplication',sub:'Math',xp:50,
+   q:'What is 6 x 7?',
+   opts:['36','42','48','54'],answer:'42',
+   fact:'6 x 7 = 42. Here is a trick: 6 x 7 is the same as 6 groups of 7. Count by 7s: 7, 14, 21, 28, 35, 42!'},
+  {id:'m04',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Place Value',sub:'Math',xp:40,
+   q:'In the number 374, what digit is in the tens place?',
+   opts:['3','7','4','37'],answer:'7',
+   fact:'374: the 3 is in the hundreds place, the 7 is in the tens place, and the 4 is in the ones place. Place value helps us understand what numbers really mean!'},
+  {id:'m05',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Division',sub:'Math',xp:50,
+   q:'What is 24 divided by 4?',
+   opts:['4','5','6','8'],answer:'6',
+   fact:'24 divided by 4 = 6. Division means splitting into equal groups. If you had 24 Pokemon cards and gave them to 4 friends equally, each friend gets 6 cards!'},
+  // READING
+  {id:'r01',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Main Idea',sub:'Reading',xp:45,
+   q:'If a story is about a dog who learns to fetch a ball, what is the main idea?',
+   opts:['Dogs like to sleep','A dog learns a new trick','All dogs can fetch','Balls are round'],answer:'A dog learns a new trick',
+   fact:'The main idea is what the whole story is mostly about. Details support the main idea but are not the main idea themselves.'},
+  {id:'r02',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Compound Words',sub:'Reading',xp:35,
+   q:'What two words make up the compound word "RAINCOAT"?',
+   opts:['Rain + Coat','Rai + Ncoat','Rain + Cat','Ran + Coat'],answer:'Rain + Coat',
+   fact:'Compound words are two smaller words put together to make a new word. Rain + Coat = Raincoat! Other examples: sunshine, birthday, bookshelf, playground!'},
+  {id:'r03',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Author\'s Purpose',sub:'Reading',xp:45,
+   q:'A book that teaches you how to play a game was written to do what?',
+   opts:['Entertain you','Persuade you','Inform or teach you','Make you sad'],answer:'Inform or teach you',
+   fact:'Authors write for three main reasons: to entertain (tell a fun story), to inform (teach facts), or to persuade (change your mind). Instructions inform!'},
+  // SCIENCE
+  {id:'s01',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Life Cycles',sub:'Science',xp:45,
+   q:'What is the correct order of a butterfly\'s life cycle?',
+   opts:['Butterfly, Egg, Caterpillar, Cocoon','Egg, Caterpillar, Cocoon, Butterfly','Caterpillar, Egg, Butterfly, Cocoon','Cocoon, Caterpillar, Egg, Butterfly'],answer:'Egg, Caterpillar, Cocoon, Butterfly',
+   fact:'Egg, Caterpillar (larva), Chrysalis (cocoon), Butterfly! This is called metamorphosis. Pokemon also go through their own kind of metamorphosis when they evolve!'},
+  {id:'s02',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Weather',sub:'Science',xp:40,
+   q:'What tool do meteorologists use to measure how hot or cold it is outside?',
+   opts:['Ruler','Thermometer','Scale','Compass'],answer:'Thermometer',
+   fact:'A thermometer measures temperature. Meteorologists are scientists who study weather. Temperature is measured in degrees Fahrenheit or Celsius.'},
+  {id:'s03',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Plants',sub:'Science',xp:45,
+   q:'What do plants need to make their own food through photosynthesis?',
+   opts:['Rain and wind','Sunlight, water, and air','Dirt and rocks','Animals and insects'],answer:'Sunlight, water, and air',
+   fact:'Photosynthesis! Plants use sunlight, water, and carbon dioxide from the air to make food (sugar). They give us oxygen in return. Pretty amazing deal!'},
+  // BIBLE
+  {id:'b01',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'David and Goliath',sub:'1 Samuel 17',xp:50,
+   q:'David defeated the giant Goliath using what weapon?',
+   opts:['A sword','A bow and arrow','A sling and a stone','His bare hands'],answer:'A sling and a stone',
+   fact:'1 Samuel 17 — David chose 5 smooth stones from a stream and used a sling. He trusted God and was not afraid even though Goliath was huge. One stone was all it took!'},
+  {id:'b02',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:"Noah's Ark",sub:'Genesis 6-7',xp:45,
+   q:"How many of each kind of animal did Noah bring onto the ark?",
+   opts:['1','2','3','7'],answer:'2',
+   fact:'Genesis 6:19 — Two of every kind, a male and a female. Noah trusted God and built the ark even when people laughed. His obedience saved his family and the animals!'},
+  {id:'b03',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'The Golden Rule',sub:'Matthew 7:12',xp:50,
+   q:'The Golden Rule says to treat others the way you want to be...',
+   opts:['Ignored','Treated','Fooled','Bossed around'],answer:'Treated',
+   fact:'Matthew 7:12 — Treat others the way you want to be treated. Jesus said this is one of the most important rules. If everyone followed it, the world would be a much kinder place!'},
+  {id:'b04',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'Creation',sub:'Genesis 1',xp:45,
+   q:'According to Genesis, on which day did God create the sun, moon, and stars?',
+   opts:['Day 1','Day 2','Day 4','Day 6'],answer:'Day 4',
+   fact:'Genesis 1:14-19 — Day 1: Light. Day 2: Sky. Day 3: Land and Plants. Day 4: Sun, Moon, Stars. Day 5: Fish and Birds. Day 6: Animals and People. Day 7: Rest!'},
+  {id:'b05',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'The Lord is My Shepherd',sub:'Psalm 23',xp:50,
+   q:'Psalm 23 begins with "The Lord is my..."',
+   opts:['King','Father','Shepherd','Teacher'],answer:'Shepherd',
+   fact:'Psalm 23:1 — The Lord is my Shepherd, I shall not want. A shepherd takes care of his sheep, keeps them safe, and leads them to good places. God does the same for us!'},
+  // POKEMON
+  {id:'p01',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'First Pokemon',sub:'Pokemon History',xp:55,
+   q:'Which Pokemon is #001 in the original Pokedex?',
+   opts:['Pikachu','Charmander','Bulbasaur','Squirtle'],answer:'Bulbasaur',
+   fact:'Bulbasaur is #001! The original 151 Pokemon were designed by Ken Sugimori. Bulbasaur, Charmander, and Squirtle are the three starter choices in Pokemon Red and Blue from 1996.'},
+  {id:'p02',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Type Matchups',sub:'Pokemon Battle',xp:55,
+   q:'In Pokemon battles, Water type moves are super effective against which type?',
+   opts:['Grass','Electric','Ice','Fire'],answer:'Fire',
+   fact:'Water beats Fire! Fire beats Grass! Grass beats Water! This is the classic starter triangle. Knowing type matchups is the most important skill in Pokemon battles.'},
+  {id:'p03',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Pikachu',sub:'Pokemon Facts',xp:50,
+   q:'What type of Pokemon is Pikachu?',
+   opts:['Fire','Water','Electric','Psychic'],answer:'Electric',
+   fact:'Pikachu is an Electric type! Pikachu is the mascot of all of Pokemon. Ash\'s Pikachu in the anime refuses to evolve into Raichu because it wants to be strong as itself. Pretty cool!'},
+  {id:'p04',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Evolution',sub:'Pokemon Science',xp:60,
+   q:'What does Caterpie evolve into first?',
+   opts:['Butterfree','Metapod','Beedrill','Kakuna'],answer:'Metapod',
+   fact:'Caterpie evolves into Metapod at level 7, then Butterfree at level 10. Just like real butterflies, Caterpie goes through metamorphosis. Pokemon evolution was inspired by real science!'},
+  {id:'p05',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Legendary Pokemon',sub:'Pokemon Lore',xp:65,
+   q:'Mewtwo was created by scientists using DNA from which Legendary Pokemon?',
+   opts:['Mew','Arceus','Lugia','Ho-Oh'],answer:'Mew',
+   fact:'Mewtwo was cloned from Mew in a lab. Mew is said to contain the DNA of all Pokemon. Mewtwo is one of the most powerful Pokemon ever but also one of the saddest stories in Pokemon.'}
+];
+
+const TASKS=[
+  {id:'t01',icon:'&#127939;',name:'Run Around the Block',desc:'One full lap around the block. Go fast!',xp:35},
+  {id:'t02',icon:'&#127944;',name:'Shoot 30 Baskets',desc:'Shoot 30 baskets at the hoop. Count your makes.',xp:40},
+  {id:'t03',icon:'&#11088;',name:'50 Jumping Jacks',desc:'50 jumping jacks outside. Count them out loud!',xp:30},
+  {id:'t04',icon:'&#128692;',name:'Bike Ride 15 Min',desc:'Ride your bike for at least 15 minutes.',xp:40},
+  {id:'t05',icon:'&#128170;',name:'15 Push-ups',desc:'Do 15 push-ups. Rest and try a second set!',xp:25},
+  {id:'t06',icon:'&#127860;',name:'Help Make a Meal',desc:'Help make breakfast, lunch, or dinner with a parent.',xp:35},
+  {id:'t07',icon:'&#128218;',name:'Read for 20 Minutes',desc:'Read any book for 20 minutes straight.',xp:45},
+  {id:'t08',icon:'&#127795;',name:'Play Outside 30 Min',desc:'Go outside and play for 30 minutes without screens.',xp:35},
+  {id:'t09',icon:'&#9997;',name:'Write in a Journal',desc:'Write at least 3 sentences about your day.',xp:30},
+  {id:'t10',icon:'&#129418;',name:'Pokemon Battle Practice',desc:'Practice Pokemon battles or study your card types for 15 min.',xp:40}
+];
+
+const FUN_FACTS=[
+  {icon:'&#129418;',name:'Pokemon Fun Fact',stat:'898+',lbl:'Total Pokemon Species',note:'There are over 898 Pokemon species as of Generation 8. New ones keep getting added. Pikachu was not the original mascot — it was actually Clefairy first!'},
+  {icon:'&#129418;',name:'Pikachu\'s Weight',stat:'13.2',lbl:'Pounds (Pikachu weighs less than a house cat)',note:'Pikachu is only 1 foot 4 inches tall and weighs 13.2 lbs. It can produce 100,000 volts of electricity. That is enough to knock out an adult!'},
+  {icon:'&#10135;',name:'Math in Pokemon',stat:'x2',lbl:'Super Effective Multiplier',note:'When a move is "super effective" it does double damage. When it is "not very effective" it does half damage. This is multiplication in action — math you actually use!'},
+  {icon:'&#128008;',name:'Cheetah Facts',stat:'70',lbl:'MPH — The Fastest Land Animal on Earth',note:'Cheetahs can sprint from 0 to 70 mph in just 3 seconds. They are the only big cat that can purr. Baby cheetahs are called cubs and have a silver mane on their back to camouflage them in tall grass.'},
+  {icon:'&#128300;',name:'Real Science',stat:'151',lbl:'Original Pokemon Inspired by Real Animals',note:'Many Pokemon are based on real creatures. Caterpie is a swallowtail caterpillar. Horsea is a seahorse. Starmie is a starfish. Ken Sugimori studied nature to design them!'},
+  {icon:'&#9997;',name:'Bible Record',stat:'40',lbl:'Times the Number 40 Appears in the Bible',note:'40 is a special number in the Bible. It rained 40 days during Noah\'s flood. Moses spent 40 years in the desert. Jesus fasted 40 days. It always represents a time of testing or waiting.'}
+];
+
+const BADGES=[
+  {icon:'&#10135;',   name:'Math Whiz',  check:s=>s.completed.filter(id=>ASSIGNMENTS.find(a=>a.id===id)?.cat==='math').length>=4},
+  {icon:'&#128214;',  name:'Book Worm',  check:s=>s.completed.filter(id=>ASSIGNMENTS.find(a=>a.id===id)?.cat==='reading').length>=3},
+  {icon:'&#128300;',  name:'Scientist',  check:s=>s.completed.filter(id=>ASSIGNMENTS.find(a=>a.id===id)?.cat==='science').length>=3},
+  {icon:'&#9997;',    name:'Scripture',  check:s=>s.completed.filter(id=>ASSIGNMENTS.find(a=>a.id===id)?.cat==='bible').length>=5},
+  {icon:'&#129418;',  name:'Pokemon Pro',check:s=>s.completed.filter(id=>ASSIGNMENTS.find(a=>a.id===id)?.cat==='pokemon').length>=5},
+  {icon:'&#127939;',  name:'Athlete',    check:s=>s.tasksCompleted.length>=5},
+  {icon:'&#128293;',  name:'On Fire',    check:s=>s.streak>=3},
+  {icon:'&#127775;',  name:'Keaton-EX',  check:s=>s.xp>=1800},
+  {icon:'&#128197;',  name:'Consistent', check:s=>Object.values(s.calDays||{}).filter(d=>d.checked).length>=7}
+];
+
+let state={xp:0,streak:0,completed:[],tasksCompleted:[],lastDate:null,calDays:{}};
+let activeTab='learn',activeFilter='all',openCard=null,calM=5,calY=2026;
+
+function loadState(){
+  try{const s=JSON.parse(localStorage.getItem(SK));if(s)state=Object.assign({calDays:{}},state,s);if(!state.calDays)state.calDays={};}catch(e){}
+  checkStreak();
+}
+function saveState(){localStorage.setItem(SK,JSON.stringify(state));}
+function checkStreak(){
+  const today=new Date().toDateString(),yesterday=new Date(Date.now()-86400000).toDateString();
+  if(state.lastDate===today)return;
+  if(state.lastDate===yesterday)state.streak+=1;
+  else if(!state.lastDate){}else state.streak=0;
+  state.lastDate=today;saveState();
+}
+
+function getEvo(){
+  for(let i=EVOLUTIONS.length-1;i>=0;i--){if(state.xp>=EVOLUTIONS[i].min)return EVOLUTIONS[i];}
+  return EVOLUTIONS[0];
+}
+
+function getLvl(){
+  for(let i=LEVELS.length-1;i>=0;i--){if(state.xp>=LEVELS[i].min)return{lvl:i+1,...LEVELS[i],nextMax:LEVELS[Math.min(i+1,LEVELS.length-1)].max};}
+  return{lvl:1,...LEVELS[0],nextMax:LEVELS[1].max};
+}
+
+function updateHeader(){
+  const evo=getEvo();
+  const pct=Math.min(100,Math.round(((state.xp-evo.min)/(evo.max===99999?evo.min+500:evo.max-evo.min))*100));
+  const hp=Math.max(4,Math.round((pct/100)*evo.hpMax));
+  const hpPct=Math.round((hp/evo.hpMax)*100);
+  const hpColor=hpPct>50?'var(--poke-hp-green)':hpPct>25?'var(--poke-hp-yellow)':'var(--poke-hp-red)';
+
+  document.getElementById('hpValue').textContent=hp+'/'+evo.hpMax;
+  document.getElementById('hpBar').style.width=hpPct+'%';
+  document.getElementById('hpBar').style.background=hpColor;
+  document.getElementById('hpType').innerHTML=evo.type;
+  document.getElementById('cardArt').innerHTML=evo.pokemon;
+  document.getElementById('cardFlavor').textContent=evo.flavor;
+  document.getElementById('cardXpDisplay').textContent=state.xp.toLocaleString()+' / '+(evo.max===99999?'MAX':evo.max.toLocaleString())+' XP';
+  document.getElementById('cardStage').textContent=evo.stage;
+  document.getElementById('cardStage').className='card-stage '+evo.stageClass;
+  document.getElementById('moveName1').textContent=evo.move1;
+  document.getElementById('moveDmg1').textContent=evo.dmg1;
+  document.getElementById('moveName2').textContent=evo.move2;
+  document.getElementById('moveDmg2').textContent=evo.dmg2;
+  document.getElementById('cardFooter').innerHTML=evo.footer;
+  document.getElementById('cardWeakness').innerHTML=evo.weakness;
+  document.getElementById('streakCount').textContent=state.streak;
+
+  // Evolution path
+  const evoNames=['Cheetkit','Cheetlen','Cheetara','Keaton-EX'];
+  const currentIdx=EVOLUTIONS.indexOf(evo);
+  let evoHtml='';
+  evoNames.forEach((n,i)=>{
+    if(i>0)evoHtml+='<div class="evo-arrow">&#9658;</div>';
+    evoHtml+=`<div class="evo-step${i===currentIdx?' current':''}"><div>Stage</div><div class="evo-name">${n}</div></div>`;
+  });
+  document.getElementById('evoPath').innerHTML=evoHtml;
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+function awardXP(amt){
+  const beforeEvo=getEvo().stage;
+  state.xp+=amt;
+  const afterEvo=getEvo().stage;
+  saveState();updateHeader();showToast('+'+amt+' XP!');
+  if(afterEvo!==beforeEvo){
+    setTimeout(()=>showToast('EVOLVED TO '+afterEvo.toUpperCase()+'!'),2400);
+  }
+}
+
+function switchTab(tab){
+  activeTab=tab;openCard=null;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
+  renderContent();window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderContent(){
+  const el=document.getElementById('mainContent');
+  if(activeTab==='learn')    el.innerHTML=renderLearn();
+  if(activeTab==='tasks')    el.innerHTML=renderTasks();
+  if(activeTab==='fun')      el.innerHTML=renderFun();
+  if(activeTab==='calendar') el.innerHTML=renderCalendar();
+  if(activeTab==='profile')  el.innerHTML=renderProfile();
+}
+
+function renderLearn(){
+  const cats=Object.keys(CL);
+  let chips='<div class="filter-chips">';
+  cats.forEach(c=>{chips+=`<div class="chip${activeFilter===c?' active':''}" onclick="setFilter('${c}')">${CL[c]}</div>`;});
+  chips+='</div>';
+  const filtered=activeFilter==='all'?ASSIGNMENTS:ASSIGNMENTS.filter(a=>a.cat===activeFilter);
+  let html=chips+`<div class="stat-grid">
+    <div class="stat-card"><div class="stat-num">${state.completed.length}</div><div class="stat-lbl">Completed</div></div>
+    <div class="stat-card"><div class="stat-num">${ASSIGNMENTS.length-state.completed.length}</div><div class="stat-lbl">Remaining</div></div>
+    <div class="stat-card"><div class="stat-num">${state.xp}</div><div class="stat-lbl">Total XP</div></div>
+  </div><div class="section-title">&#128218; Assignments</div>`;
+  filtered.forEach(a=>{
+    const isDone=state.completed.includes(a.id),isOpen=openCard===a.id;
+    html+=`<div class="assignment-card${isDone?' completed':''}">
+      <div class="card-header" onclick="toggleCard('${a.id}')">
+        <div class="cat-icon" style="background:${a.bg}">${a.icon}</div>
+        <div class="card-meta"><div class="card-title">${eh(a.title)}</div><div class="card-sub">${eh(a.sub)}</div></div>
+        <div class="card-xp${isDone?' done':''}">${isDone?'&#10003; Done':'+'+a.xp+' XP'}</div>
+        <div class="chevron${isOpen?' open':''}">&#9660;</div>
+      </div>
+      <div class="card-body${isOpen?' open':''}" id="body_${a.id}">`;
+    if(isDone){html+=`<div class="done-stamp">&#10003; <span>${eh(a.fact)}</span></div>`;}
+    else{
+      html+=`<div class="card-question">${eh(a.q)}</div><div class="card-options" id="opts_${a.id}">`;
+      a.opts.forEach(o=>{html+=`<button class="option-btn" onclick="answer('${a.id}','${ea(o)}')">${eh(o)}</button>`;});
+      html+=`</div><div id="result_${a.id}"></div>`;
+    }
+    html+=`</div></div>`;
+  });
+  return html;
+}
+
+function renderTasks(){
+  const done=state.tasksCompleted.length;
+  let html=`<div class="stat-grid">
+    <div class="stat-card"><div class="stat-num">${done}</div><div class="stat-lbl">Done</div></div>
+    <div class="stat-card"><div class="stat-num">${TASKS.length-done}</div><div class="stat-lbl">Remaining</div></div>
+    <div class="stat-card"><div class="stat-num">${TASKS.reduce((s,t)=>s+(state.tasksCompleted.includes(t.id)?t.xp:0),0)}</div><div class="stat-lbl">XP Earned</div></div>
+  </div><div class="section-title">&#127939; Move Missions</div>`;
+  TASKS.forEach(t=>{
+    const isDone=state.tasksCompleted.includes(t.id);
+    html+=`<div class="task-card${isDone?' done-task':''}">
+      <div class="task-icon">${t.icon}</div>
+      <div class="task-info"><div class="task-name">${eh(t.name)}</div><div class="task-desc">${eh(t.desc)}</div><div class="task-xp-badge">+${t.xp} XP</div></div>
+      <button class="task-check${isDone?' done':''}" onclick="completeTask('${t.id}')">${isDone?'&#10003;':''}</button>
+    </div>`;
+  });
+  return html;
+}
+
+function renderFun(){
+  let html='<div class="section-title">&#11088; Fun Facts</div><p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5">Cool stuff about Pokemon, science, math, and the Bible.</p>';
+  FUN_FACTS.forEach(f=>{
+    html+=`<div class="facts-card"><div class="facts-icon">${f.icon}</div>
+      <div><div class="facts-name">${eh(f.name)}</div><div class="facts-stat">${eh(f.stat)}</div>
+      <div class="facts-lbl">${eh(f.lbl)}</div><div class="facts-note">${eh(f.note)}</div></div></div>`;
+  });
+  return html;
+}
+
+function dkey(y,m,d){return`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;}
+function inRange(y,m,d){const dt=new Date(y,m,d);return dt>=CAL_START&&dt<=CAL_END;}
+
+function renderCalendar(){
+  const logged=Object.values(state.calDays).filter(d=>d.checked).length;
+  const canPrev=!(calM===5&&calY===2026),canNext=!(calM===7&&calY===2026);
+  let html=`<div class="cal-stats">
+    <div class="cal-stat"><div class="cs-num">${logged}</div><div class="cs-lbl">Days Logged</div></div>
+    <div class="cal-stat"><div class="cs-num">86</div><div class="cs-lbl">Total Days</div></div>
+    <div class="cal-stat"><div class="cs-num">${state.streak}</div><div class="cs-lbl">Day Streak</div></div>
+  </div>
+  <div class="cal-header-bar">
+    <button class="cal-nav-btn" onclick="calPrev()" ${!canPrev?'disabled':''}>&#9664;</button>
+    <div class="cal-month-title">${MN[calM]} ${calY}</div>
+    <button class="cal-nav-btn" onclick="calNext()" ${!canNext?'disabled':''}>&#9654;</button>
+  </div>
+  <div class="cal-legend">
+    <div class="cal-li"><div class="cal-dot" style="background:var(--poke-yellow)"></div>Birthday &#127874;</div>
+    <div class="cal-li"><div class="cal-dot" style="background:var(--poke-green)"></div>Logged &#10003;</div>
+    <div class="cal-li"><div class="cal-dot" style="background:#FFE0E0;border:1px solid #EF9A9A"></div>Holiday</div>
+  </div>
+  <div class="cal-grid">`;
+  ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach((d,i)=>{
+    html+=`<div class="cal-dow${i===0||i===5||i===6?' wknd':''}">${d}</div>`;
+  });
+  const firstDay=new Date(calY,calM,1).getDay();
+  const daysInMonth=new Date(calY,calM+1,0).getDate();
+  for(let i=0;i<firstDay;i++)html+='<div class="cal-day empty"></div>';
+  for(let d=1;d<=daysInMonth;d++){
+    const k=dkey(calY,calM,d);
+    const sp=SPECIALS[k]||null;
+    const inR=inRange(calY,calM,d);
+    const dd=state.calDays[k]||{};
+    const dow=new Date(calY,calM,d).getDay();
+    const isWknd=dow===0||dow===5||dow===6;
+    let cls='cal-day';
+    if(!inR)cls+=' out';
+    else if(isWknd)cls+=' wknd-day';
+    if(sp?.type==='bday')cls+=' bday';
+    if(dd.checked)cls+=' logged';
+    html+=`<div class="${cls}"${inR?` onclick="openDay('${k}')"`:''}  data-k="${k}">`;
+    html+=`<div class="cal-dn">${d}</div>`;
+    if(sp?.type==='bday'){
+      html+='<div style="font-size:14px;line-height:1">&#127874;</div><div class="cc cc-bday">BDAY!</div>';
+    } else {
+      html+='<div class="cal-events">';
+      if(sp?.type==='hol')html+=`<div class="cc cc-hol">${sp.label.substring(0,9)}</div>`;
+      if(sp?.type==='summer')html+=`<div class="cc cc-sm">${sp.label.substring(0,9)}</div>`;
+      if(dd.note)html+='<div class="cc cc-note">&#128203; note</div>';
+      html+='</div>';
+    }
+    if(dd.checked)html+='<div class="cal-check-dot">&#10003;</div>';
+    html+='</div>';
+  }
+  const rem=7-((firstDay+daysInMonth)%7);
+  if(rem<7)for(let i=0;i<rem;i++)html+='<div class="cal-day empty"></div>';
+  html+='</div>';
+  return html;
+}
+
+function calPrev(){if(calM===5&&calY===2026)return;calM--;if(calM<0){calM=11;calY--;}renderContent();}
+function calNext(){if(calM===7&&calY===2026)return;calM++;if(calM>11){calM=0;calY++;}renderContent();}
+
+function openDay(k){
+  const parts=k.split('-').map(Number);
+  const [y,m,d]=[parts[0],parts[1],parts[2]];
+  const sp=SPECIALS[k]||null;
+  const dd=state.calDays[k]||{};
+  const dateObj=new Date(y,m-1,d);
+  const dayName=dateObj.toLocaleDateString('en-US',{weekday:'long'});
+  const dateStr=dateObj.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  let html=`<div class="overlay" onclick="closeModal(event)"><div class="day-modal" id="dmi">
+    <div class="modal-handle"></div>
+    <div class="modal-title">${dayName}, ${MS[m-1]} ${d}</div>
+    <div class="modal-sub">${dateStr}</div>`;
+  if(sp?.type==='bday'){
+    html+=`<div class="bday-modal-box">
+      <div style="font-size:42px">&#127874;&#127881;&#129418;</div>
+      <div class="bday-modal-title">HAPPY 8TH BIRTHDAY KEATON!</div>
+      <div class="bday-modal-sub">You are now a Stage 2 Pokemon trainer! Keep leveling up all summer.<br>Gotta learn em all!</div>
+    </div>`;
+  }
+  if(sp?.type==='hol'){
+    html+=`<div style="background:#FFF8E1;border:1.5px solid #FFE082;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:13px;font-weight:700;color:#E65100">&#127881; ${eh(sp.label)}</div>`;
+  }
+  html+=`<div class="modal-sl">Daily Note</div>
+    <textarea class="modal-note" id="mnote" placeholder="What did you do today? What Pokemon would you be today?">${eh(dd.note||'')}</textarea>
+    <button class="modal-cb ${dd.checked?'chk':'unc'}" id="mcb" onclick="toggleCheck('${k}')">
+      ${dd.checked?'&#10003; Day Logged! +10 XP':'Mark Day Complete +10 XP'}
+    </button>`;
+
+  // Parent penalty
+  const penHist=(dd.penalties||[]).map(p=>`<div class="penalty-chip">&#9888; -${p.pts} XP: ${eh(p.reason)}</div>`).join('');
+  html+=`<div class="penalty-box">
+    <div class="penalty-title">&#9888; Parent Zone</div>
+    <div class="penalty-row">
+      <input class="penalty-input" id="penReason" placeholder="Reason (e.g. didn't listen)">
+      <select class="penalty-select" id="penAmt"><option value="25">-25 XP</option><option value="50">-50 XP</option><option value="75">-75 XP</option><option value="100">-100 XP</option></select>
+      <button class="penalty-btn" onclick="addPenalty('${k}')">Deduct</button>
+    </div>
+    <div class="penalty-history" id="penHistoryBox">${penHist}</div>
+  </div>
+  <button class="modal-cl" onclick="saveNote('${k}');closeModal()">Save &amp; Close</button>
+  </div></div>`;
+  document.getElementById('modalContainer').innerHTML=html;
+}
+
+function saveNote(k){
+  const ta=document.getElementById('mnote');
+  if(ta){if(!state.calDays[k])state.calDays[k]={};state.calDays[k].note=ta.value;saveState();}
+}
+function toggleCheck(k){
+  saveNote(k);
+  if(!state.calDays[k])state.calDays[k]={};
+  const was=state.calDays[k].checked;
+  state.calDays[k].checked=!was;
+  saveState();
+  const btn=document.getElementById('mcb');
+  if(btn){btn.className=`modal-cb ${state.calDays[k].checked?'chk':'unc'}`;btn.innerHTML=state.calDays[k].checked?'&#10003; Day Logged!':'Mark Day Complete +10 XP';}
+  if(!was){awardXP(10);showToast('+10 XP — Day Logged!');}
+  renderContent();
+}
+function addPenalty(k){
+  const reason=document.getElementById('penReason')?.value?.trim();
+  const pts=parseInt(document.getElementById('penAmt')?.value||'25');
+  if(!reason){alert('Please enter a reason.');return;}
+  if(!state.calDays[k])state.calDays[k]={};
+  if(!state.calDays[k].penalties)state.calDays[k].penalties=[];
+  state.calDays[k].penalties.push({reason,pts,time:new Date().toLocaleTimeString()});
+  state.xp=Math.max(0,state.xp-pts);
+  saveState();updateHeader();showToast('-'+pts+' XP');
+  const box=document.getElementById('penHistoryBox');
+  if(box)box.innerHTML=(state.calDays[k].penalties||[]).map(p=>`<div class="penalty-chip">&#9888; -${p.pts} XP: ${eh(p.reason)}</div>`).join('');
+  const input=document.getElementById('penReason');if(input)input.value='';
+  renderContent();
+}
+function closeModal(e){
+  if(e&&e.target!==document.querySelector('.overlay'))return;
+  document.getElementById('modalContainer').innerHTML='';renderContent();
+}
+
+function renderProfile(){
+  const evo=getEvo();
+  const logged=Object.values(state.calDays).filter(d=>d.checked).length;
+  const hpPct=Math.min(100,Math.round(((state.xp-evo.min)/(evo.max===99999?evo.min+500:evo.max-evo.min))*100));
+  const hp=Math.max(4,Math.round((hpPct/100)*evo.hpMax));
+
+  let html=`<div class="profile-poke-card">
+    <div class="profile-card-inner">
+      <div class="profile-name-row">
+        <div class="profile-name">${evo.name}</div>
+        <div class="profile-hp-display">${hp}/${evo.hpMax} HP</div>
+      </div>
+      <div class="profile-art-row">
+        <div class="profile-pokemon-art">${evo.pokemon}</div>
+        <div class="profile-stats-block">
+          <div class="profile-stat-row"><div class="profile-stat-label">Stage</div><div class="profile-stat-val">${evo.stage}</div></div>
+          <div class="profile-stat-row"><div class="profile-stat-label">Total XP</div><div class="profile-stat-val">${state.xp.toLocaleString()}</div></div>
+          <div class="profile-stat-row"><div class="profile-stat-label">Streak</div><div class="profile-stat-val">${state.streak} days</div></div>
+          <div class="profile-stat-row"><div class="profile-stat-label">Lessons</div><div class="profile-stat-val">${state.completed.length}/${ASSIGNMENTS.length}</div></div>
+          <div class="profile-stat-row"><div class="profile-stat-label">Days Logged</div><div class="profile-stat-val">${logged}</div></div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:#777;font-style:italic;text-align:center;padding-top:4px">${evo.flavor}</div>
+    </div>
+  </div>`;
+
+  html+='<div class="section-title">&#127941; Badges</div><div class="badge-grid">';
+  BADGES.forEach(b=>{
+    const earned=b.check(state);
+    html+=`<div class="badge-item${earned?' earned':' locked'}"><div class="badge-emoji">${b.icon}</div><div class="badge-name">${eh(b.name)}</div></div>`;
+  });
+  html+='</div>';
+
+  html+='<div class="section-title" style="margin-top:18px">&#128202; Progress</div><div class="category-progress">';
+  Object.keys(CE).forEach(cat=>{
+    const total=ASSIGNMENTS.filter(a=>a.cat===cat).length;if(!total)return;
+    const done=state.completed.filter(id=>ASSIGNMENTS.find(a=>a.id===id)?.cat===cat).length;
+    const pct=Math.round((done/total)*100);
+    html+=`<div class="prog-row"><div class="prog-emoji">${CE[cat]}</div><div class="prog-label">${CL[cat]}</div><div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${pct}%"></div></div><div class="prog-count">${done}/${total}</div></div>`;
+  });
+  html+='</div>';
+
+  html+=`<div class="reset-box"><h3>Reset Progress</h3><p>Clears all XP, completed lessons, tasks, and calendar logs.</p><button class="reset-btn" onclick="resetAll()">Reset Everything</button></div>`;
+  return html;
+}
+
+function setFilter(f){activeFilter=f;openCard=null;renderContent();}
+function toggleCard(id){openCard=openCard===id?null:id;renderContent();}
+
+function answer(aid,choice){
+  const a=ASSIGNMENTS.find(x=>x.id===aid);
+  if(!a||state.completed.includes(aid))return;
+  const optsEl=document.getElementById('opts_'+aid),resultEl=document.getElementById('result_'+aid);
+  if(!optsEl||!resultEl)return;
+  optsEl.querySelectorAll('.option-btn').forEach(btn=>{
+    btn.disabled=true;
+    if(btn.textContent.trim()===a.answer)btn.classList.add('correct');
+    else if(btn.textContent.trim()===choice&&choice!==a.answer)btn.classList.add('wrong');
+  });
+  if(choice===a.answer){
+    resultEl.innerHTML=`<div class="result-msg win">&#10003; Correct! ${eh(a.fact)}</div>`;
+    state.completed.push(aid);saveState();
+    setTimeout(()=>{awardXP(a.xp);renderContent();},900);
+  }else{
+    resultEl.innerHTML=`<div class="result-msg lose">&#10007; Not quite. Answer: <strong>${eh(a.answer)}</strong>. ${eh(a.fact)}</div>`;
+  }
+}
+
+function completeTask(tid){
+  if(state.tasksCompleted.includes(tid))return;
+  const t=TASKS.find(x=>x.id===tid);if(!t)return;
+  state.tasksCompleted.push(tid);saveState();awardXP(t.xp);renderContent();
+}
+
+function resetAll(){
+  if(!confirm('Reset all of Keaton\'s progress?'))return;
+  state={xp:0,streak:0,completed:[],tasksCompleted:[],lastDate:new Date().toDateString(),calDays:{}};
+  saveState();updateHeader();renderContent();
+}
+
+function eh(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
+function ea(s){return String(s).replace(/'/g,'&#039;').replace(/"/g,'&quot;');}
+
+loadState();updateHeader();renderContent();
+</script>
+</body>
+</html>
