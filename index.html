@@ -337,7 +337,7 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:var(--text);min-h
         <div class="app-title">KEATON'S SUMMER ACADEMY</div>
         <div class="app-subtitle">Summer 2026 &nbsp;·&nbsp; Gotta Learn Em All</div>
       </div>
-      <div class="streak-badge">&#128293; <span id="streakCount">0</span> day streak</div>
+      <div class="streak-badge">&#128197; <span id="streakCount">0</span> days logged</div>
     </div>
 
     <!-- POKEMON CARD (XP / Level Display) -->
@@ -595,7 +595,6 @@ const BADGES=[
   {icon:'&#9997;',    name:'Scripture',  check:s=>s.completed.filter(id=>ASSIGNMENTS.find(a=>a.id===id)?.cat==='bible').length>=5},
   {icon:'&#129418;',  name:'Pokemon Pro',check:s=>s.completed.filter(id=>ASSIGNMENTS.find(a=>a.id===id)?.cat==='pokemon').length>=5},
   {icon:'&#127939;',  name:'Athlete',    check:s=>s.tasksCompleted.length>=5},
-  {icon:'&#128293;',  name:'On Fire',    check:s=>s.streak>=3},
   {icon:'&#127775;',  name:'Keaton-EX',  check:s=>s.xp>=1800},
   {icon:'&#128197;',  name:'Consistent', check:s=>Object.values(s.calDays||{}).filter(d=>d.checked).length>=7}
 ];
@@ -605,16 +604,9 @@ let activeTab='learn',activeFilter='all',openCard=null,calM=5,calY=2026;
 
 function loadState(){
   try{const s=JSON.parse(localStorage.getItem(SK));if(s)state=Object.assign({calDays:{}},state,s);if(!state.calDays)state.calDays={};}catch(e){}
-  checkStreak();
 }
 function saveState(){localStorage.setItem(SK,JSON.stringify(state));}
-function checkStreak(){
-  const today=new Date().toDateString(),yesterday=new Date(Date.now()-86400000).toDateString();
-  if(state.lastDate===today)return;
-  if(state.lastDate===yesterday)state.streak+=1;
-  else if(!state.lastDate){}else state.streak=0;
-  state.lastDate=today;saveState();
-}
+
 
 function getEvo(){
   for(let i=EVOLUTIONS.length-1;i>=0;i--){if(state.xp>=EVOLUTIONS[i].min)return EVOLUTIONS[i];}
@@ -648,7 +640,7 @@ function updateHeader(){
   document.getElementById('moveDmg2').textContent=evo.dmg2;
   document.getElementById('cardFooter').innerHTML=evo.footer;
   document.getElementById('cardWeakness').innerHTML=evo.weakness;
-  document.getElementById('streakCount').textContent=state.streak;
+  document.getElementById('streakCount').textContent=Object.values(state.calDays||{}).filter(d=>d.checked).length;
 
   // Evolution path
   const evoNames=['Cheetkit','Cheetlen','Cheetara','Keaton-EX'];
@@ -796,7 +788,7 @@ function renderCalendar(){
   let html=`<div class="cal-stats">
     <div class="cal-stat"><div class="cs-num">${logged}</div><div class="cs-lbl">Days Logged</div></div>
     <div class="cal-stat"><div class="cs-num">86</div><div class="cs-lbl">Total Days</div></div>
-    <div class="cal-stat"><div class="cs-num">${state.streak}</div><div class="cs-lbl">Day Streak</div></div>
+    <div class="cal-stat"><div class="cs-num">${Object.values(state.calDays||{}).filter(d=>d.checked).length}</div><div class="cs-lbl">Days Logged</div></div>
   </div>
   <div class="cal-header-bar">
     <button class="cal-nav-btn" onclick="calPrev()" ${!canPrev?'disabled':''}>&#9664;</button>
@@ -945,7 +937,7 @@ function renderProfile(){
         <div class="profile-stats-block">
           <div class="profile-stat-row"><div class="profile-stat-label">Stage</div><div class="profile-stat-val">${evo.stage}</div></div>
           <div class="profile-stat-row"><div class="profile-stat-label">Total XP</div><div class="profile-stat-val">${state.xp.toLocaleString()}</div></div>
-          <div class="profile-stat-row"><div class="profile-stat-label">Streak</div><div class="profile-stat-val">${state.streak} days</div></div>
+          <div class="profile-stat-row"><div class="profile-stat-label">Days Logged</div><div class="profile-stat-val">${Object.values(state.calDays||{}).filter(d=>d.checked).length}</div></div>
           <div class="profile-stat-row"><div class="profile-stat-label">Lessons</div><div class="profile-stat-val">${state.completed.length}/${ASSIGNMENTS.length}</div></div>
           <div class="profile-stat-row"><div class="profile-stat-label">Days Logged</div><div class="profile-stat-val">${logged}</div></div>
         </div>
@@ -1017,7 +1009,7 @@ function completeTask(tid){
 
 function resetAll(){
   if(!confirm('Reset all of Keaton\'s progress?'))return;
-  state={xp:0,streak:0,completed:[],tasksCompleted:[],lastDate:new Date().toDateString(),calDays:{}};
+  state={xp:0,completed:[],tasksCompleted:[],lastDate:null,calDays:{}};
   saveState();updateHeader();renderContent();
 }
 
