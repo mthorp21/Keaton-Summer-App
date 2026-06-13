@@ -474,97 +474,170 @@ const CL={'all':'All','math':'Math','reading':'Reading','science':'Science','bib
 const CE={'math':'&#10135;','reading':'&#128214;','science':'&#128300;','bible':'&#9997;','pokemon':'&#129418;'};
 
 // 3rd grade level assignments
-const ASSIGNMENTS=[
-  // MATH
-  {id:'m01',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Adding Big Numbers',sub:'Math',xp:40,
-   q:'What is 47 + 36?',
-   opts:['73','83','93','63'],answer:'83',
-   fact:'47 + 36 = 83. When adding, always add the ones place first. 7+6=13, carry the 1, then 4+3+1=8. You got this!'},
-  {id:'m02',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Subtraction',sub:'Math',xp:40,
-   q:'What is 92 - 47?',
-   opts:['35','45','55','65'],answer:'45',
-   fact:'92 - 47 = 45. Subtraction is the opposite of addition. If you add 45 + 47 you get 92 back!'},
-  {id:'m03',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Multiplication',sub:'Math',xp:50,
-   q:'What is 6 x 7?',
-   opts:['36','42','48','54'],answer:'42',
-   fact:'6 x 7 = 42. Here is a trick: 6 x 7 is the same as 6 groups of 7. Count by 7s: 7, 14, 21, 28, 35, 42!'},
-  {id:'m04',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Place Value',sub:'Math',xp:40,
-   q:'In the number 374, what digit is in the tens place?',
-   opts:['3','7','4','37'],answer:'7',
-   fact:'374: the 3 is in the hundreds place, the 7 is in the tens place, and the 4 is in the ones place. Place value helps us understand what numbers really mean!'},
-  {id:'m05',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Division',sub:'Math',xp:50,
-   q:'What is 24 divided by 4?',
-   opts:['4','5','6','8'],answer:'6',
-   fact:'24 divided by 4 = 6. Division means splitting into equal groups. If you had 24 Pokemon cards and gave them to 4 friends equally, each friend gets 6 cards!'},
-  // READING
-  {id:'r01',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Main Idea',sub:'Reading',xp:45,
+const ASSIGNMENT_SETS=[
+  // ===== SET 1 =====
+  [
+  {id:'s1_m01',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Adding Big Numbers',sub:'Math',xp:40,
+   q:'What is 47 + 36?',opts:['73','83','93','63'],answer:'83',
+   fact:'47 + 36 = 83. Add the ones first: 7+6=13, carry the 1, then 4+3+1=8. You got this!'},
+  {id:'s1_m02',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Subtraction',sub:'Math',xp:40,
+   q:'What is 92 - 47?',opts:['35','45','55','65'],answer:'45',
+   fact:'92 - 47 = 45. Check it: 45 + 47 = 92!'},
+  {id:'s1_m03',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Multiplication',sub:'Math',xp:50,
+   q:'What is 6 x 7?',opts:['36','42','48','54'],answer:'42',
+   fact:'6 x 7 = 42. Count by 7s: 7, 14, 21, 28, 35, 42!'},
+  {id:'s1_m04',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Place Value',sub:'Math',xp:40,
+   q:'In the number 374, what digit is in the tens place?',opts:['3','7','4','37'],answer:'7',
+   fact:'374: 3 is hundreds, 7 is tens, 4 is ones. Place value tells us what each digit is worth!'},
+  {id:'s1_m05',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Division',sub:'Math',xp:50,
+   q:'What is 24 divided by 4?',opts:['4','5','6','8'],answer:'6',
+   fact:'24 divided by 4 = 6. If you had 24 Pokemon cards and split them equally among 4 friends, each gets 6!'},
+  {id:'s1_r01',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Main Idea',sub:'Reading',xp:45,
    q:'If a story is about a dog who learns to fetch a ball, what is the main idea?',
    opts:['Dogs like to sleep','A dog learns a new trick','All dogs can fetch','Balls are round'],answer:'A dog learns a new trick',
    fact:'The main idea is what the whole story is mostly about. Details support the main idea but are not the main idea themselves.'},
-  {id:'r02',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Compound Words',sub:'Reading',xp:35,
+  {id:'s1_r02',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Compound Words',sub:'Reading',xp:35,
    q:'What two words make up the compound word "RAINCOAT"?',
    opts:['Rain + Coat','Rai + Ncoat','Rain + Cat','Ran + Coat'],answer:'Rain + Coat',
-   fact:'Compound words are two smaller words put together to make a new word. Rain + Coat = Raincoat! Other examples: sunshine, birthday, bookshelf, playground!'},
-  {id:'r03',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Author\'s Purpose',sub:'Reading',xp:45,
+   fact:'Compound words are two smaller words put together. Rain + Coat = Raincoat! More examples: sunshine, birthday, bookshelf, playground!'},
+  {id:'s1_r03',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:"Author's Purpose",sub:'Reading',xp:45,
    q:'A book that teaches you how to play a game was written to do what?',
    opts:['Entertain you','Persuade you','Inform or teach you','Make you sad'],answer:'Inform or teach you',
-   fact:'Authors write for three main reasons: to entertain (tell a fun story), to inform (teach facts), or to persuade (change your mind). Instructions inform!'},
-  // SCIENCE
-  {id:'s01',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Life Cycles',sub:'Science',xp:45,
-   q:'What is the correct order of a butterfly\'s life cycle?',
+   fact:'Authors write to entertain, inform, or persuade. Instructions inform!'},
+  {id:'s1_s01',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Life Cycles',sub:'Science',xp:45,
+   q:"What is the correct order of a butterfly's life cycle?",
    opts:['Butterfly, Egg, Caterpillar, Cocoon','Egg, Caterpillar, Cocoon, Butterfly','Caterpillar, Egg, Butterfly, Cocoon','Cocoon, Caterpillar, Egg, Butterfly'],answer:'Egg, Caterpillar, Cocoon, Butterfly',
-   fact:'Egg, Caterpillar (larva), Chrysalis (cocoon), Butterfly! This is called metamorphosis. Pokemon also go through their own kind of metamorphosis when they evolve!'},
-  {id:'s02',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Weather',sub:'Science',xp:40,
+   fact:'Egg, Caterpillar, Chrysalis, Butterfly! This is metamorphosis — just like Pokemon evolving!'},
+  {id:'s1_s02',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Weather',sub:'Science',xp:40,
    q:'What tool do meteorologists use to measure how hot or cold it is outside?',
    opts:['Ruler','Thermometer','Scale','Compass'],answer:'Thermometer',
-   fact:'A thermometer measures temperature. Meteorologists are scientists who study weather. Temperature is measured in degrees Fahrenheit or Celsius.'},
-  {id:'s03',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Plants',sub:'Science',xp:45,
+   fact:'A thermometer measures temperature. Meteorologists are weather scientists!'},
+  {id:'s1_s03',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Plants',sub:'Science',xp:45,
    q:'What do plants need to make their own food through photosynthesis?',
    opts:['Rain and wind','Sunlight, water, and air','Dirt and rocks','Animals and insects'],answer:'Sunlight, water, and air',
-   fact:'Photosynthesis! Plants use sunlight, water, and carbon dioxide from the air to make food (sugar). They give us oxygen in return. Pretty amazing deal!'},
-  // BIBLE
-  {id:'b01',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'David and Goliath',sub:'1 Samuel 17',xp:50,
-   q:'David defeated the giant Goliath using what weapon?',
+   fact:'Plants use sunlight, water, and carbon dioxide to make food. They give us oxygen in return!'},
+  {id:'s1_b01',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'David and Goliath',sub:'1 Samuel 17',xp:50,
+   q:'David defeated Goliath using what weapon?',
    opts:['A sword','A bow and arrow','A sling and a stone','His bare hands'],answer:'A sling and a stone',
-   fact:'1 Samuel 17 — David chose 5 smooth stones from a stream and used a sling. He trusted God and was not afraid even though Goliath was huge. One stone was all it took!'},
-  {id:'b02',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:"Noah's Ark",sub:'Genesis 6-7',xp:45,
-   q:"How many of each kind of animal did Noah bring onto the ark?",
+   fact:'David chose 5 smooth stones from a stream and used a sling. He trusted God and was not afraid. One stone was all it took!'},
+  {id:'s1_b02',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:"Noah's Ark",sub:'Genesis 6-7',xp:45,
+   q:'How many of each kind of animal did Noah bring onto the ark?',
    opts:['1','2','3','7'],answer:'2',
-   fact:'Genesis 6:19 — Two of every kind, a male and a female. Noah trusted God and built the ark even when people laughed. His obedience saved his family and the animals!'},
-  {id:'b03',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'The Golden Rule',sub:'Matthew 7:12',xp:50,
+   fact:'Genesis 6:19 — Two of every kind. Noah obeyed God even when people laughed at him. His obedience saved everyone!'},
+  {id:'s1_b03',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'The Golden Rule',sub:'Matthew 7:12',xp:50,
    q:'The Golden Rule says to treat others the way you want to be...',
    opts:['Ignored','Treated','Fooled','Bossed around'],answer:'Treated',
-   fact:'Matthew 7:12 — Treat others the way you want to be treated. Jesus said this is one of the most important rules. If everyone followed it, the world would be a much kinder place!'},
-  {id:'b04',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'Creation',sub:'Genesis 1',xp:45,
+   fact:'Matthew 7:12 — Treat others the way you want to be treated. Jesus said this is one of the most important rules!'},
+  {id:'s1_b04',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'Creation',sub:'Genesis 1',xp:45,
    q:'According to Genesis, on which day did God create the sun, moon, and stars?',
    opts:['Day 1','Day 2','Day 4','Day 6'],answer:'Day 4',
-   fact:'Genesis 1:14-19 — Day 1: Light. Day 2: Sky. Day 3: Land and Plants. Day 4: Sun, Moon, Stars. Day 5: Fish and Birds. Day 6: Animals and People. Day 7: Rest!'},
-  {id:'b05',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'The Lord is My Shepherd',sub:'Psalm 23',xp:50,
+   fact:'Day 1: Light. Day 2: Sky. Day 3: Land and Plants. Day 4: Sun, Moon, Stars. Day 5: Fish and Birds. Day 6: Animals and People. Day 7: Rest!'},
+  {id:'s1_b05',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'The Lord is My Shepherd',sub:'Psalm 23',xp:50,
    q:'Psalm 23 begins with "The Lord is my..."',
    opts:['King','Father','Shepherd','Teacher'],answer:'Shepherd',
-   fact:'Psalm 23:1 — The Lord is my Shepherd, I shall not want. A shepherd takes care of his sheep, keeps them safe, and leads them to good places. God does the same for us!'},
-  // POKEMON
-  {id:'p01',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'First Pokemon',sub:'Pokemon History',xp:55,
+   fact:'Psalm 23:1 — The Lord is my Shepherd. A shepherd cares for and protects his sheep. God does the same for us!'},
+  {id:'s1_p01',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'First Pokemon',sub:'Pokemon History',xp:55,
    q:'Which Pokemon is #001 in the original Pokedex?',
    opts:['Pikachu','Charmander','Bulbasaur','Squirtle'],answer:'Bulbasaur',
-   fact:'Bulbasaur is #001! The original 151 Pokemon were designed by Ken Sugimori. Bulbasaur, Charmander, and Squirtle are the three starter choices in Pokemon Red and Blue from 1996.'},
-  {id:'p02',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Type Matchups',sub:'Pokemon Battle',xp:55,
-   q:'In Pokemon battles, Water type moves are super effective against which type?',
+   fact:'Bulbasaur is #001! The original 151 Pokemon were designed by Ken Sugimori in 1996.'},
+  {id:'s1_p02',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Type Matchups',sub:'Pokemon Battle',xp:55,
+   q:'Water type moves are super effective against which type?',
    opts:['Grass','Electric','Ice','Fire'],answer:'Fire',
-   fact:'Water beats Fire! Fire beats Grass! Grass beats Water! This is the classic starter triangle. Knowing type matchups is the most important skill in Pokemon battles.'},
-  {id:'p03',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Pikachu',sub:'Pokemon Facts',xp:50,
-   q:'What type of Pokemon is Pikachu?',
-   opts:['Fire','Water','Electric','Psychic'],answer:'Electric',
-   fact:'Pikachu is an Electric type! Pikachu is the mascot of all of Pokemon. Ash\'s Pikachu in the anime refuses to evolve into Raichu because it wants to be strong as itself. Pretty cool!'},
-  {id:'p04',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Evolution',sub:'Pokemon Science',xp:60,
-   q:'What does Caterpie evolve into first?',
-   opts:['Butterfree','Metapod','Beedrill','Kakuna'],answer:'Metapod',
-   fact:'Caterpie evolves into Metapod at level 7, then Butterfree at level 10. Just like real butterflies, Caterpie goes through metamorphosis. Pokemon evolution was inspired by real science!'},
-  {id:'p05',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Legendary Pokemon',sub:'Pokemon Lore',xp:65,
-   q:'Mewtwo was created by scientists using DNA from which Legendary Pokemon?',
+   fact:'Water beats Fire! Fire beats Grass! Grass beats Water! The classic starter triangle.'},
+  {id:'s1_p03',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Pikachu',sub:'Pokemon Facts',xp:50,
+   q:'What type of Pokemon is Pikachu?',opts:['Fire','Water','Electric','Psychic'],answer:'Electric',
+   fact:"Pikachu is Electric type! Ash's Pikachu refuses to evolve into Raichu. It wants to be strong as itself!"},
+  {id:'s1_p04',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Evolution',sub:'Pokemon Science',xp:60,
+   q:'What does Caterpie evolve into first?',opts:['Butterfree','Metapod','Beedrill','Kakuna'],answer:'Metapod',
+   fact:'Caterpie evolves into Metapod at level 7, then Butterfree at level 10. Just like real metamorphosis!'},
+  {id:'s1_p05',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Legendary Pokemon',sub:'Pokemon Lore',xp:65,
+   q:'Mewtwo was created using DNA from which Legendary Pokemon?',
    opts:['Mew','Arceus','Lugia','Ho-Oh'],answer:'Mew',
-   fact:'Mewtwo was cloned from Mew in a lab. Mew is said to contain the DNA of all Pokemon. Mewtwo is one of the most powerful Pokemon ever but also one of the saddest stories in Pokemon.'}
+   fact:'Mewtwo was cloned from Mew in a lab. Mew contains the DNA of all Pokemon. Mewtwo is one of the most powerful and saddest stories in Pokemon.'}
+  ],
+  // ===== SET 2 =====
+  [
+  {id:'s2_m01',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Multiplication Bigger',sub:'Math',xp:45,
+   q:'What is 8 x 9?',opts:['63','72','81','54'],answer:'72',
+   fact:'8 x 9 = 72. A good trick: 8 x 9 is the same as 8 x 10 minus 8. 80 - 8 = 72!'},
+  {id:'s2_m02',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Fractions',sub:'Math',xp:50,
+   q:'If you eat 2 slices of a pizza cut into 8 equal slices, what fraction of the pizza did you eat?',
+   opts:['1/8','1/4','1/2','2/6'],answer:'1/4',
+   fact:'2 out of 8 slices = 2/8, which simplifies to 1/4. Fractions show parts of a whole. Pizza is the best way to learn fractions!'},
+  {id:'s2_m03',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Telling Time',sub:'Math',xp:40,
+   q:'If it is 2:45 PM, how many minutes until 3:00 PM?',opts:['10','15','20','25'],answer:'15',
+   fact:'From 2:45 to 3:00 is 15 minutes. Counting forward from 45 to 60 minutes on the clock gives you 15!'},
+  {id:'s2_m04',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Rounding',sub:'Math',xp:45,
+   q:'Round 347 to the nearest hundred.',opts:['300','350','400','340'],answer:'300',
+   fact:'Look at the tens digit. 347 has a 4 in the tens place. Since 4 is less than 5, round down to 300.'},
+  {id:'s2_m05',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Word Problem',sub:'Math',xp:55,
+   q:'Keaton has 36 Pokemon cards. He gives 9 to his brother Hewitt. How many does he have left?',
+   opts:['25','27','28','29'],answer:'27',
+   fact:'36 - 9 = 27 cards. Word problems are just regular math with a story wrapped around them!'},
+  {id:'s2_r01',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Context Clues',sub:'Reading',xp:45,
+   q:'In the sentence "The ravenous dog ate every bite in seconds," what does ravenous mean?',
+   opts:['Tired','Very hungry','Angry','Small'],answer:'Very hungry',
+   fact:'Context clues help us figure out word meanings. "Ate every bite in seconds" tells us ravenous means very hungry. You can figure out many new words this way!'},
+  {id:'s2_r02',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Cause and Effect',sub:'Reading',xp:45,
+   q:'It rained all day so the baseball game was cancelled. What is the effect?',
+   opts:['It rained all day','The game was cancelled','Baseball is played outside','Players got wet'],answer:'The game was cancelled',
+   fact:'The cause is WHY something happened (it rained). The effect is WHAT happened because of it (game cancelled). Cause and effect is one of the most important reading skills!'},
+  {id:'s2_r03',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Fact vs Opinion',sub:'Reading',xp:40,
+   q:'Which sentence is a FACT?',
+   opts:['Pizza is the best food','Cheetahs can run 70 mph','Summer is better than winter','Pokemon is the greatest game ever'],answer:'Cheetahs can run 70 mph',
+   fact:'A fact can be proven true. An opinion is what someone thinks or feels. Cheetahs running 70 mph is a proven fact. The others are opinions, even if you agree with them!'},
+  {id:'s2_s01',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Solids, Liquids, Gases',sub:'Science',xp:45,
+   q:'Water can exist in three states. Which is an example of water as a gas?',
+   opts:['Ice cubes','A lake','Steam from boiling water','A snowflake'],answer:'Steam from boiling water',
+   fact:'Ice is solid, liquid water is liquid, and steam is a gas called water vapor. All three are still water — just with different amounts of energy!'},
+  {id:'s2_s02',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Food Chains',sub:'Science',xp:50,
+   q:'In a food chain, what do we call an animal that eats only plants?',
+   opts:['Carnivore','Omnivore','Herbivore','Predator'],answer:'Herbivore',
+   fact:'Herbivores eat only plants. Carnivores eat only meat. Omnivores eat both. Humans are omnivores. Cheetahs are carnivores!'},
+  {id:'s2_s03',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'The Solar System',sub:'Science',xp:50,
+   q:'What is the largest planet in our solar system?',
+   opts:['Saturn','Earth','Neptune','Jupiter'],answer:'Jupiter',
+   fact:"Jupiter is so large that all other planets in the solar system could fit inside it! It has a giant storm called the Great Red Spot that has been spinning for over 300 years."},
+  {id:'s2_b01',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'The Prodigal Son',sub:'Luke 15',xp:55,
+   q:'In the Parable of the Prodigal Son, what does the father do when his son returns?',
+   opts:['Turns him away','Makes him a servant','Throws a big celebration','Sends him away again'],answer:'Throws a big celebration',
+   fact:'Luke 15 — The father runs to meet his son and throws a party. The parable shows that God welcomes us back no matter what we have done.'},
+  {id:'s2_b02',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'The Good Samaritan',sub:'Luke 10',xp:50,
+   q:'In the Parable of the Good Samaritan, who stopped to help the injured man when others walked by?',
+   opts:['A priest','A Levite','A Samaritan','A Roman soldier'],answer:'A Samaritan',
+   fact:'Luke 10 — Two religious leaders walked past the hurt man. The Samaritan, a stranger from a different group, stopped and helped. Jesus said this is what it means to love your neighbor.'},
+  {id:'s2_b03',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'Fruits of the Spirit',sub:'Galatians 5',xp:55,
+   q:'Which of these is one of the Fruits of the Spirit listed in Galatians 5?',
+   opts:['Strength','Kindness','Cleverness','Bravery'],answer:'Kindness',
+   fact:'Galatians 5:22-23 lists 9 fruits: love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, and self-control. They describe how the Holy Spirit changes us from the inside.'},
+  {id:'s2_p01',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Starter Types',sub:'Pokemon Basics',xp:55,
+   q:'In the original Pokemon games, the three starter Pokemon are Fire, Water, and what type?',
+   opts:['Electric','Grass','Psychic','Normal'],answer:'Grass',
+   fact:'Charmander (Fire), Squirtle (Water), Bulbasaur (Grass). Every Pokemon game follows this triangle. Each starter is strong against one and weak against the other!'},
+  {id:'s2_p02',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Gym Badges',sub:'Pokemon Games',xp:50,
+   q:'In the original Pokemon Red and Blue games, how many Gym Badges do you need to collect to reach the Elite Four?',
+   opts:['6','7','8','10'],answer:'8',
+   fact:'You need all 8 Gym Badges! Each badge comes from defeating a Gym Leader. The Elite Four and Champion are the final challenge. The Champion in Red and Blue is your rival.'},
+  {id:'s2_p03',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Shiny Pokemon',sub:'Pokemon Facts',xp:60,
+   q:'What is a "Shiny" Pokemon?',
+   opts:['A Pokemon that glows in the dark','A Pokemon with a different color than normal','A legendary Pokemon','A Pokemon at level 100'],answer:'A Pokemon with a different color than normal',
+   fact:'Shiny Pokemon have alternate color palettes. In the original games the chance of finding one was 1 in 8,192. Today it is about 1 in 4,096. They are extremely rare and special!'},
+  {id:'s2_p04',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Pokemon Types',sub:'Pokemon Battle',xp:55,
+   q:'How many original Pokemon types were there in Pokemon Red and Blue?',
+   opts:['12','15','17','18'],answer:'15',
+   fact:'The original 15 types were Normal, Fire, Water, Grass, Electric, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, and Dragon. Steel and Dark were added in Gen 2.'},
+  {id:'s2_p05',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Eevee',sub:'Pokemon Facts',xp:65,
+   q:'Eevee is special because it can evolve into many different forms. How many Eevee evolutions exist?',
+   opts:['5','6','7','8'],answer:'8',
+   fact:'Eevee can evolve into 8 different Pokemon: Vaporeon (water), Jolteon (thunder), Flareon (fire), Espeon, Umbreon, Leafeon, Glaceon, and Sylveon! Each depends on different conditions.'}
+  ]
 ];
+
+function getAssignments(){
+  const idx=state.currentSet||0;
+  return ASSIGNMENT_SETS[Math.min(idx,ASSIGNMENT_SETS.length-1)];
+}
+
 
 const TASKS=[
   {id:'t01',icon:'&#127939;',name:'Run Around the Block',desc:'One full lap around the block. Go fast!',xp:35},
@@ -589,17 +662,17 @@ const FUN_FACTS=[
 ];
 
 const BADGES=[
-  {icon:'&#10135;',   name:'Math Whiz',  check:s=>s.completed.filter(id=>ASSIGNMENTS.find(a=>a.id===id)?.cat==='math').length>=4},
-  {icon:'&#128214;',  name:'Book Worm',  check:s=>s.completed.filter(id=>ASSIGNMENTS.find(a=>a.id===id)?.cat==='reading').length>=3},
-  {icon:'&#128300;',  name:'Scientist',  check:s=>s.completed.filter(id=>ASSIGNMENTS.find(a=>a.id===id)?.cat==='science').length>=3},
-  {icon:'&#9997;',    name:'Scripture',  check:s=>s.completed.filter(id=>ASSIGNMENTS.find(a=>a.id===id)?.cat==='bible').length>=5},
-  {icon:'&#129418;',  name:'Pokemon Pro',check:s=>s.completed.filter(id=>ASSIGNMENTS.find(a=>a.id===id)?.cat==='pokemon').length>=5},
+  {icon:'&#10135;',   name:'Math Whiz',  check:s=>s.completed.filter(id=>ASSIGNMENT_SETS.flat().find(a=>a.id===id)?.cat==='math').length>=4},
+  {icon:'&#128214;',  name:'Book Worm',  check:s=>s.completed.filter(id=>ASSIGNMENT_SETS.flat().find(a=>a.id===id)?.cat==='reading').length>=3},
+  {icon:'&#128300;',  name:'Scientist',  check:s=>s.completed.filter(id=>ASSIGNMENT_SETS.flat().find(a=>a.id===id)?.cat==='science').length>=3},
+  {icon:'&#9997;',    name:'Scripture',  check:s=>s.completed.filter(id=>ASSIGNMENT_SETS.flat().find(a=>a.id===id)?.cat==='bible').length>=5},
+  {icon:'&#129418;',  name:'Pokemon Pro',check:s=>s.completed.filter(id=>ASSIGNMENT_SETS.flat().find(a=>a.id===id)?.cat==='pokemon').length>=5},
   {icon:'&#127939;',  name:'Athlete',    check:s=>s.tasksCompleted.length>=5},
   {icon:'&#127775;',  name:'Keaton-EX',  check:s=>s.xp>=1800},
   {icon:'&#128197;',  name:'Consistent', check:s=>Object.values(s.calDays||{}).filter(d=>d.checked).length>=7}
 ];
 
-let state={xp:0,streak:0,completed:[],tasksCompleted:[],lastDate:null,calDays:{}};
+let state={xp:0,streak:0,currentSet:0,completed:[],tasksCompleted:[],lastDate:null,calDays:{}};
 let activeTab='learn',activeFilter='all',openCard=null,calM=5,calY=2026;
 
 function loadState(){
@@ -688,12 +761,38 @@ function renderLearn(){
   let chips='<div class="filter-chips">';
   cats.forEach(c=>{chips+=`<div class="chip${activeFilter===c?' active':''}" onclick="setFilter('${c}')">${CL[c]}</div>`;});
   chips+='</div>';
-  const filtered=activeFilter==='all'?ASSIGNMENTS:ASSIGNMENTS.filter(a=>a.cat===activeFilter);
+  const filtered=activeFilter==='all'?getAssignments():getAssignments().filter(a=>a.cat===activeFilter);
+  const allDone=getAssignments().every(a=>state.completed.includes(a.id));
+  const hasNextSet=(state.currentSet||0)<ASSIGNMENT_SETS.length-1;
+  const setLabel=`Set ${(state.currentSet||0)+1} of ${ASSIGNMENT_SETS.length}`;
+
   let html=chips+`<div class="stat-grid">
     <div class="stat-card"><div class="stat-num">${state.completed.length}</div><div class="stat-lbl">Completed</div></div>
-    <div class="stat-card"><div class="stat-num">${ASSIGNMENTS.length-state.completed.length}</div><div class="stat-lbl">Remaining</div></div>
+    <div class="stat-card"><div class="stat-num">${getAssignments().length-state.completed.length}</div><div class="stat-lbl">Remaining</div></div>
     <div class="stat-card"><div class="stat-num">${state.xp}</div><div class="stat-lbl">Total XP</div></div>
-  </div><div class="section-title">&#128218; Assignments</div>`;
+  </div>`;
+
+  if(allDone&&hasNextSet){
+    html+=`<div style="background:linear-gradient(135deg,#FFFDE7,#FFF9C4);border:2.5px solid var(--poke-yellow);border-radius:12px;padding:16px;margin-bottom:14px;text-align:center;box-shadow:0 0 0 4px rgba(255,215,0,.15)">
+      <div style="font-size:28px;margin-bottom:6px">&#127942;&#129418;</div>
+      <div style="font-family:var(--font-d);font-size:20px;color:var(--poke-yellow-dark);letter-spacing:1px;margin-bottom:4px">SET ${(state.currentSet||0)+1} COMPLETE!</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px">All assignments done! A parent needs to enter the code to unlock the next set.</div>
+      <input id="nextSetCode" type="password" placeholder="Enter parent code"
+        style="width:100%;max-width:220px;padding:10px;border:2px solid var(--poke-yellow-dark);border-radius:8px;font-size:16px;text-align:center;font-family:var(--font-b);outline:none;margin-bottom:8px;letter-spacing:3px;display:block;margin:0 auto 8px"
+        onkeydown="if(event.key==='Enter')advanceSet()">
+      <button onclick="advanceSet()" style="background:var(--poke-blue);color:white;border:none;border-radius:8px;padding:10px 24px;font-family:var(--font-d);font-size:18px;letter-spacing:1px;cursor:pointer;margin-top:6px">NEXT SET &#9658;</button>
+      <div id="nextSetErr" style="color:#B91C1C;font-size:11px;font-weight:700;margin-top:6px;display:none">Wrong code. Try again.</div>
+    </div>`;
+  } else if(allDone&&!hasNextSet){
+    html+=`<div style="background:var(--green-light);border:2px solid var(--poke-green);border-radius:12px;padding:16px;margin-bottom:14px;text-align:center">
+      <div style="font-size:28px;margin-bottom:6px">&#127942;&#129418;</div>
+      <div style="font-family:var(--font-d);font-size:20px;color:#2E7D32;letter-spacing:1px">ALL SETS COMPLETE!</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px">Keaton finished everything. Keaton-EX confirmed.</div>
+    </div>`;
+  }
+
+  html+=`<div style="font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">${setLabel}</div>`;
+  html+=`<div class="section-title">&#128218; Assignments</div>`;
   filtered.forEach(a=>{
     const isDone=state.completed.includes(a.id),isOpen=openCard===a.id;
     html+=`<div class="assignment-card${isDone?' completed':''}">
@@ -955,8 +1054,8 @@ function renderProfile(){
 
   html+='<div class="section-title" style="margin-top:18px">&#128202; Progress</div><div class="category-progress">';
   Object.keys(CE).forEach(cat=>{
-    const total=ASSIGNMENTS.filter(a=>a.cat===cat).length;if(!total)return;
-    const done=state.completed.filter(id=>ASSIGNMENTS.find(a=>a.id===id)?.cat===cat).length;
+    const total=getAssignments().filter(a=>a.cat===cat).length;if(!total)return;
+    const done=state.completed.filter(id=>getAssignments().find(a=>a.id===id)?.cat===cat).length;
     const pct=Math.round((done/total)*100);
     html+=`<div class="prog-row"><div class="prog-emoji">${CE[cat]}</div><div class="prog-label">${CL[cat]}</div><div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${pct}%"></div></div><div class="prog-count">${done}/${total}</div></div>`;
   });
@@ -970,7 +1069,7 @@ function setFilter(f){activeFilter=f;openCard=null;renderContent();}
 function toggleCard(id){openCard=openCard===id?null:id;renderContent();}
 
 function answer(aid,choice){
-  const a=ASSIGNMENTS.find(x=>x.id===aid);
+  const a=getAssignments().find(x=>x.id===aid);
   if(!a||state.completed.includes(aid))return;
   const optsEl=document.getElementById('opts_'+aid),resultEl=document.getElementById('result_'+aid);
   if(!optsEl||!resultEl)return;
@@ -984,7 +1083,7 @@ function answer(aid,choice){
     state.completed.push(aid);saveState();
     setTimeout(()=>{
       awardXP(a.xp);
-      const filtered=activeFilter==='all'?ASSIGNMENTS:ASSIGNMENTS.filter(x=>x.cat===activeFilter);
+      const filtered=activeFilter==='all'?getAssignments():getAssignments().filter(x=>x.cat===activeFilter);
       const next=filtered.find(x=>!state.completed.includes(x.id));
       if(next){
         openCard=next.id;
@@ -1007,9 +1106,25 @@ function completeTask(tid){
   state.tasksCompleted.push(tid);saveState();awardXP(t.xp);renderContent();
 }
 
+function advanceSet(){
+  const input=document.getElementById('nextSetCode');
+  const err=document.getElementById('nextSetErr');
+  if(!input)return;
+  if(input.value.trim()==='1823'){
+    state.currentSet=(state.currentSet||0)+1;
+    state.completed=[];
+    openCard=null;activeFilter='all';
+    saveState();renderContent();updateHeader();
+    showToast('SET '+(state.currentSet+1)+' UNLOCKED!');
+  } else {
+    if(err)err.style.display='block';
+    input.value='';input.focus();
+  }
+}
+
 function resetAll(){
   if(!confirm('Reset all of Keaton\'s progress?'))return;
-  state={xp:0,completed:[],tasksCompleted:[],lastDate:null,calDays:{}};
+  state={xp:0,currentSet:0,completed:[],tasksCompleted:[],lastDate:null,calDays:{}};
   saveState();updateHeader();renderContent();
 }
 
