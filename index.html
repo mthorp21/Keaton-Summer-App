@@ -325,6 +325,111 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:var(--text);min-h
 .prog-count{font-size:11px;color:var(--muted);min-width:26px;text-align:right;font-weight:700}
 
 @media(max-width:480px){.stat-num{font-size:22px}.app-title{font-size:20px}.cal-day{min-height:50px}}
+
+/* ===== REWARD SYSTEM ===== */
+.reward-hero{background:linear-gradient(135deg,var(--navy) 0%,#0a2a18 100%);border-radius:var(--radius);padding:22px 20px;text-align:center;margin-bottom:14px;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.reward-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(34,197,94,.15) 0%,transparent 70%);pointer-events:none}
+.reward-balance{font-family:var(--font-d);font-size:52px;color:var(--green);letter-spacing:2px;line-height:1;position:relative}
+.reward-balance-lbl{font-size:11px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;position:relative}
+.reward-goal{font-size:13px;color:rgba(255,255,255,.7);margin-top:10px;font-weight:600;position:relative}
+.day-goal-card{background:var(--card-bg);border-radius:var(--radius);border:1px solid var(--border);padding:14px;margin-bottom:10px;box-shadow:var(--shadow)}
+.day-goal-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.day-goal-row:last-child{margin-bottom:0}
+.day-goal-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;transition:background .3s}
+.day-goal-label{font-size:13px;font-weight:600;flex:1}
+.day-goal-status{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.3px}
+.earn-btn{width:100%;padding:12px;color:white;border:none;border-radius:10px;font-family:var(--font-d);font-size:18px;letter-spacing:1px;cursor:pointer;transition:all .2s;margin-top:10px}
+.earn-btn.ready{background:var(--green)}
+.earn-btn.ready:hover{background:#16a34a}
+.earn-btn.not-ready{background:var(--muted);cursor:not-allowed;opacity:.55}
+.spend-box{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-top:12px}
+.spend-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.spend-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.spend-input{flex:1;min-width:110px;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:var(--font-b);font-size:13px;outline:none;background:white}
+.spend-input:focus{border-color:var(--green)}
+.spend-amt{width:76px;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:var(--font-b);font-size:13px;outline:none;background:white}
+.spend-btn{background:var(--red);color:white;border:none;border-radius:8px;padding:9px 14px;font-family:var(--font-d);font-size:15px;letter-spacing:.5px;cursor:pointer}
+.ledger-row-earn{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--green-light);border:1px solid rgba(34,197,94,.25);border-radius:8px;margin-bottom:5px;font-size:12px;font-weight:600;color:#15803D}
+.ledger-row-spend{display:flex;align-items:center;gap:8px;padding:7px 10px;background:var(--red-light);border:1px solid rgba(239,68,68,.2);border-radius:8px;margin-bottom:5px;font-size:12px;font-weight:600;color:#B91C1C}
+.ledger-empty{font-size:12px;color:var(--muted);text-align:center;padding:12px 0;font-style:italic}
+/* ===== BONUS LESSON ===== */
+.bonus-hero{background:linear-gradient(135deg,#0F3460 0%,#16213E 100%);border-radius:var(--radius);padding:16px;margin-bottom:14px;text-align:center;position:relative;overflow:hidden}
+.bonus-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(245,197,24,.12) 0%,transparent 70%);pointer-events:none}
+.bonus-window-badge{display:inline-block;background:var(--gold);color:var(--navy);font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;position:relative}
+.bonus-title{font-family:var(--font-d);font-size:22px;color:white;letter-spacing:1px;margin-bottom:3px;position:relative}
+.bonus-subject{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;position:relative}
+.bonus-video-wrap{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:10px;margin-bottom:12px;box-shadow:var(--shadow)}
+.bonus-video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:10px}
+.bonus-passage-card{background:var(--card-bg);border-radius:10px;border:1px solid var(--border);padding:14px;margin-bottom:12px}
+.bonus-passage-label{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.bonus-passage-text{font-size:13px;line-height:1.75;color:var(--text)}
+.scavenger-box{background:linear-gradient(135deg,#F0FDF4,#DCFCE7);border:1.5px solid var(--green);border-radius:10px;padding:14px;margin-bottom:12px}
+.scavenger-label{font-size:10px;font-weight:800;color:#15803D;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.scav-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid rgba(34,197,94,.12);cursor:pointer;user-select:none}
+.scav-item:last-child{border-bottom:none}
+.scav-dot{width:22px;height:22px;border-radius:50%;border:2px solid var(--green);background:transparent;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;transition:all .2s}
+.scav-dot.done{background:var(--green);color:white}
+.scav-text{font-size:13px;font-weight:500;flex:1;line-height:1.4}
+.bonus-quiz-label{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+.bonus-q-card{background:var(--card-bg);border-radius:10px;border:1px solid var(--border);padding:12px;margin-bottom:8px}
+.bonus-q-text{font-size:13px;font-weight:600;margin-bottom:8px;line-height:1.5}
+.bonus-opts{display:flex;flex-direction:column;gap:6px}
+.bonus-opt{background:var(--gray-bg);border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:12px;font-family:var(--font-b);font-weight:600;cursor:pointer;text-align:left;transition:all .15s}
+.bonus-opt:hover:not(:disabled){border-color:var(--orange);background:var(--orange-light);color:var(--orange-dark)}
+.bonus-opt.correct{background:var(--green-light);border-color:var(--green);color:#15803D;font-weight:700}
+.bonus-opt.wrong{background:var(--red-light);border-color:var(--red);color:#B91C1C}
+.bonus-opt:disabled{cursor:not-allowed}
+.bonus-done-banner{background:var(--green-light);border:2px solid var(--green);border-radius:12px;padding:16px;text-align:center;margin-bottom:12px}
+.bonus-done-title{font-family:var(--font-d);font-size:20px;color:#15803D;letter-spacing:1px}
+.bonus-closed{padding:40px 20px;text-align:center}
+.bonus-closed-icon{font-size:48px;margin-bottom:12px}
+.bonus-closed-title{font-family:var(--font-d);font-size:20px;color:var(--muted);letter-spacing:1px;margin-bottom:6px}
+.bonus-closed-sub{font-size:13px;color:var(--muted);line-height:1.65}
+
+
+/* ===== SCAVENGER HUNT ===== */
+.scav-page-hero{background:linear-gradient(135deg,#064E3B 0%,#065F46 100%);border-radius:var(--radius);padding:18px 20px;margin-bottom:14px;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.scav-page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(52,211,153,.15) 0%,transparent 70%);pointer-events:none}
+.scav-page-title{font-family:var(--font-d);font-size:26px;color:white;letter-spacing:1px;margin-bottom:3px;position:relative}
+.scav-page-sub{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;position:relative}
+.scav-progress-row{display:flex;align-items:center;gap:10px;margin-top:12px;position:relative}
+.scav-progress-bg{flex:1;background:rgba(255,255,255,.15);border-radius:99px;height:10px;overflow:hidden}
+.scav-progress-fill{border-radius:99px;height:100%;background:linear-gradient(90deg,#34D399,#10B981);transition:width .5s}
+.scav-progress-lbl{font-size:12px;font-weight:800;color:#34D399;white-space:nowrap}
+.scav-sub-tabs{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none}
+.scav-sub-tabs::-webkit-scrollbar{display:none}
+.scav-sub-tab{flex-shrink:0;padding:8px 16px;border-radius:99px;border:2px solid var(--border);font-size:11px;font-weight:800;cursor:pointer;background:white;color:var(--muted);transition:all .15s;text-transform:uppercase;letter-spacing:.3px;user-select:none;display:flex;align-items:center;gap:5px}
+.scav-sub-tab:hover{border-color:var(--green);color:var(--green)}
+.scav-sub-tab.active{background:#064E3B;color:white;border-color:#064E3B}
+.scav-cat-card{background:white;border-radius:var(--radius);border:1px solid var(--border);margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow)}
+.scav-cat-header{display:flex;align-items:center;gap:10px;padding:13px 14px;cursor:pointer;user-select:none}
+.scav-cat-icon{font-size:22px;flex-shrink:0}
+.scav-cat-name{font-family:var(--font-d);font-size:16px;letter-spacing:.5px;flex:1;color:var(--navy)}
+.scav-cat-count{font-size:11px;font-weight:800;color:var(--green);background:#DCFCE7;padding:3px 10px;border-radius:99px;white-space:nowrap}
+.scav-cat-chev{font-size:12px;color:var(--muted);transition:transform .2s}
+.scav-cat-chev.open{transform:rotate(180deg)}
+.scav-cat-body{border-top:1px solid var(--border);display:none}
+.scav-cat-body.open{display:block}
+.scav-item-row{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid rgba(0,0,0,.04);cursor:pointer;user-select:none;transition:background .1s}
+.scav-item-row:hover{background:#F9FFF9}
+.scav-item-row:last-child{border-bottom:none}
+.scav-item-check{width:24px;height:24px;border-radius:6px;border:2px solid var(--border);background:transparent;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;transition:all .2s}
+.scav-item-check.found{background:var(--green);border-color:var(--green);color:white}
+.scav-item-text{font-size:13px;line-height:1.5;flex:1;color:var(--text)}
+.scav-item-text.found-text{color:var(--muted);text-decoration:line-through}
+/* license plate grid */
+.plate-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:12px}
+.plate-item{background:#F9FAFB;border:2px solid var(--border);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .15s;user-select:none}
+.plate-item:hover{border-color:var(--orange)}
+.plate-item.found-plate{background:#ECFDF5;border-color:var(--green)}
+.plate-check{font-size:10px;font-weight:800;color:var(--green);margin-bottom:2px}
+.plate-name{font-size:12px;font-weight:700;color:var(--text);line-height:1.3}
+.plate-item.found-plate .plate-name{color:var(--muted)}
+.scav-page-tabs{display:flex;background:white;border-radius:10px;border:1px solid var(--border);overflow:hidden;margin-bottom:14px;box-shadow:var(--shadow)}
+.scav-page-tab{flex:1;padding:11px 6px;text-align:center;font-size:11px;font-weight:800;cursor:pointer;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;transition:all .2s;border-right:1px solid var(--border)}
+.scav-page-tab:last-child{border-right:none}
+.scav-page-tab.active{background:#064E3B;color:white}
+
 </style>
 </head>
 <body>
@@ -400,6 +505,9 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:var(--text);min-h
     <div class="tab" data-tab="tasks" onclick="switchTab('tasks')"><span class="tab-icon">&#127939;</span>Move</div>
     <div class="tab" data-tab="fun" onclick="switchTab('fun')"><span class="tab-icon">&#11088;</span>Fun Facts</div>
     <div class="tab" data-tab="calendar" onclick="switchTab('calendar')"><span class="tab-icon">&#128197;</span>Calendar</div>
+    <div class="tab" data-tab="bonus" id="bonusTab" onclick="switchTab('bonus')"><span class="tab-icon">&#9889;</span>Bonus</div>
+    <div class="tab" data-tab="reward" onclick="switchTab('reward')"><span class="tab-icon">&#128184;</span>Reward</div>
+    <div class="tab" data-tab="scavenger" onclick="switchTab('scavenger')"><span class="tab-icon">&#127807;</span>Hunt</div>
     <div class="tab" data-tab="profile" onclick="switchTab('profile')"><span class="tab-icon">&#127942;</span>Profile</div>
   </div>
 
@@ -474,6 +582,141 @@ const CL={'all':'All','math':'Math','reading':'Reading','science':'Science','bib
 const CE={'math':'&#10135;','reading':'&#128214;','science':'&#128300;','bible':'&#9997;','pokemon':'&#129418;'};
 
 // 3rd grade level assignments
+const BONUS_LESSONS=[
+  {id:'bl01',title:'Cheetahs: The Fastest Hunters',subject:'Science & Nature',
+   video:'https://www.youtube.com/embed/ACkpMGkOBco',
+   passage:'Cheetahs are the fastest land animals on Earth! They can run 70 miles per hour — faster than a car on most roads. Baby cheetahs are called cubs, just like Cheetkit! When they are born, they have a special silver-gray mane on their backs. This camouflage protects them from lions and hyenas. Mother cheetahs teach their cubs to hunt by bringing live prey to practice on. Cheetahs cannot roar like lions. Instead they chirp, purr, and make a sound called a churr. After a sprint they get very hot and need to rest before eating.',
+   quiz:[
+     {q:'How fast can a cheetah run?',opts:['40 mph','55 mph','70 mph','90 mph'],a:'70 mph'},
+     {q:'What do baby cheetahs have on their backs to protect them?',opts:['Hard shells','A silver-gray mane','Spots','Stripes'],a:'A silver-gray mane'},
+     {q:'What sound does a cheetah make instead of roaring?',opts:['Barking','Meowing','Chirping and purring','Howling'],a:'Chirping and purring'}
+   ],
+   scavenger:{title:'Nature Scavenger Hunt',items:['Find an animal outside (bird, bug, squirrel)','Find something that moves really fast','Find an animal hiding or camouflaged','Find a leaf and describe its shape']}},
+  {id:'bl02',title:'How Volcanoes Work',subject:'Science & Nature',
+   video:'https://www.youtube.com/embed/R_pDKyg5YKY',
+   passage:'Volcanoes are like giant vents in the Earth. Deep underground there is super hot melted rock called magma. When pressure builds up, magma pushes through cracks and explodes out as lava. Lava is so hot it can melt metal! There are about 1,500 volcanoes on Earth that could erupt. Some volcanoes are underwater. The Hawaiian Islands were created by volcanoes erupting from the ocean floor over millions of years. Volcanoes can be dangerous but also create new land and make soil very rich for growing plants.',
+   quiz:[
+     {q:'What is melted rock called when it is still underground?',opts:['Lava','Magma','Ash','Steam'],a:'Magma'},
+     {q:'How were the Hawaiian Islands formed?',opts:['By earthquakes','By giant waves','By volcanic eruptions','By glaciers'],a:'By volcanic eruptions'},
+     {q:'What does volcanic soil help with?',opts:['Making rain','Growing plants','Cooling the air','Making rivers'],a:'Growing plants'}
+   ],
+   scavenger:{title:'Earth Science Hunt',items:['Find a rock and describe what it looks like','Find dirt and describe its color','Find the highest point you can see outside','Find something that reminds you of fire or heat']}},
+  {id:'bl03',title:'Van Gogh: The Artist Who Never Gave Up',subject:'Art & Biography',
+   video:'https://www.youtube.com/embed/wI2SM3MZ5Wk',
+   passage:'Vincent van Gogh was a painter who lived in the 1800s. He only started painting seriously when he was 27 years old. In his whole life, he sold only ONE painting. People did not understand his bright swirling colors. But he never stopped. He painted over 900 pictures in just 10 years. After he died, the world finally recognized how amazing his work was. Today his paintings sell for hundreds of millions of dollars. His most famous painting, The Starry Night, was painted from the window of a hospital room. Van Gogh teaches us that doing your best work matters even when nobody notices right away.',
+   quiz:[
+     {q:'How many paintings did Van Gogh sell in his lifetime?',opts:['0','1','10','100'],a:'1'},
+     {q:'How many pictures did Van Gogh paint in 10 years?',opts:['About 100','About 300','Over 900','Over 2,000'],a:'Over 900'},
+     {q:'Where was Van Gogh when he painted The Starry Night?',opts:['In Paris','On a boat','In a hospital room','In a field'],a:'In a hospital room'}
+   ],
+   scavenger:null},
+  {id:'bl04',title:'The Ocean and Sea Creatures',subject:'Science & Nature',
+   video:'https://www.youtube.com/embed/VbiNFCwyDQA',
+   passage:'The ocean is the biggest place on Earth and most of it is a mystery! It covers more than 70% of our planet. It is so deep in some places that Mount Everest would be completely underwater. The ocean is home to the biggest animal ever — the blue whale — as long as three school buses! The ocean also has glowing creatures that make their own light in the dark deep water. Ocean plants called phytoplankton make more than half of all the oxygen we breathe.',
+   quiz:[
+     {q:'What is the biggest animal that has ever lived on Earth?',opts:['Elephant','Great White Shark','Blue Whale','Giant Squid'],a:'Blue Whale'},
+     {q:'What percentage of Earth is covered by ocean?',opts:['About 30%','About 50%','More than 70%','About 90%'],a:'More than 70%'},
+     {q:'What ocean plants make more than half the oxygen we breathe?',opts:['Seaweed','Kelp','Phytoplankton','Coral'],a:'Phytoplankton'}
+   ],
+   scavenger:{title:'Water Scavenger Hunt',items:['Find a puddle, stream, or any water outside','Find something that floats','Find something that sinks','Draw a sea creature you would want to discover']}},
+  {id:'bl05',title:'Beethoven: The Deaf Composer',subject:'Music & Biography',
+   video:'https://www.youtube.com/embed/rYpHPMLCaCo',
+   passage:'Beethoven was one of the greatest music composers ever. A composer writes music for other people to play. He was a piano prodigy as a kid — incredibly talented at a very young age. But something terrible happened: he started losing his hearing. By age 44, he was completely deaf. Most people would have stopped making music. Not Beethoven. He cut the legs off his piano so it sat on the floor, and felt the vibrations through the wood while composing. His Fifth Symphony starts with four notes everyone recognizes: da da da DUM.',
+   quiz:[
+     {q:'What does a composer do?',opts:['Plays in a band','Writes music for others to play','Teaches music','Builds instruments'],a:'Writes music for others to play'},
+     {q:'How did Beethoven feel music when he was deaf?',opts:['He read notes','Through vibrations','He watched others','He guessed'],a:'Through vibrations'},
+     {q:'What are the famous opening notes of the Fifth Symphony?',opts:['La la la LA','Do re mi fa','Da da da DUM','Boom boom BOOM'],a:'Da da da DUM'}
+   ],
+   scavenger:null},
+  {id:'bl06',title:'Wolves and the Wild',subject:'Science & Nature',
+   video:'https://www.youtube.com/embed/Bs4GNpCEHEU',
+   passage:'Wolves live in family groups called packs. The leaders are called the alpha pair. Wolves talk by howling — their calls can be heard 10 miles away! Scientists put wolves back into Yellowstone Park in 1995. Something amazing happened: the wolves chased deer away from rivers. Grass grew back. Rivers stopped flooding. Trees came back. Animals and plants that had disappeared returned. The wolves fixed the whole ecosystem just by being there. Scientists call this a trophic cascade.',
+   quiz:[
+     {q:'What is a family group of wolves called?',opts:['A herd','A pack','A tribe','A team'],a:'A pack'},
+     {q:'How far can wolves hear each other howl?',opts:['1 mile','3 miles','10 miles','20 miles'],a:'10 miles'},
+     {q:'What happened when wolves returned to Yellowstone?',opts:['Everything got worse','Nothing changed','The whole ecosystem improved','The deer disappeared'],a:'The whole ecosystem improved'}
+   ],
+   scavenger:{title:'Wildlife Scavenger Hunt',items:['Find evidence of an animal (nest, hole, tracks, or feather)','Find something an animal might eat','Find a safe hiding spot where an animal might sleep','Listen outside for 60 seconds — count every different sound']}}
+];
+
+const NATURE_CATEGORIES=[
+  {cat:'BIRDS OF WEST MICHIGAN',icon:'&#128038;',items:["American Robin — orange breast, one of Michigan's most common birds",'Bald Eagle — look near rivers, lakes, and Lake Michigan shoreline','Red-tailed Hawk — large hawk soaring on thermals, rusty red tail','Great Blue Heron — tall, gray, standing still in shallow water','Sandhill Crane — tall gray bird with red forehead, loud rattling call','Canada Goose — black neck, white chin patch, honking in formation','Mallard Duck — male has green head, female is brown','Belted Kingfisher — blue and white, hovers then dives for fish','Downy Woodpecker — small black and white with red spot, taps on trees','Red-winged Blackbird — black with red and yellow shoulder patches','Cedar Waxwing — sleek brown crest, yellow-tipped tail, red wingtips','Barn Swallow — deep blue back, rusty throat, forked tail, darts over fields','Wild Turkey — large, dark, iridescent feathers, often in open fields','Turkey Vulture — large, red head, tilts side to side while soaring','Osprey — white belly, black eye stripe, dives feet-first for fish','Common Loon — black and white checkered back, haunting call','Great Horned Owl — large ear tufts, yellow eyes, hoots at dusk','Ruby-throated Hummingbird — tiny, hovers at flowers, iridescent green','American Goldfinch — bright yellow with black wings, Michigan state bird','Northern Cardinal — bright red male, tan female with red tinge']},
+  {cat:'WEST MICHIGAN MAMMALS',icon:'&#129416;',items:['White-tailed Deer — common in fields and edges, watch at dawn and dusk','Eastern Gray Squirrel — gray body, bushy tail, chattering in trees','Eastern Chipmunk — small, striped back, stuffs cheeks with seeds','Groundhog (Woodchuck) — stocky brown animal, often near roads and fields','Raccoon — black mask, ringed tail, often near water or garbage cans','Striped Skunk — black with white stripe, distinctive smell','Opossum — gray, pink nose, plays dead when scared, only marsupial in North America','Eastern Cottontail Rabbit — brown with white fluffy tail, freezes when spotted','Red Fox — orange coat, white belly, black legs, bushy white-tipped tail','Coyote — looks like a medium dog, often heard howling at night','Beaver — large rodent, flat paddle tail, builds dams in streams','Muskrat — smaller than beaver, round tail, swims in ponds and marshes','Little Brown Bat — small bat swooping at dusk catching insects','River Otter — sleek, playful, slides on riverbanks near water']},
+  {cat:'REPTILES AND AMPHIBIANS',icon:'&#128013;',items:['Common Garter Snake — thin, striped yellow and green, harmless','Eastern Fox Snake — large Michigan snake, found near water and fields','Painted Turtle — flat, colorful red and yellow markings on shell edges','Snapping Turtle — prehistoric looking, large head, saw-toothed tail','American Toad — lumpy brown skin, found in gardens and near water','Bullfrog — large, deep jug-o-rum call, Michigan biggest frog','Green Frog — bright green, yellow throat on males, squeaks when it jumps','Spring Peeper — tiny frog heard but rarely seen, very loud chorus at night','Eastern Newt — small orange-red salamander near ponds']},
+  {cat:'INSECTS AND POLLINATORS',icon:'&#129412;',items:['Monarch Butterfly — orange and black, migrates through Michigan in August','Eastern Tiger Swallowtail — large yellow butterfly with black stripes','Cabbage White Butterfly — small white butterfly, very common','Red Admiral Butterfly — black wings with red-orange bands','Bumble Bee — large, fuzzy, black and yellow, important pollinator','Firefly (Lightning Bug) — flashes green light at dusk in summer','Dragonfly — iridescent wings, hovers near water','Damselfly — like a dragonfly but thinner, holds wings back when resting','Praying Mantis — green or brown, triangular head, front legs folded','Cicada — loud buzzing in trees on hot summer days','Walking Stick — long thin brown insect that looks exactly like a stick','Luna Moth — giant pale green moth with long tail, flies at night','Woolly Bear Caterpillar — black and brown fuzzy caterpillar on paths','Monarch Caterpillar — yellow, white, and black stripes on milkweed','Honeybee — smaller than bumble bee, often on flowers and clover']},
+  {cat:'PLANTS AND TREES',icon:'&#127807;',items:['White Pine — Michigan state tree, long soft needles in bundles of 5','Sugar Maple — brilliant orange and red in fall, source of maple syrup','Paper Birch — white peeling bark, often near water','Eastern Cottonwood — cotton-like fluff floating in the air in June','Black-eyed Susan — yellow petals with dark brown center, roadsides','Purple Coneflower — purple petals, spiky cone center, attracts bees','Milkweed — pink flower clusters, Monarch butterfly host plant','Wild Bergamot — lavender wildflower, smells like oregano',"Queen Anne's Lace — white umbrella-shaped flower, wild carrot",'Cattail — tall brown sausage-shaped seed heads near wetlands','Staghorn Sumac — red fuzzy seed clusters, brilliant red fall color','Poison Ivy — three shiny leaflets, red stem — DO NOT TOUCH','Trillium — three white petals, three leaves, protected in Michigan','Wild Columbine — red and yellow drooping flower, hummingbird favorite','Common Mullein — tall spike with yellow flowers, fuzzy gray-green leaves','Chicory — bright blue flowers along roadsides, opens in morning only','Goldenrod — tall plumes of yellow flowers, late summer roadsides','Common Dandelion — yes this counts. Yellow flower AND puffy seed head','Jack-in-the-Pulpit — unusual hooded flower in moist woodlands','Wild Blueberry — low shrub with small blue berries in dune areas']},
+  {cat:'LAKES WETLANDS AND WATER',icon:'&#128167;',items:['Lake Michigan — spot it from a dune or shoreline','A natural inland lake or pond','A stream or creek with flowing water','A wetland or marsh with cattails','A beaver dam or lodge','Duckweed — tiny green floating plants covering still water','A frog jumping into water','A fish jumping or breaking the surface','A heron hunting in shallow water','A turtle basking on a log','A dragonfly patrolling over water','Ripples from a muskrat or beaver swimming','A sand dune along Lake Michigan shoreline','Lake Michigan beach glass — smooth frosted glass on the beach','A rainbow over Lake Michigan or a lake']},
+  {cat:'TRACKS SIGNS AND EVIDENCE',icon:'&#128065;',items:['Deer tracks in mud or soft soil','Raccoon tracks — hand-shaped with 5 fingers','Bird tracks in sand or mud','A gnawed tree or stick — beaver or rodent work','An ant hill or ant trail',"A bird's nest in a shrub or tree",'A spider web with dew drops','Evidence of a woodpecker — holes drilled in a dead tree','Animal scat (droppings) — photo only, do not touch','A feather on the ground','A gall on a leaf or stem — swelling caused by insects','A caterpillar or cocoon on a leaf','A mole tunnel raised in a lawn','Shed snake skin','Crayfish mud chimneys near a stream or pond edge']},
+  {cat:'SKY WEATHER AND SEASONS',icon:'&#9728;',items:['A rainbow','A double rainbow','A thunderstorm building on the horizon','Fog in the early morning over a field or water','A full moon','A shooting star or meteor','Milky Way visible on a clear dark night','Heat lightning over Lake Michigan','A flock of birds flying in formation','Monarch butterflies migrating south (late August)','First firefly of the summer — write the date','Last firefly of the summer — write the date','A sundog — a rainbow-colored spot beside the sun','A morning with heavy dew on the grass','Sun setting over Lake Michigan']},
+];
+
+const LICENSE_PLATES=[
+  'Alabama',
+  'Alaska',
+  'Arizona',
+  'Arkansas',
+  'California',
+  'Colorado',
+  'Connecticut',
+  'Delaware',
+  'Florida',
+  'Georgia',
+  'Hawaii',
+  'Idaho',
+  'Illinois',
+  'Indiana',
+  'Iowa',
+  'Kansas',
+  'Kentucky',
+  'Louisiana',
+  'Maine',
+  'Maryland',
+  'Massachusetts',
+  'Michigan',
+  'Minnesota',
+  'Mississippi',
+  'Missouri',
+  'Montana',
+  'Nebraska',
+  'Nevada',
+  'New Hampshire',
+  'New Jersey',
+  'New Mexico',
+  'New York',
+  'North Carolina',
+  'North Dakota',
+  'Ohio',
+  'Oklahoma',
+  'Oregon',
+  'Pennsylvania',
+  'Rhode Island',
+  'South Carolina',
+  'South Dakota',
+  'Tennessee',
+  'Texas',
+  'Utah',
+  'Vermont',
+  'Virginia',
+  'Washington',
+  'West Virginia',
+  'Wisconsin',
+  'Wyoming',
+  'Washington D.C.',
+  'Puerto Rico',
+  'Canada — Ontario',
+  'Canada — Quebec',
+  'Canada — British Columbia',
+  'Canada — Alberta',
+  'Canada — other province',
+  'Mexico',
+  'Military plate (Army, Navy, Air Force, Marines, Coast Guard)',
+  'Government or federal plate',
+  'Specialty or sports team plate',
+  'Vanity or personalized plate',
+  'Classic car or antique vehicle plate',
+  'Farm truck or agricultural plate',
+];
+
 const ASSIGNMENT_SETS=[
   // ===== SET 1 =====
   [
@@ -630,6 +873,159 @@ const ASSIGNMENT_SETS=[
    q:'Eevee is special because it can evolve into many different forms. How many Eevee evolutions exist?',
    opts:['5','6','7','8'],answer:'8',
    fact:'Eevee can evolve into 8 different Pokemon: Vaporeon (water), Jolteon (thunder), Flareon (fire), Espeon, Umbreon, Leafeon, Glaceon, and Sylveon! Each depends on different conditions.'}
+  ],
+  // ===== SET 3 =====
+  [
+  {id:'s3_m01',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Multiplication Tables',sub:'Math',xp:45,
+   q:'What is 9 x 8?',opts:['63','72','81','64'],answer:'72',
+   fact:'9 x 8 = 72. A trick: 9 times any number — the digits of the answer always add up to 9. 9x8=72, and 7+2=9!'},
+  {id:'s3_m02',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Money Math',sub:'Math',xp:50,
+   q:'You have $5.00 and buy a snack for $2.75. How much change do you get back?',
+   opts:['$2.25','$2.50','$2.75','$3.25'],answer:'$2.25',
+   fact:'$5.00 minus $2.75 = $2.25. Count up from $2.75: 25 cents gets you to $3.00, then $2 more gets you to $5.00. That is $2.25!'},
+  {id:'s3_m03',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Area',sub:'Math',xp:50,
+   q:'A rectangle is 8 inches long and 5 inches wide. What is its area?',
+   opts:['13','26','40','45'],answer:'40',
+   fact:'Area = length x width. 8 x 5 = 40 square inches. Area measures how much space is inside a flat shape. We write the units as square inches because we are counting squares.'},
+  {id:'s3_m04',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Skip Counting',sub:'Math',xp:40,
+   q:'Count by 4s starting at 4. What is the 6th number in the sequence?',
+   opts:['20','22','24','28'],answer:'24',
+   fact:'4, 8, 12, 16, 20, 24 — the 6th number is 24. Skip counting by 4s is the same as multiplying 4 by 1, 2, 3, 4, 5, 6. Skip counting is the foundation of multiplication!'},
+  {id:'s3_m05',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'3D Shapes',sub:'Math',xp:45,
+   q:'How many faces does a cube have?',opts:['4','5','6','8'],answer:'6',
+   fact:'A cube has 6 faces, 8 corners (vertices), and 12 edges. All 6 faces are equal squares. A die is a perfect cube. Can you find a cube-shaped object in your house?'},
+  {id:'s3_r01',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Sequencing',sub:'Reading',xp:45,
+   q:'In a story, what word signals that something happened AFTER something else?',
+   opts:['Because','Before','Then','Although'],answer:'Then',
+   fact:'Then, next, after, and finally are sequence words. They help readers follow the order of events. When retelling a story, sequence words make it much easier to understand!'},
+  {id:'s3_r02',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Synonyms',sub:'Reading',xp:40,
+   q:'Which word is a synonym (same meaning) for HAPPY?',
+   opts:['Sad','Angry','Joyful','Scared'],answer:'Joyful',
+   fact:'Synonyms are words that mean the same thing. Happy and Joyful both mean feeling good. Knowing synonyms helps you write more interesting sentences instead of using the same word over and over.'},
+  {id:'s3_r03',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Prefixes',sub:'Reading',xp:45,
+   q:'The prefix UN means not. What does the word UNHAPPY mean?',
+   opts:['Very happy','Not happy','Super happy','Kind of happy'],answer:'Not happy',
+   fact:'Un + happy = not happy. Other un- words: unkind (not kind), unsafe (not safe), unfair (not fair). Knowing prefixes helps you figure out the meaning of thousands of new words!'},
+  {id:'s3_s01',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Gravity',sub:'Science',xp:50,
+   q:'What keeps the planets in orbit around the sun?',opts:['Wind','Magnetism','Gravity','Electricity'],answer:'Gravity',
+   fact:'Gravity is the force that pulls objects toward each other. The sun is so massive its gravity holds all 8 planets in orbit. The same force that makes a ball fall to the ground keeps Earth going around the sun!'},
+  {id:'s3_s02',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Ecosystems',sub:'Science',xp:45,
+   q:'What do we call an area where living things interact with each other and their environment?',
+   opts:['A habitat','A food chain','An ecosystem','A biome'],answer:'An ecosystem',
+   fact:'An ecosystem includes all the plants, animals, water, soil, and air in an area working together. West Michigan has many ecosystems — Lake Michigan shoreline, forests, wetlands, and prairies all count!'},
+  {id:'s3_s03',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Rocks',sub:'Science',xp:45,
+   q:'Which type of rock is formed when melted rock (lava or magma) cools and hardens?',
+   opts:['Sedimentary','Metamorphic','Igneous','Fossil'],answer:'Igneous',
+   fact:'Igneous means born of fire. Granite and basalt are igneous rocks. Sedimentary rocks form from layers of sediment. Metamorphic rocks are changed by heat and pressure. Michigan has examples of all three!'},
+  {id:'s3_b01',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'Moses and the Red Sea',sub:'Exodus 14',xp:50,
+   q:"When the Israelites were trapped between Pharaoh's army and the Red Sea, what did Moses do?",
+   opts:["Built a boat","Climbed a mountain","Raised his staff and God parted the sea","Fought the army himself"],answer:"Raised his staff and God parted the sea",
+   fact:"Exodus 14 — Moses raised his staff, the sea parted, and the Israelites crossed on dry ground. When Pharaoh's army followed, the water closed back. God made a way when there was none."},
+  {id:"s3_b02",cat:"bible",icon:"&#9997;",bg:"#FFF8E1",title:"Fruit of the Spirit",sub:"Galatians 5",xp:50,
+   q:"Which of these is NOT listed as a Fruit of the Spirit in Galatians 5?",
+   opts:["Love","Joy","Wealth","Peace"],answer:"Wealth",
+   fact:"The Fruits of the Spirit: love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, self-control. They grow in us as we walk with God."},
+  {id:"s3_b03",cat:"bible",icon:"&#9997;",bg:"#FFF8E1",title:"Jonah and the Whale",sub:"Jonah 1-2",xp:50,
+   q:"Jonah was swallowed by a large fish because he ran away from what?",
+   opts:["A lion","God's call to go to Nineveh","A storm he caused","The king of Israel"],answer:"God's call to go to Nineveh",
+   fact:"God told Jonah to go to Nineveh and warn the people. Jonah ran the other way. God sent a storm, Jonah was thrown overboard, and a great fish swallowed him. Three days later he was spit out on shore."},
+  {id:"s3_p01",cat:"pokemon",icon:"&#129418;",bg:"#FFF9C4",title:"Pokemon Weaknesses",sub:"Pokemon Battle",xp:55,
+   q:"Electric type moves are super effective against which type?",
+   opts:["Fire","Ground","Flying","Rock"],answer:"Flying",
+   fact:"Electric beats Flying and Water. But Electric has no effect on Ground types! Pikachu vs a Flygon or Garchomp — electric moves do nothing. Knowing type matchups is everything in battles."},
+  {id:'s3_p02',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Strongest Pokemon',sub:'Pokemon Lore',xp:60,
+   q:'Which Pokemon is known as the creator of the Pokemon universe and is called the Original One?',
+   opts:['Mewtwo','Lugia','Arceus','Dialga'],answer:'Arceus',
+   fact:'Arceus is said to have shaped the universe with its 1,000 arms before the world existed. It is the only Normal-type Legendary and can change its type using special plates. It is the closest thing to a god in the Pokemon world.'},
+  {id:'s3_p03',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Rarest Card',sub:'Pokemon TCG',xp:65,
+   q:'In the Pokemon Trading Card Game, what does the star symbol on a card indicate?',
+   opts:['It is a common card','It is a rare card','It is a fake card','It is a trainer card'],answer:'It is a rare card',
+   fact:'One star = rare. Two stars = ultra rare. Three stars = secret rare. The rarest Pokemon cards can be worth thousands of dollars. A Pikachu Illustrator card sold in 2022 for $5.275 million — the most ever paid for a Pokemon card.'},
+  {id:'s3_p04',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Pokemon Regions',sub:'Pokemon Geography',xp:55,
+   q:'The original Pokemon games Kanto and the Kanto region are based on a real part of which country?',
+   opts:['USA','Japan','Australia','China'],answer:'Japan',
+   fact:'Kanto is based on the Kanto region of Japan, which includes Tokyo. Johto is based on the Kansai region. Many locations in the games are inspired by real Japanese cities, towns, and landscapes.'},
+  {id:'s3_p05',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Pikachu vs Raichu',sub:'Pokemon Facts',xp:50,
+   q:'What item do you use to evolve Pikachu into Raichu?',
+   opts:['Water Stone','Moon Stone','Thunder Stone','Fire Stone'],answer:'Thunder Stone',
+   fact:'Using a Thunder Stone on Pikachu evolves it into Raichu. Unlike level evolutions, stone evolutions can happen at any level. Alolan Raichu, found in Sun and Moon, has a surfboard made of psychic energy. Rad.'}
+  ],
+  // ===== SET 4 =====
+  [
+  {id:'s4_m01',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Perimeter',sub:'Math',xp:50,
+   q:'A square has sides that are each 7 inches long. What is the perimeter?',
+   opts:['21 inches','28 inches','35 inches','49 inches'],answer:'28 inches',
+   fact:'Perimeter = adding up all the sides. A square has 4 equal sides so: 7+7+7+7 = 28 inches. Perimeter measures the distance around the outside of a shape.'},
+  {id:'s4_m02',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Telling Time 2',sub:'Math',xp:45,
+   q:'A movie starts at 2:15 PM and is 1 hour and 40 minutes long. What time does it end?',
+   opts:['3:45 PM','3:55 PM','4:05 PM','3:50 PM'],answer:'3:55 PM',
+   fact:'2:15 + 1 hour = 3:15. Then 3:15 + 40 minutes = 3:55 PM. Breaking time addition into hours first, then minutes, makes it easier!'},
+  {id:'s4_m03',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Multiplication Word Problem',sub:'Math',xp:50,
+   q:'Keaton has 6 pages of Pokemon cards. Each page holds 9 cards. How many cards does he have?',
+   opts:['48','54','56','63'],answer:'54',
+   fact:'6 x 9 = 54 cards. Multiplication is repeated addition. 6 groups of 9 is the same as 9+9+9+9+9+9. Multiplication is just a faster way!'},
+  {id:'s4_m04',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Half and Double',sub:'Math',xp:45,
+   q:'What is half of 64?',opts:['28','30','32','36'],answer:'32',
+   fact:'Half of 64 = 64 divided by 2 = 32. Halving and doubling are some of the most useful mental math tricks. Double 32 = 64. Half of 64 = 32. They always undo each other!'},
+  {id:'s4_m05',cat:'math',icon:'&#10135;',bg:'#E8F5E9',title:'Graphs',sub:'Math',xp:45,
+   q:'In a bar graph, what does the height of a bar represent?',
+   opts:['The color of the data','The amount or quantity of something','The label on the bottom','The title of the graph'],answer:'The amount or quantity of something',
+   fact:'Bar graphs show data visually. The taller the bar, the bigger the number. They make it easy to compare things at a glance. Pokemon stat charts use a similar idea to show Attack, Defense, Speed, and HP!'},
+  {id:'s4_r01',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Antonyms',sub:'Reading',xp:40,
+   q:'Which word is an antonym (opposite) of BRAVE?',opts:['Bold','Fearless','Cowardly','Strong'],answer:'Cowardly',
+   fact:'Antonyms are opposites. Brave and Cowardly are antonyms. Knowing antonyms helps you understand tone in stories — a cowardly character and a brave character create very different stories!'},
+  {id:'s4_r02',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Summarizing',sub:'Reading',xp:45,
+   q:'When you summarize a story, what should you include?',
+   opts:['Every single detail','Only your favorite parts','The most important events and the main idea','Only the ending'],answer:'The most important events and the main idea',
+   fact:'A good summary is short but captures the key points. Leave out small details. Include who the story was about, what happened, and how it ended. Summaries are shorter than the original — not the same length!'},
+  {id:'s4_r03',cat:'reading',icon:'&#128214;',bg:'#E3F2FD',title:'Making Predictions',sub:'Reading',xp:45,
+   q:'Before you read, looking at the cover and title to guess what a book might be about is called what?',
+   opts:['Summarizing','Making a prediction','Finding the main idea','Sequencing'],answer:'Making a prediction',
+   fact:'Good readers make predictions before and during reading. They use clues from the cover, title, and pictures. Predictions do not have to be right — they just get your brain ready to read and think!'},
+  {id:'s4_s01',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Simple Machines',sub:'Science',xp:50,
+   q:'A ramp used to push something heavy to a higher level is an example of which simple machine?',
+   opts:['Lever','Wheel and Axle','Inclined Plane','Pulley'],answer:'Inclined Plane',
+   fact:'An inclined plane (ramp) makes it easier to move heavy things by spreading the work over a longer distance. Moving trucks have ramps. Skateboard parks are full of inclined planes!'},
+  {id:'s4_s02',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Animal Adaptations',sub:'Science',xp:50,
+   q:'A polar bear has thick white fur. The white color is an adaptation that helps it do what?',
+   opts:['Stay cool in summer','Blend into the snowy environment — camouflage','Attract a mate','Scare away predators'],answer:'Blend into the snowy environment — camouflage',
+   fact:'Adaptations are features that help animals survive. Polar bears also have black skin under white fur (to absorb heat) and hollow fur hairs (for insulation). Every part of their body is designed for the Arctic.'},
+  {id:'s4_s03',cat:'science',icon:'&#128300;',bg:'#F3E5F5',title:'Light and Shadows',sub:'Science',xp:45,
+   q:'Why does a shadow form when you stand in sunlight?',
+   opts:['Your body generates darkness','Your body blocks the light from passing through','Shadows are reflections','The ground absorbs light near people'],answer:'Your body blocks the light from passing through',
+   fact:'Shadows form when an opaque object blocks light. Opaque means light cannot pass through it. Your body is opaque. Glass is transparent — light passes through it and it makes no shadow!'},
+  {id:'s4_b01',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'Jesus Calms the Storm',sub:'Mark 4',xp:50,
+   q:"When a huge storm threatened to sink the disciples' boat, Jesus was doing what?",
+   opts:['Praying on the shore','Walking on the water','Sleeping in the back of the boat','Fishing'],answer:'Sleeping in the back of the boat',
+   fact:'Mark 4:38-39 — The disciples woke Jesus in panic. He stood up and said Peace, be still to the wind and waves, and it was completely calm. The disciples said: Who is this that even the wind and sea obey him?'},
+  {id:'s4_b02',cat:'bible',icon:'&#9997;',bg:'#FFF8E1',title:'Feeding 5000',sub:'John 6',xp:50,
+   q:"Jesus fed 5000 people with what small amount of food?",
+   opts:["One fish and one loaf","Five loaves and two fish","Three loaves and five fish","Ten loaves and one fish"],answer:"Five loaves and two fish",
+   fact:"John 6 — A boy shared his small lunch. Jesus gave thanks, broke the bread, and everyone ate until full. Twelve baskets of leftovers. In God's hands, not enough becomes more than enough."},
+  {id:"s4_b03",cat:"bible",icon:"&#9997;",bg:"#FFF8E1",title:"The Last Supper",sub:"Luke 22",xp:55,
+   q:"At the Last Supper, what did Jesus say the bread represented?",
+   opts:["His power","His body given for us","His kingdom","His teachings"],answer:"His body given for us",
+   fact:"Luke 22:19 — Jesus broke bread and said: this is my body given for you. Do this in remembrance. Christians still practice communion today."},
+  {id:"s4_p01",cat:"pokemon",icon:"&#129418;",bg:"#FFF9C4",title:"Mega Evolution",sub:"Pokemon Mechanics",xp:60,
+   q:"In Pokemon X and Y, Mega Evolution was introduced. What is required to Mega Evolve a Pokemon?",
+   opts:['A special badge','A Mega Stone and a Key Stone','Being at level 100','Using a Thunder Stone'],answer:'A Mega Stone and a Key Stone',
+   fact:'The trainer needs a Key Stone (like a bracelet) and the Pokemon must hold the right Mega Stone. Mega Charizard X turns black and becomes Dragon type! Mega evolutions are temporary — only during battle.'},
+  {id:'s4_p02',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Legendary Birds',sub:'Pokemon Kanto',xp:55,
+   q:'The three legendary birds of Kanto are Articuno, Zapdos, and Moltres. What are their types in order?',
+   opts:['Water, Electric, Fire','Ice, Electric, Fire','Ice, Flying, Fire','Water, Thunder, Flame'],answer:'Ice, Electric, Fire',
+   fact:'Articuno is Ice/Flying. Zapdos is Electric/Flying. Moltres is Fire/Flying. All three are part Flying type. They hide in remote locations across Kanto — Articuno in Seafoam Islands, Zapdos in the Power Plant, Moltres on Mt. Ember.'},
+  {id:'s4_p03',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Pokemon GO',sub:'Pokemon Games',xp:50,
+   q:'Pokemon GO lets you catch Pokemon in the real world. What technology does it use to show Pokemon on your screen in real locations?',
+   opts:['Virtual reality','Augmented reality','Artificial intelligence','Satellite mapping only'],answer:'Augmented reality',
+   fact:'Augmented reality (AR) overlays digital things onto the real world through your camera. Pokemon GO uses your GPS location to place Pokemon near real landmarks. It is different from virtual reality, which replaces the real world entirely.'},
+  {id:'s4_p04',cat:'pokemon',icon:'&#129418;',bg:'#FFF9C4',title:'Pseudo-Legendaries',sub:'Pokemon Facts',xp:65,
+   q:'Pseudo-Legendary Pokemon have a base stat total of 600. Which of these is a Pseudo-Legendary?',
+   opts:['Snorlax','Gengar','Dragonite','Alakazam'],answer:'Dragonite',
+   fact:'Dragonite was the original Pseudo-Legendary. Others include Tyranitar, Salamence, Metagross, Garchomp, and Hydreigon. They are not officially Legendary but are rare, powerful, and take a long time to evolve.'},
+  {id:"s4_p05",cat:"pokemon",icon:"&#129418;",bg:"#FFF9C4",title:"Status Conditions",sub:"Pokemon Battle",xp:55,
+   q:"In Pokemon battles, which status condition causes a Pokemon to lose HP every turn?",
+   opts:["Paralysis","Sleep","Burn","Confusion"],answer:"Burn",
+   fact:"Burn causes damage every turn AND halves the Pokemon's Attack stat. Poison also causes damage per turn. Paralysis cuts Speed. Sleep prevents moves. Knowing status conditions is key in competitive Pokemon!"},
   ]
 ];
 
@@ -672,11 +1068,11 @@ const BADGES=[
   {icon:'&#128197;',  name:'Consistent', check:s=>Object.values(s.calDays||{}).filter(d=>d.checked).length>=7}
 ];
 
-let state={xp:0,streak:0,currentSet:0,completed:[],tasksCompleted:[],lastDate:null,calDays:{}};
+let state={xp:0,streak:0,currentSet:0,completed:[],tasksCompleted:[],lastDate:null,calDays:{},bonusDays:{},rewardLedger:[],scavFound:{nature:{},plates:{}},signoffs:{}};
 let activeTab='learn',activeFilter='all',openCard=null,calM=5,calY=2026;
 
 function loadState(){
-  try{const s=JSON.parse(localStorage.getItem(SK));if(s)state=Object.assign({calDays:{}},state,s);if(!state.calDays)state.calDays={};}catch(e){}
+  try{const s=JSON.parse(localStorage.getItem(SK));if(s)state=Object.assign({calDays:{}},state,s);if(!state.calDays)state.calDays={};if(!state.bonusDays)state.bonusDays={};if(!state.rewardLedger)state.rewardLedger=[];if(!state.scavFound)state.scavFound={nature:{},plates:{}};if(!state.signoffs)state.signoffs={};}catch(e){}
 }
 function saveState(){localStorage.setItem(SK,JSON.stringify(state));}
 
@@ -746,6 +1142,12 @@ function switchTab(tab){
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===tab));
   renderContent();window.scrollTo({top:0,behavior:'smooth'});
 }
+function updateBonusTabVisibility(){
+  const bt=document.getElementById('bonusTab');
+  if(!bt)return;
+  bt.style.display=isBonusWindow()?'':'none';
+  if(!isBonusWindow()&&activeTab==='bonus'){activeTab='learn';renderContent();}
+}
 
 function renderContent(){
   const el=document.getElementById('mainContent');
@@ -754,6 +1156,9 @@ function renderContent(){
   if(activeTab==='fun')      el.innerHTML=renderFun();
   if(activeTab==='calendar') el.innerHTML=renderCalendar();
   if(activeTab==='profile')  el.innerHTML=renderProfile();
+  if(activeTab==='scavenger') el.innerHTML=renderScavenger();
+  if(activeTab==='bonus')    el.innerHTML=renderBonus();
+  if(activeTab==='reward')   el.innerHTML=renderReward();
 }
 
 function renderLearn(){
@@ -811,37 +1216,37 @@ function renderLearn(){
     }
     html+=`</div></div>`;
   });
+
+  // Sign-off banner at bottom of learn tab
+  const allDoneThisSet=getAssignments().every(a=>state.completed.includes(a.id));
+  const learnValid=todayLearnValidated();
+  if(allDoneThisSet){
+    if(learnValid){
+      html+=`<div style="background:var(--green-light);border:2px solid var(--green);border-radius:var(--radius);padding:16px;text-align:center;margin-top:12px">
+        <div style="font-size:22px;margin-bottom:4px">&#9989;</div>
+        <div style="font-family:var(--font-d);font-size:18px;color:#15803D;letter-spacing:1px">ASSIGNMENTS VALIDATED TODAY!</div>
+        <div style="font-size:12px;color:#15803D;margin-top:4px">Counts toward your $5 reward.</div>
+      </div>`;
+    } else {
+      html+=`<div style="background:var(--gold-light);border:2px solid var(--gold);border-radius:var(--radius);padding:16px;text-align:center;margin-top:12px">
+        <div style="font-size:22px;margin-bottom:4px">&#127942;</div>
+        <div style="font-family:var(--font-d);font-size:18px;color:var(--orange-dark);letter-spacing:1px">ALL ASSIGNMENTS DONE!</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px;margin-bottom:12px">Show a parent to validate and earn toward your $5.</div>
+        <button onclick="signOffLearn()" style="background:var(--orange);color:white;border:none;border-radius:10px;padding:11px 24px;font-family:var(--font-d);font-size:18px;letter-spacing:1px;cursor:pointer">PARENT SIGN-OFF</button>
+      </div>`;
+    }
+  }
+
   return html;
 }
 
-const MOVE_CODE='1823';
-let moveUnlocked=false;
-
 function renderTasks(){
   const done=state.tasksCompleted.length;
-  if(!moveUnlocked){
-    return `<div style="padding:32px 16px;text-align:center">
-      <div style="font-size:48px;margin-bottom:12px">&#128274;</div>
-      <div style="font-family:var(--font-d);font-size:22px;color:var(--navy);letter-spacing:1px;margin-bottom:6px">PARENT CODE REQUIRED</div>
-      <div style="font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6">A parent needs to enter the code to award XP for completed moves.</div>
-      <div style="max-width:260px;margin:0 auto">
-        <input id="moveCodeInput" type="password" placeholder="Enter code"
-          style="width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:10px;font-size:18px;text-align:center;font-family:var(--font-b);outline:none;margin-bottom:10px;letter-spacing:4px"
-          onkeydown="if(event.key==='Enter')checkMoveCode()">
-        <button onclick="checkMoveCode()"
-          style="width:100%;padding:13px;background:var(--poke-blue);color:white;border:none;border-radius:10px;font-family:var(--font-d);font-size:18px;letter-spacing:1px;cursor:pointer">
-          UNLOCK
-        </button>
-        <div id="codeError" style="color:#B91C1C;font-size:12px;font-weight:700;margin-top:8px;display:none">Wrong code. Try again.</div>
-      </div>
-    </div>`;
-  }
   let html=`<div class="stat-grid">
     <div class="stat-card"><div class="stat-num">${done}</div><div class="stat-lbl">Done</div></div>
     <div class="stat-card"><div class="stat-num">${TASKS.length-done}</div><div class="stat-lbl">Remaining</div></div>
     <div class="stat-card"><div class="stat-num">${TASKS.reduce((s,t)=>s+(state.tasksCompleted.includes(t.id)?t.xp:0),0)}</div><div class="stat-lbl">XP Earned</div></div>
-  </div><div class="section-title">&#127939; Move Missions</div>
-  <div style="background:rgba(59,76,202,.08);border:1.5px solid rgba(59,76,202,.2);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:var(--poke-blue);font-weight:600">&#128274; Parent mode active. Tap the checkmark next to each task Keaton completed to award XP.</div>`;
+  </div><div class="section-title">&#127939; Move Missions</div>`;
   TASKS.forEach(t=>{
     const isDone=state.tasksCompleted.includes(t.id);
     html+=`<div class="task-card${isDone?' done-task':''}">
@@ -850,288 +1255,291 @@ function renderTasks(){
       <button class="task-check${isDone?' done':''}" onclick="completeTask('${t.id}')">${isDone?'&#10003;':''}</button>
     </div>`;
   });
-  html+=`<div style="margin-top:16px;text-align:center"><button onclick="moveUnlocked=false;renderContent()" style="background:transparent;border:1.5px solid var(--border);border-radius:8px;padding:8px 18px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;font-family:var(--font-b)">&#128274; Lock Move Tab</button></div>`;
-  return html;
-}
-
-function checkMoveCode(){
-  const input=document.getElementById('moveCodeInput');
-  const err=document.getElementById('codeError');
-  if(!input)return;
-  if(input.value.trim()===MOVE_CODE){
-    moveUnlocked=true;
-    renderContent();
-  } else {
-    if(err){err.style.display='block';}
-    input.value='';
-    input.focus();
-  }
-}
-
-function renderFun(){
-  let html='<div class="section-title">&#11088; Fun Facts</div><p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5">Cool stuff about Pokemon, science, math, and the Bible.</p>';
-  FUN_FACTS.forEach(f=>{
-    html+=`<div class="facts-card"><div class="facts-icon">${f.icon}</div>
-      <div><div class="facts-name">${eh(f.name)}</div><div class="facts-stat">${eh(f.stat)}</div>
-      <div class="facts-lbl">${eh(f.lbl)}</div><div class="facts-note">${eh(f.note)}</div></div></div>`;
-  });
-  return html;
-}
-
-function dkey(y,m,d){return`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;}
-function inRange(y,m,d){const dt=new Date(y,m,d);return dt>=CAL_START&&dt<=CAL_END;}
-
-function renderCalendar(){
-  const logged=Object.values(state.calDays).filter(d=>d.checked).length;
-  const canPrev=!(calM===5&&calY===2026),canNext=!(calM===7&&calY===2026);
-  let html=`<div class="cal-stats">
-    <div class="cal-stat"><div class="cs-num">${logged}</div><div class="cs-lbl">Days Logged</div></div>
-    <div class="cal-stat"><div class="cs-num">86</div><div class="cs-lbl">Total Days</div></div>
-    <div class="cal-stat"><div class="cs-num">${Object.values(state.calDays||{}).filter(d=>d.checked).length}</div><div class="cs-lbl">Days Logged</div></div>
-  </div>
-  <div class="cal-header-bar">
-    <button class="cal-nav-btn" onclick="calPrev()" ${!canPrev?'disabled':''}>&#9664;</button>
-    <div class="cal-month-title">${MN[calM]} ${calY}</div>
-    <button class="cal-nav-btn" onclick="calNext()" ${!canNext?'disabled':''}>&#9654;</button>
-  </div>
-  <div class="cal-legend">
-    <div class="cal-li"><div class="cal-dot" style="background:var(--poke-yellow)"></div>Birthday &#127874;</div>
-    <div class="cal-li"><div class="cal-dot" style="background:var(--poke-green)"></div>Logged &#10003;</div>
-    <div class="cal-li"><div class="cal-dot" style="background:#FFE0E0;border:1px solid #EF9A9A"></div>Holiday</div>
-  </div>
-  <div class="cal-grid">`;
-  ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach((d,i)=>{
-    html+=`<div class="cal-dow${i===0||i===5||i===6?' wknd':''}">${d}</div>`;
-  });
-  const firstDay=new Date(calY,calM,1).getDay();
-  const daysInMonth=new Date(calY,calM+1,0).getDate();
-  for(let i=0;i<firstDay;i++)html+='<div class="cal-day empty"></div>';
-  for(let d=1;d<=daysInMonth;d++){
-    const k=dkey(calY,calM,d);
-    const sp=SPECIALS[k]||null;
-    const inR=inRange(calY,calM,d);
-    const dd=state.calDays[k]||{};
-    const dow=new Date(calY,calM,d).getDay();
-    const isWknd=dow===0||dow===5||dow===6;
-    let cls='cal-day';
-    if(!inR)cls+=' out';
-    else if(isWknd)cls+=' wknd-day';
-    if(sp?.type==='bday')cls+=' bday';
-    if(dd.checked)cls+=' logged';
-    html+=`<div class="${cls}"${inR?` onclick="openDay('${k}')"`:''}  data-k="${k}">`;
-    html+=`<div class="cal-dn">${d}</div>`;
-    if(sp?.type==='bday'){
-      html+='<div style="font-size:14px;line-height:1">&#127874;</div><div class="cc cc-bday">BDAY!</div>';
+  // Sign-off banner at bottom of move tab
+  const allTasksDone=TASKS.every(t=>state.tasksCompleted.includes(t.id));
+  const moveValid=todayMoveValidated();
+  if(allTasksDone){
+    if(moveValid){
+      html+=`<div style="background:var(--green-light);border:2px solid var(--green);border-radius:var(--radius);padding:16px;text-align:center;margin-top:12px">
+        <div style="font-size:22px;margin-bottom:4px">&#9989;</div>
+        <div style="font-family:var(--font-d);font-size:18px;color:#15803D;letter-spacing:1px">MOVES VALIDATED TODAY!</div>
+        <div style="font-size:12px;color:#15803D;margin-top:4px">Counts toward your $5 reward.</div>
+      </div>`;
     } else {
-      html+='<div class="cal-events">';
-      if(sp?.type==='hol')html+=`<div class="cc cc-hol">${sp.label.substring(0,9)}</div>`;
-      if(sp?.type==='summer')html+=`<div class="cc cc-sm">${sp.label.substring(0,9)}</div>`;
-      if(dd.note)html+='<div class="cc cc-note">&#128203; note</div>';
-      html+='</div>';
+      html+=`<div style="background:var(--gold-light);border:2px solid var(--gold);border-radius:var(--radius);padding:16px;text-align:center;margin-top:12px">
+        <div style="font-size:22px;margin-bottom:4px">&#127939;</div>
+        <div style="font-family:var(--font-d);font-size:18px;color:var(--orange-dark);letter-spacing:1px">ALL MOVES DONE!</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px;margin-bottom:12px">Show a parent to validate and earn toward your $5.</div>
+        <button onclick="signOffMove()" style="background:var(--orange);color:white;border:none;border-radius:10px;padding:11px 24px;font-family:var(--font-d);font-size:18px;letter-spacing:1px;cursor:pointer">PARENT SIGN-OFF</button>
+      </div>`;
     }
-    if(dd.checked)html+='<div class="cal-check-dot">&#10003;</div>';
-    html+='</div>';
   }
-  const rem=7-((firstDay+daysInMonth)%7);
-  if(rem<7)for(let i=0;i<rem;i++)html+='<div class="cal-day empty"></div>';
-  html+='</div>';
   return html;
 }
 
-function calPrev(){if(calM===5&&calY===2026)return;calM--;if(calM<0){calM=11;calY--;}renderContent();}
-function calNext(){if(calM===7&&calY===2026)return;calM++;if(calM>11){calM=0;calY++;}renderContent();}
 
-function openDay(k){
-  const parts=k.split('-').map(Number);
-  const [y,m,d]=[parts[0],parts[1],parts[2]];
-  const sp=SPECIALS[k]||null;
-  const dd=state.calDays[k]||{};
-  const dateObj=new Date(y,m-1,d);
-  const dayName=dateObj.toLocaleDateString('en-US',{weekday:'long'});
-  const dateStr=dateObj.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-  let html=`<div class="overlay" onclick="closeModal(event)"><div class="day-modal" id="dmi">
-    <div class="modal-handle"></div>
-    <div class="modal-title">${dayName}, ${MS[m-1]} ${d}</div>
-    <div class="modal-sub">${dateStr}</div>`;
-  if(sp?.type==='bday'){
-    html+=`<div class="bday-modal-box">
-      <div style="font-size:42px">&#127874;&#127881;&#129418;</div>
-      <div class="bday-modal-title">HAPPY 8TH BIRTHDAY KEATON!</div>
-      <div class="bday-modal-sub">You are now a Stage 2 Pokemon trainer! Keep leveling up all summer.<br>Gotta learn em all!</div>
-    </div>`;
-  }
-  if(sp?.type==='hol'){
-    html+=`<div style="background:#FFF8E1;border:1.5px solid #FFE082;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:13px;font-weight:700;color:#E65100">&#127881; ${eh(sp.label)}</div>`;
-  }
-  html+=`<div class="modal-sl">Daily Note</div>
-    <textarea class="modal-note" id="mnote" placeholder="What did you do today? What Pokemon would you be today?">${eh(dd.note||'')}</textarea>
-    <button class="modal-cb ${dd.checked?'chk':'unc'}" id="mcb" onclick="toggleCheck('${k}')">
-      ${dd.checked?'&#10003; Day Logged! +10 XP':'Mark Day Complete +10 XP'}
-    </button>`;
+function toggleScav(idx){
+  const todayKey=getTodayKey();
+  if(!state.bonusDays)state.bonusDays={};
+  if(!state.bonusDays[todayKey])state.bonusDays[todayKey]={quizAnswers:{},scavChecked:[],completed:false};
+  const sc=state.bonusDays[todayKey].scavChecked;
+  const pos=sc.indexOf(idx);
+  if(pos===-1)sc.push(idx);else sc.splice(pos,1);
+  saveState();renderContent();
+}
 
-  // Parent penalty
-  const penHist=(dd.penalties||[]).map(p=>`<div class="penalty-chip">&#9888; -${p.pts} XP: ${eh(p.reason)}</div>`).join('');
-  html+=`<div class="penalty-box">
-    <div class="penalty-title">&#9888; Parent Zone</div>
-    <div class="penalty-row">
-      <input class="penalty-input" id="penReason" placeholder="Reason (e.g. didn't listen)">
-      <select class="penalty-select" id="penAmt"><option value="25">-25 XP</option><option value="50">-50 XP</option><option value="75">-75 XP</option><option value="100">-100 XP</option></select>
-      <button class="penalty-btn" onclick="addPenalty('${k}')">Deduct</button>
+function answerBonus(qIdx,choice){
+  const lesson=getBonusForToday();
+  const todayKey=getTodayKey();
+  if(!state.bonusDays)state.bonusDays={};
+  if(!state.bonusDays[todayKey])state.bonusDays[todayKey]={quizAnswers:{},scavChecked:[],completed:false};
+  const td=state.bonusDays[todayKey];
+  if(td.quizAnswers[qIdx]!==undefined)return;
+  td.quizAnswers[qIdx]=choice;
+  if(choice===lesson.quiz[qIdx].a){awardXP(30);}
+  saveState();renderContent();
+  setTimeout(()=>{
+    const next=document.querySelector('.bonus-q-card:not([data-answered])');
+    if(next)next.scrollIntoView({behavior:'smooth',block:'center'});
+  },100);
+}
+
+function completeBonus(){
+  const todayKey=getTodayKey();
+  if(!state.bonusDays)state.bonusDays={};
+  if(!state.bonusDays[todayKey])state.bonusDays[todayKey]={quizAnswers:{},scavChecked:[],completed:false};
+  state.bonusDays[todayKey].completed=true;
+  awardXP(50);
+  saveState();renderContent();
+  showToast('BONUS COMPLETE! +50 XP');
+}
+
+/* ── REWARD HELPERS ── */
+function todayAssignmentsDone(){
+  return getAssignments().every(a=>state.completed.includes(a.id))&&todayLearnValidated();
+}
+function todayBonusDone(){
+  const td=(state.bonusDays||{})[getTodayKey()]||{};
+  return !!td.completed;
+}
+function todayAlreadyEarned(){
+  const ledger=state.rewardLedger||[];
+  return ledger.some(e=>e.type==='earn'&&e.date===getTodayKey());
+}
+
+function renderReward(){
+  const ledger=state.rewardLedger||[];
+  const totalEarned=ledger.filter(e=>e.type==='earn').reduce((s,e)=>s+e.amt,0);
+  const totalSpent=ledger.filter(e=>e.type==='spend').reduce((s,e)=>s+e.amt,0);
+  const balance=totalEarned-totalSpent;
+  const assignsDone=todayAssignmentsDone();
+  const bonusDone=todayBonusDone();
+  const alreadyEarned=todayAlreadyEarned();
+  const moveValidToday=todayMoveValidated();
+  const canEarn=assignsDone&&bonusDone&&moveValidToday&&!alreadyEarned;
+
+  let html=`<div class="reward-hero">
+    <div class="reward-balance">$${balance.toFixed(2)}</div>
+    <div class="reward-balance-lbl">Available Balance</div>
+    <div class="reward-goal">Earn $5 today by completing everything</div>
+  </div>`;
+
+  html+=`<div class="section-title">&#127919; Today's Goal</div>
+  <div class="day-goal-card">
+    <div class="day-goal-row">
+      <div class="day-goal-dot" style="background:${assignsDone?'var(--green)':'var(--border)'}"></div>
+      <div class="day-goal-label">Complete all assignments</div>
+      <div class="day-goal-status" style="color:${assignsDone?'var(--green)':'var(--muted)'}">${assignsDone?'&#10003; Done':'Not yet'}</div>
     </div>
-    <div class="penalty-history" id="penHistoryBox">${penHist}</div>
-  </div>
-  <button class="modal-cl" onclick="saveNote('${k}');closeModal()">Save &amp; Close</button>
-  </div></div>`;
-  document.getElementById('modalContainer').innerHTML=html;
+    <div class="day-goal-row">
+      <div class="day-goal-dot" style="background:${moveValidToday?'var(--green)':'var(--border)'}"></div>
+      <div class="day-goal-label">Complete and validate all moves</div>
+      <div class="day-goal-status" style="color:${moveValidToday?'var(--green)':'var(--muted)'}">${moveValidToday?'&#10003; Done':'Not yet'}</div>
+    </div>
+    <div class="day-goal-row">
+      <div class="day-goal-dot" style="background:${bonusDone?'var(--green)':'var(--border)'}"></div>
+      <div class="day-goal-label">Complete the bonus lesson</div>
+      <div class="day-goal-status" style="color:${bonusDone?'var(--green)':'var(--muted)'}">${bonusDone?'&#10003; Done':'Not yet'}</div>
+    </div>
+    ${alreadyEarned?`<div style="background:var(--green-light);border:1px solid var(--green);border-radius:8px;padding:10px 12px;margin-top:8px;font-size:12px;font-weight:700;color:#15803D;text-align:center">&#127881; $5 earned today! Great work!</div>`:''}
+    <button class="earn-btn ${canEarn?'ready':'not-ready'}" onclick="${canEarn?'earnReward()':'void(0)'}">${alreadyEarned?'&#10003; Already Earned Today':canEarn?'&#9989; EARN $5 NOW':'Complete both tasks above first'}</button>
+  </div>`;
+
+  html+=`<div class="section-title">&#128184; Ledger</div>`;
+  if(!ledger.length){html+=`<div class="ledger-empty">No transactions yet. Earn your first $5 today!</div>`;}
+  else{
+    [...ledger].reverse().forEach(e=>{
+      if(e.type==='earn'){
+        html+=`<div class="ledger-row-earn">&#43;$${e.amt.toFixed(2)} earned &nbsp;&bull;&nbsp; ${e.date} ${e.note?'&bull; '+eh(e.note):''}</div>`;
+      } else {
+        html+=`<div class="ledger-row-spend">&#8722;$${e.amt.toFixed(2)} spent &nbsp;&bull;&nbsp; ${e.date} ${e.note?'&bull; '+eh(e.note):''}</div>`;
+      }
+    });
+  }
+
+  html+=`<div class="spend-box">
+    <div class="spend-title">&#128274; Parent: Log a Spend</div>
+    <input id="spendCodeIn" type="password" placeholder="Parent code" style="width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:var(--font-b);font-size:13px;outline:none;margin-bottom:8px">
+    <div class="spend-row">
+      <input id="spendDesc" class="spend-input" placeholder="What was purchased">
+      <input id="spendAmt" class="spend-amt" type="number" placeholder="$" min="0.01" step="0.01">
+      <button class="spend-btn" onclick="logSpend()">&#8722; Spend</button>
+    </div>
+    <div id="spendErr" style="color:#B91C1C;font-size:11px;font-weight:700;display:none">Wrong code or missing info.</div>
+  </div>`;
+
+  return html;
 }
 
-function saveNote(k){
-  const ta=document.getElementById('mnote');
-  if(ta){if(!state.calDays[k])state.calDays[k]={};state.calDays[k].note=ta.value;saveState();}
+function earnReward(){
+  if(!todayAssignmentsDone()||!todayBonusDone()||todayAlreadyEarned())return;
+  if(!state.rewardLedger)state.rewardLedger=[];
+  state.rewardLedger.push({type:'earn',amt:5,date:getTodayKey(),note:'Daily goal complete'});
+  saveState();renderContent();
+  showToast('$5 EARNED! Great work!');
 }
-function toggleCheck(k){
-  saveNote(k);
-  if(!state.calDays[k])state.calDays[k]={};
-  const was=state.calDays[k].checked;
-  state.calDays[k].checked=!was;
-  saveState();
-  const btn=document.getElementById('mcb');
-  if(btn){btn.className=`modal-cb ${state.calDays[k].checked?'chk':'unc'}`;btn.innerHTML=state.calDays[k].checked?'&#10003; Day Logged!':'Mark Day Complete +10 XP';}
-  if(!was){awardXP(10);showToast('+10 XP — Day Logged!');}
+
+async function logSpend(){
+  const code=document.getElementById('spendCodeIn')?.value?.trim();
+  const desc=document.getElementById('spendDesc')?.value?.trim();
+  const amt=parseFloat(document.getElementById('spendAmt')?.value||'0');
+  const err=document.getElementById('spendErr');
+  const codeOk=await verifyCode(code);
+  if(!codeOk||!desc||isNaN(amt)||amt<=0){
+    if(err)err.style.display='block';return;
+  }
+  if(!state.rewardLedger)state.rewardLedger=[];
+  state.rewardLedger.push({type:'spend',amt,date:getTodayKey(),note:desc});
+  saveState();renderContent();
+  showToast('-$'+amt.toFixed(2)+' logged');
+}
+
+
+/* ── SCAVENGER HUNT STATE & RENDER ── */
+let scavPage='nature';  // 'nature' or 'plates'
+let scavOpenCat=null;
+
+function toggleScavItem(type,key){
+  if(!state.scavFound)state.scavFound={nature:{},plates:{}};
+  if(!state.scavFound[type])state.scavFound[type]={};
+  state.scavFound[type][key]=!state.scavFound[type][key];
+  saveState();renderContent();
+}
+function toggleScavCat(idx){
+  scavOpenCat=scavOpenCat===idx?null:idx;
   renderContent();
 }
-function addPenalty(k){
-  const reason=document.getElementById('penReason')?.value?.trim();
-  const pts=parseInt(document.getElementById('penAmt')?.value||'25');
-  if(!reason){alert('Please enter a reason.');return;}
-  if(!state.calDays[k])state.calDays[k]={};
-  if(!state.calDays[k].penalties)state.calDays[k].penalties=[];
-  state.calDays[k].penalties.push({reason,pts,time:new Date().toLocaleTimeString()});
-  state.xp=Math.max(0,state.xp-pts);
-  saveState();updateHeader();showToast('-'+pts+' XP');
-  const box=document.getElementById('penHistoryBox');
-  if(box)box.innerHTML=(state.calDays[k].penalties||[]).map(p=>`<div class="penalty-chip">&#9888; -${p.pts} XP: ${eh(p.reason)}</div>`).join('');
-  const input=document.getElementById('penReason');if(input)input.value='';
-  renderContent();
-}
-function closeModal(e){
-  if(e&&e.target!==document.querySelector('.overlay'))return;
-  document.getElementById('modalContainer').innerHTML='';renderContent();
-}
+function setScavPage(p){scavPage=p;scavOpenCat=null;renderContent();}
 
-function renderProfile(){
-  const evo=getEvo();
-  const logged=Object.values(state.calDays).filter(d=>d.checked).length;
-  const hpPct=Math.min(100,Math.round(((state.xp-evo.min)/(evo.max===99999?evo.min+500:evo.max-evo.min))*100));
-  const hp=Math.max(4,Math.round((hpPct/100)*evo.hpMax));
+function renderScavenger(){
+  if(!state.scavFound)state.scavFound={nature:{},plates:{}};
+  const nf=state.scavFound.nature||{};
+  const pf=state.scavFound.plates||{};
 
-  let html=`<div class="profile-poke-card">
-    <div class="profile-card-inner">
-      <div class="profile-name-row">
-        <div class="profile-name">${evo.name}</div>
-        <div class="profile-hp-display">${hp}/${evo.hpMax} HP</div>
-      </div>
-      <div class="profile-art-row">
-        <div class="profile-pokemon-art">${evo.pokemon}</div>
-        <div class="profile-stats-block">
-          <div class="profile-stat-row"><div class="profile-stat-label">Stage</div><div class="profile-stat-val">${evo.stage}</div></div>
-          <div class="profile-stat-row"><div class="profile-stat-label">Total XP</div><div class="profile-stat-val">${state.xp.toLocaleString()}</div></div>
-          <div class="profile-stat-row"><div class="profile-stat-label">Days Logged</div><div class="profile-stat-val">${Object.values(state.calDays||{}).filter(d=>d.checked).length}</div></div>
-          <div class="profile-stat-row"><div class="profile-stat-label">Lessons</div><div class="profile-stat-val">${state.completed.length}/${ASSIGNMENTS.length}</div></div>
-          <div class="profile-stat-row"><div class="profile-stat-label">Days Logged</div><div class="profile-stat-val">${logged}</div></div>
-        </div>
-      </div>
-      <div style="font-size:11px;color:#777;font-style:italic;text-align:center;padding-top:4px">${evo.flavor}</div>
+  // totals
+  const totalNature=NATURE_CATEGORIES.reduce((s,c)=>s+c.items.length,0);
+  const foundNature=Object.values(nf).filter(Boolean).length;
+  const foundPlates=Object.values(pf).filter(Boolean).length;
+  const totalPlates=LICENSE_PLATES.length;
+
+  let html=`<div class="scav-page-hero">
+    <div class="scav-page-title">${scavPage==='nature'?'&#127807; WEST MICHIGAN NATURE HUNT':'&#128663; LICENSE PLATE HUNT'}</div>
+    <div class="scav-page-sub">${scavPage==='nature'?'Summer 2026 — All Season Tracker':'All 50 States + Bonuses'}</div>
+    <div class="scav-progress-row">
+      <div class="scav-progress-bg"><div class="scav-progress-fill" style="width:${Math.round(((scavPage==='nature'?foundNature:foundPlates)/(scavPage==='nature'?totalNature:totalPlates))*100)}%"></div></div>
+      <div class="scav-progress-lbl">${scavPage==='nature'?foundNature:foundPlates} / ${scavPage==='nature'?totalNature:totalPlates}</div>
     </div>
   </div>`;
 
-  html+='<div class="section-title">&#127941; Badges</div><div class="badge-grid">';
-  BADGES.forEach(b=>{
-    const earned=b.check(state);
-    html+=`<div class="badge-item${earned?' earned':' locked'}"><div class="badge-emoji">${b.icon}</div><div class="badge-name">${eh(b.name)}</div></div>`;
-  });
-  html+='</div>';
+  html+=`<div class="scav-page-tabs">
+    <div class="scav-page-tab${scavPage==='nature'?' active':''}" onclick="setScavPage('nature')">&#127807; Nature Hunt</div>
+    <div class="scav-page-tab${scavPage==='plates'?' active':''}" onclick="setScavPage('plates')">&#128663; License Plates</div>
+  </div>`;
 
-  html+='<div class="section-title" style="margin-top:18px">&#128202; Progress</div><div class="category-progress">';
-  Object.keys(CE).forEach(cat=>{
-    const total=getAssignments().filter(a=>a.cat===cat).length;if(!total)return;
-    const done=state.completed.filter(id=>getAssignments().find(a=>a.id===id)?.cat===cat).length;
-    const pct=Math.round((done/total)*100);
-    html+=`<div class="prog-row"><div class="prog-emoji">${CE[cat]}</div><div class="prog-label">${CL[cat]}</div><div class="prog-bar-bg"><div class="prog-bar-fill" style="width:${pct}%"></div></div><div class="prog-count">${done}/${total}</div></div>`;
-  });
-  html+='</div>';
+  if(scavPage==='nature'){
+    NATURE_CATEGORIES.forEach((cat,ci)=>{
+      const foundInCat=cat.items.filter((_,ii)=>nf[ci+'_'+ii]).length;
+      const isOpen=scavOpenCat===ci;
+      html+=`<div class="scav-cat-card">
+        <div class="scav-cat-header" onclick="toggleScavCat(${ci})">
+          <div class="scav-cat-icon">${cat.icon}</div>
+          <div class="scav-cat-name">${eh(cat.cat)}</div>
+          <div class="scav-cat-count">${foundInCat}/${cat.items.length}</div>
+          <div class="scav-cat-chev${isOpen?' open':''}">&#9660;</div>
+        </div>
+        <div class="scav-cat-body${isOpen?' open':''}">`;
+      cat.items.forEach((item,ii)=>{
+        const found=!!nf[ci+'_'+ii];
+        html+=`<div class="scav-item-row" onclick="toggleScavItem('nature','${ci+'_'+ii}')">
+          <div class="scav-item-check${found?' found':''}">${found?'&#10003;':''}</div>
+          <div class="scav-item-text${found?' found-text':''}">${eh(item)}</div>
+        </div>`;
+      });
+      html+=`</div></div>`;
+    });
+  } else {
+    html+=`<div class="scav-cat-card"><div class="plate-grid">`;
+    LICENSE_PLATES.forEach((plate,pi)=>{
+      const found=!!pf['p'+pi];
+      html+=`<div class="plate-item${found?' found-plate':''}" onclick="toggleScavItem('plates','p${pi}')">
+        ${found?'<div class="plate-check">&#10003; FOUND</div>':''}
+        <div class="plate-name">${eh(plate)}</div>
+      </div>`;
+    });
+    html+=`</div></div>`;
+  }
 
-  html+=`<div class="reset-box"><h3>Reset Progress</h3><p>Clears all XP, completed lessons, tasks, and calendar logs.</p><button class="reset-btn" onclick="resetAll()">Reset Everything</button></div>`;
   return html;
 }
 
-function setFilter(f){activeFilter=f;openCard=null;renderContent();}
-function toggleCard(id){openCard=openCard===id?null:id;renderContent();}
 
-function answer(aid,choice){
-  const a=getAssignments().find(x=>x.id===aid);
-  if(!a||state.completed.includes(aid))return;
-  const optsEl=document.getElementById('opts_'+aid),resultEl=document.getElementById('result_'+aid);
-  if(!optsEl||!resultEl)return;
-  optsEl.querySelectorAll('.option-btn').forEach(btn=>{
-    btn.disabled=true;
-    if(btn.textContent.trim()===a.answer)btn.classList.add('correct');
-    else if(btn.textContent.trim()===choice&&choice!==a.answer)btn.classList.add('wrong');
-  });
-  if(choice===a.answer){
-    resultEl.innerHTML=`<div class="result-msg win">&#10003; ${eh(a.fact)}</div>`;
-    state.completed.push(aid);saveState();
-    setTimeout(()=>{
-      awardXP(a.xp);
-      const filtered=activeFilter==='all'?getAssignments():getAssignments().filter(x=>x.cat===activeFilter);
-      const next=filtered.find(x=>!state.completed.includes(x.id));
-      if(next){
-        openCard=next.id;
-        renderContent();
-        setTimeout(()=>{const el=document.getElementById('body_'+next.id);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},120);
-      } else {
-        openCard=null;
-        renderContent();
-        showToast('ALL DONE! Great work Keaton!');
-      }
-    },900);
-  }else{
-    resultEl.innerHTML=`<div class="result-msg lose">&#10007; Not quite. Answer: <strong>${eh(a.answer)}</strong>. ${eh(a.fact)}</div>`;
-  }
+async function verifyCode(input){
+  const enc=new TextEncoder().encode(input.trim());
+  const buf=await crypto.subtle.digest('SHA-256',enc);
+  const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  return hex==='2e1943902be93c87e9d31812ef887d1f91326e8e8e3779feb59c48c9ac32f58f';
 }
 
-function completeTask(tid){
-  if(state.tasksCompleted.includes(tid))return;
-  const t=TASKS.find(x=>x.id===tid);if(!t)return;
-  state.tasksCompleted.push(tid);saveState();awardXP(t.xp);renderContent();
-}
 
-function advanceSet(){
-  const input=document.getElementById('nextSetCode');
-  const err=document.getElementById('nextSetErr');
-  if(!input)return;
-  if(input.value.trim()==='1823'){
-    state.currentSet=(state.currentSet||0)+1;
-    state.completed=[];
-    openCard=null;activeFilter='all';
-    saveState();renderContent();updateHeader();
-    showToast('SET '+(state.currentSet+1)+' UNLOCKED!');
+/* ── PARENT SIGN-OFF ── */
+function getTodayKeySignoff(){return new Date().toISOString().slice(0,10);}
+
+async function signOffLearn(){
+  const code=prompt('Parent code to validate assignments:');
+  if(!code)return;
+  if(await verifyCode(code)){
+    const k=getTodayKeySignoff();
+    if(!state.signoffs)state.signoffs={};
+    state.signoffs[k]=state.signoffs[k]||{};
+    state.signoffs[k].learn=true;
+    saveState();renderContent();
+    showToast('ASSIGNMENTS VALIDATED!');
   } else {
-    if(err)err.style.display='block';
-    input.value='';input.focus();
+    alert('Wrong code. Try again.');
   }
 }
 
-function resetAll(){
-  if(!confirm('Reset all of Keaton\'s progress?'))return;
-  state={xp:0,currentSet:0,completed:[],tasksCompleted:[],lastDate:null,calDays:{}};
-  saveState();updateHeader();renderContent();
+async function signOffMove(){
+  const code=prompt('Parent code to validate moves:');
+  if(!code)return;
+  if(await verifyCode(code)){
+    const k=getTodayKeySignoff();
+    if(!state.signoffs)state.signoffs={};
+    state.signoffs[k]=state.signoffs[k]||{};
+    state.signoffs[k].move=true;
+    saveState();renderContent();
+    showToast('MOVES VALIDATED!');
+  } else {
+    alert('Wrong code. Try again.');
+  }
 }
 
-function eh(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
-function ea(s){return String(s).replace(/'/g,'&#039;').replace(/"/g,'&quot;');}
+function todayLearnValidated(){const k=getTodayKeySignoff();return !!(state.signoffs&&state.signoffs[k]&&state.signoffs[k].learn);}
+function todayMoveValidated(){const k=getTodayKeySignoff();return !!(state.signoffs&&state.signoffs[k]&&state.signoffs[k].move);}
 
 loadState();updateHeader();renderContent();
+updateBonusTabVisibility();
+setInterval(updateBonusTabVisibility,60000);
 </script>
 </body>
 </html>
