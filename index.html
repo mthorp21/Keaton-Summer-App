@@ -723,13 +723,34 @@ function renderLearn(){
   return html;
 }
 
+const MOVE_CODE='1823';
+let moveUnlocked=false;
+
 function renderTasks(){
   const done=state.tasksCompleted.length;
+  if(!moveUnlocked){
+    return `<div style="padding:32px 16px;text-align:center">
+      <div style="font-size:48px;margin-bottom:12px">&#128274;</div>
+      <div style="font-family:var(--font-d);font-size:22px;color:var(--navy);letter-spacing:1px;margin-bottom:6px">PARENT CODE REQUIRED</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6">A parent needs to enter the code to award XP for completed moves.</div>
+      <div style="max-width:260px;margin:0 auto">
+        <input id="moveCodeInput" type="password" placeholder="Enter code"
+          style="width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:10px;font-size:18px;text-align:center;font-family:var(--font-b);outline:none;margin-bottom:10px;letter-spacing:4px"
+          onkeydown="if(event.key==='Enter')checkMoveCode()">
+        <button onclick="checkMoveCode()"
+          style="width:100%;padding:13px;background:var(--poke-blue);color:white;border:none;border-radius:10px;font-family:var(--font-d);font-size:18px;letter-spacing:1px;cursor:pointer">
+          UNLOCK
+        </button>
+        <div id="codeError" style="color:#B91C1C;font-size:12px;font-weight:700;margin-top:8px;display:none">Wrong code. Try again.</div>
+      </div>
+    </div>`;
+  }
   let html=`<div class="stat-grid">
     <div class="stat-card"><div class="stat-num">${done}</div><div class="stat-lbl">Done</div></div>
     <div class="stat-card"><div class="stat-num">${TASKS.length-done}</div><div class="stat-lbl">Remaining</div></div>
     <div class="stat-card"><div class="stat-num">${TASKS.reduce((s,t)=>s+(state.tasksCompleted.includes(t.id)?t.xp:0),0)}</div><div class="stat-lbl">XP Earned</div></div>
-  </div><div class="section-title">&#127939; Move Missions</div>`;
+  </div><div class="section-title">&#127939; Move Missions</div>
+  <div style="background:rgba(59,76,202,.08);border:1.5px solid rgba(59,76,202,.2);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:var(--poke-blue);font-weight:600">&#128274; Parent mode active. Tap the checkmark next to each task Keaton completed to award XP.</div>`;
   TASKS.forEach(t=>{
     const isDone=state.tasksCompleted.includes(t.id);
     html+=`<div class="task-card${isDone?' done-task':''}">
@@ -738,7 +759,22 @@ function renderTasks(){
       <button class="task-check${isDone?' done':''}" onclick="completeTask('${t.id}')">${isDone?'&#10003;':''}</button>
     </div>`;
   });
+  html+=`<div style="margin-top:16px;text-align:center"><button onclick="moveUnlocked=false;renderContent()" style="background:transparent;border:1.5px solid var(--border);border-radius:8px;padding:8px 18px;font-size:12px;font-weight:700;color:var(--muted);cursor:pointer;font-family:var(--font-b)">&#128274; Lock Move Tab</button></div>`;
   return html;
+}
+
+function checkMoveCode(){
+  const input=document.getElementById('moveCodeInput');
+  const err=document.getElementById('codeError');
+  if(!input)return;
+  if(input.value.trim()===MOVE_CODE){
+    moveUnlocked=true;
+    renderContent();
+  } else {
+    if(err){err.style.display='block';}
+    input.value='';
+    input.focus();
+  }
 }
 
 function renderFun(){
@@ -952,9 +988,22 @@ function answer(aid,choice){
     else if(btn.textContent.trim()===choice&&choice!==a.answer)btn.classList.add('wrong');
   });
   if(choice===a.answer){
-    resultEl.innerHTML=`<div class="result-msg win">&#10003; Correct! ${eh(a.fact)}</div>`;
+    resultEl.innerHTML=`<div class="result-msg win">&#10003; ${eh(a.fact)}</div>`;
     state.completed.push(aid);saveState();
-    setTimeout(()=>{awardXP(a.xp);renderContent();},900);
+    setTimeout(()=>{
+      awardXP(a.xp);
+      const filtered=activeFilter==='all'?ASSIGNMENTS:ASSIGNMENTS.filter(x=>x.cat===activeFilter);
+      const next=filtered.find(x=>!state.completed.includes(x.id));
+      if(next){
+        openCard=next.id;
+        renderContent();
+        setTimeout(()=>{const el=document.getElementById('body_'+next.id);if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},120);
+      } else {
+        openCard=null;
+        renderContent();
+        showToast('ALL DONE! Great work Keaton!');
+      }
+    },900);
   }else{
     resultEl.innerHTML=`<div class="result-msg lose">&#10007; Not quite. Answer: <strong>${eh(a.answer)}</strong>. ${eh(a.fact)}</div>`;
   }
