@@ -432,6 +432,29 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:var(--text);min-h
 .scav-page-tab:last-child{border-right:none}
 .scav-page-tab.active{background:#064E3B;color:white}
 
+
+/* ── Memory Game ─────────────────────────── */
+.game-wrap{padding:4px 0}
+.game-board{display:grid;gap:8px;margin:14px 0}
+.game-board.easy{grid-template-columns:repeat(4,1fr)}
+.game-board.medium{grid-template-columns:repeat(4,1fr)}
+.game-board.hard{grid-template-columns:repeat(4,1fr)}
+.mem-card{aspect-ratio:1;cursor:pointer;perspective:600px;-webkit-tap-highlight-color:transparent}
+.mem-card-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+.mem-card.flipped .mem-card-inner,.mem-card.matched .mem-card-inner{transform:rotateY(180deg)}
+.mem-face{position:absolute;inset:0;border-radius:12px;display:flex;align-items:center;justify-content:center;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.mem-back{background:linear-gradient(135deg,var(--poke-blue),#1a1a2e);border:2px solid var(--poke-yellow);font-size:22px}
+.mem-front{background:#fff;border:2px solid var(--border);transform:rotateY(180deg);flex-direction:column;gap:3px;padding:4px}
+.mem-card.matched .mem-front{background:var(--poke-green-light);border-color:var(--poke-green)}
+.mem-card.wrong .mem-front{background:#FEE2E2;border-color:#B91C1C}
+.mem-emoji{font-size:clamp(18px,5vw,28px);line-height:1}
+.mem-label{font-size:clamp(7px,2vw,10px);font-weight:700;color:#1A1A2E;text-align:center;line-height:1.2;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.game-hud{display:flex;gap:8px;margin-bottom:10px}
+.hud-pill{background:#fff;border:1.5px solid var(--border);border-radius:99px;padding:7px 14px;font-size:13px;font-weight:700;color:var(--fg);flex:1;text-align:center}
+.hud-pill span{color:var(--poke-blue)}
+.diff-btn{padding:10px 0;border:2px solid var(--border);border-radius:12px;background:#fff;font-family:var(--font-d);font-size:17px;letter-spacing:.5px;cursor:pointer;flex:1;transition:all .15s}
+.diff-btn.active{background:var(--poke-blue);color:#fff;border-color:var(--poke-blue)}
+.game-win-banner{background:linear-gradient(135deg,#FEF9C3,#E0F2FE);border:2.5px solid var(--poke-yellow);border-radius:var(--radius);padding:20px;text-align:center;margin-top:10px}
 </style>
 </head>
 <body>
@@ -511,6 +534,7 @@ body{font-family:var(--font-b);background:var(--gray-bg);color:var(--text);min-h
     <div class="tab" data-tab="bonus" id="bonusTab" onclick="switchTab('bonus')"><span class="tab-icon">&#9889;</span>Bonus</div>
     <div class="tab" data-tab="reward" onclick="switchTab('reward')"><span class="tab-icon">&#128184;</span>Reward</div>
     <div class="tab" data-tab="scavenger" onclick="switchTab('scavenger')"><span class="tab-icon">&#127807;</span>Hunt</div>
+    <div class="tab" data-tab="game" onclick="switchTab('game')"><span class="tab-icon">&#127918;</span>Game</div>
     <div class="tab" data-tab="profile" onclick="switchTab('profile')"><span class="tab-icon">&#127942;</span>Profile</div>
   </div>
 
@@ -533,25 +557,25 @@ const CHEETARA_ART='<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" 
 const KEATONEX_ART='<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="64" height="64"><defs><radialGradient id="gg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#FFE840"/><stop offset="100%" stop-color="#FF8C00"/></radialGradient></defs><ellipse cx="40" cy="54" rx="22" ry="13" fill="url(#gg)"/><circle cx="40" cy="26" r="16" fill="url(#gg)"/><ellipse cx="27" cy="12" rx="6.5" ry="10" fill="url(#gg)"/><ellipse cx="53" cy="12" rx="6.5" ry="10" fill="url(#gg)"/><ellipse cx="27" cy="11" rx="4.5" ry="7" fill="#FFF4A0"/><ellipse cx="53" cy="11" rx="4.5" ry="7" fill="#FFF4A0"/><circle cx="33" cy="24" r="5.5" fill="#1A0500"/><circle cx="47" cy="24" r="5.5" fill="#1A0500"/><circle cx="34.5" cy="22.5" r="2.2" fill="white"/><circle cx="48.5" cy="22.5" r="2.2" fill="white"/><circle cx="35" cy="22.8" r="0.9" fill="#FFE840"/><circle cx="49" cy="22.8" r="0.9" fill="#FFE840"/><ellipse cx="40" cy="32" rx="5.5" ry="4.5" fill="#C05820"/><ellipse cx="40" cy="33.5" rx="4" ry="3" fill="#902A00"/><line x1="27" y1="29" x2="12" y2="26" stroke="#1A0500" stroke-width="1.8"/><line x1="27" y1="31" x2="11" y2="31" stroke="#1A0500" stroke-width="1.8"/><line x1="27" y1="33" x2="12" y2="36" stroke="#1A0500" stroke-width="1.8"/><line x1="53" y1="29" x2="68" y2="26" stroke="#1A0500" stroke-width="1.8"/><line x1="53" y1="31" x2="69" y2="31" stroke="#1A0500" stroke-width="1.8"/><line x1="53" y1="33" x2="68" y2="36" stroke="#1A0500" stroke-width="1.8"/><circle cx="30" cy="21" r="2.2" fill="#1A0500" opacity="0.75"/><circle cx="34.5" cy="18" r="2.2" fill="#1A0500" opacity="0.75"/><circle cx="40" cy="17" r="2.2" fill="#1A0500" opacity="0.75"/><circle cx="45.5" cy="18" r="2.2" fill="#1A0500" opacity="0.75"/><circle cx="50" cy="21" r="2.2" fill="#1A0500" opacity="0.75"/><path d="M23 36 Q16 45 18 56 Q20 65 27 68" stroke="#FF8C00" stroke-width="3.5" fill="none"/><path d="M57 36 Q64 45 62 56 Q60 65 53 68" stroke="#FF8C00" stroke-width="3.5" fill="none"/><ellipse cx="27" cy="69" rx="7" ry="4.5" fill="url(#gg)"/><ellipse cx="53" cy="69" rx="7" ry="4.5" fill="url(#gg)"/><path d="M48 57 Q60 59 70 53 Q80 65 73 74" stroke="#FF8C00" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="33" cy="44" r="3" fill="#1A0500" opacity="0.65"/><circle cx="40" cy="42" r="3" fill="#1A0500" opacity="0.65"/><circle cx="47" cy="44" r="3" fill="#1A0500" opacity="0.65"/><circle cx="30" cy="51" r="3" fill="#1A0500" opacity="0.65"/><circle cx="37" cy="53" r="3" fill="#1A0500" opacity="0.65"/><circle cx="43" cy="53" r="3" fill="#1A0500" opacity="0.65"/><circle cx="50" cy="51" r="3" fill="#1A0500" opacity="0.65"/><polygon points="40,2 42.5,9 50,9 44,14 46.5,21 40,16.5 33.5,21 36,14 30,9 37.5,9" fill="#FFD700" opacity="0.95"/><line x1="37" y1="69" x2="34" y2="79" stroke="#FF8C00" stroke-width="3"/><line x1="43" y1="69" x2="46" y2="79" stroke="#FF8C00" stroke-width="3"/></svg>';
 
 const EVOLUTIONS=[
-  {min:0,   max:300,  stage:'Basic',     stageClass:'basic',  get pokemon(){return CHEETKIT_ART;},
+  {min:0,    max:2250,  stage:'Basic',     stageClass:'basic',  get pokemon(){return CHEETKIT_ART;},
    name:'CHEETKIT',  hp:30,  hpMax:30,  type:'&#128168; Normal',
    flavor:'A tiny cheetah cub Pokemon. Clumsy but determined. Its spots are still forming, just like its knowledge.',
    move1:'Pounce',      dmg1:10, move2:'Cub Scratch',    dmg2:30,
    footer:'Cheetkit \xb7 Summer 2026 \xb7 #001', weakness:'Weakness: Homework &#10005;2',
    color:'var(--stage-basic)'},
-  {min:300, max:800,  stage:'Stage 1',   stageClass:'stage1', get pokemon(){return CHEETLEN_ART;},
+  {min:2250, max:5500, stage:'Stage 1',   stageClass:'stage1', get pokemon(){return CHEETLEN_ART;},
    name:'CHEETLEN',  hp:70,  hpMax:70,  type:'&#9889; Electric',
    flavor:'A juvenile cheetah Pokemon growing fast. Its speed is increasing and its spots are sharp. Watch out!',
    move1:'Sprint',      dmg1:20, move2:'Quick Study',    dmg2:50,
    footer:'Cheetlen \xb7 Summer 2026 \xb7 #002', weakness:'Weakness: Screen Time &#10005;2',
    color:'var(--stage-1)'},
-  {min:800, max:1800, stage:'Stage 2',   stageClass:'stage2', get pokemon(){return CHEETARA_ART;},
+  {min:5500, max:10000, stage:'Stage 2',   stageClass:'stage2', get pokemon(){return CHEETARA_ART;},
    name:'CHEETARA',  hp:120, hpMax:120, type:'&#128293; Fire',
    flavor:'A fully evolved cheetah Pokemon. Fastest creature on the savanna. Its knowledge is as sharp as its claws.',
    move1:'Blaze Sprint', dmg1:40, move2:'Summer Surge',   dmg2:80,
    footer:'Cheetara \xb7 Summer 2026 \xb7 #003', weakness:'Weakness: Boredom &#10005;2',
    color:'var(--stage-2)'},
-  {min:1800,max:99999,stage:'Keaton-EX', stageClass:'stagex', get pokemon(){return KEATONEX_ART;},
+  {min:10000,max:99999, stage:'Keaton-EX', stageClass:'stagex', get pokemon(){return KEATONEX_ART;},
    name:'KEATON-EX', hp:200, hpMax:200, type:'&#10024; Psychic',
    flavor:'KEATON-EX! The legendary golden cheetah. Glowing eyes. Crown of stars. Unstoppable. Best summer ever.',
    move1:'EX Blitz',    dmg1:80, move2:'Champion Roar',  dmg2:150,
@@ -560,10 +584,10 @@ const EVOLUTIONS=[
 ];
 
 const LEVELS=[
-  {min:0,   name:'Basic',      max:300},
-  {min:300, name:'Stage 1',    max:800},
-  {min:800, name:'Stage 2',    max:1800},
-  {min:1800,name:'Keaton-EX',  max:99999}
+  {min:0,    name:'Basic',      max:2250},
+  {min:2250, name:'Stage 1',    max:5500},
+  {min:5500, name:'Stage 2',    max:10000},
+  {min:10000,name:'Keaton-EX',  max:99999}
 ];
 
 const MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -2790,11 +2814,11 @@ const BADGES=[
   {icon:'&#9997;',    name:'Scripture',  check:s=>s.completed.filter(id=>ASSIGNMENT_SETS.flat().find(a=>a.id===id)?.cat==='bible').length>=5},
   {icon:'&#129418;',  name:'Pokemon Pro',check:s=>s.completed.filter(id=>ASSIGNMENT_SETS.flat().find(a=>a.id===id)?.cat==='pokemon').length>=5},
   {icon:'&#127939;',  name:'Athlete',    check:s=>s.tasksCompleted.length>=5},
-  {icon:'&#127775;',  name:'Keaton-EX',  check:s=>s.xp>=1800},
+  {icon:'&#127775;',  name:'Keaton-EX',  check:s=>s.xp>=10000},
   {icon:'&#128197;',  name:'Consistent', check:s=>Object.values(s.calDays||{}).filter(d=>d.checked).length>=7}
 ];
 
-let state={xp:0,streak:0,currentSet:0,completed:[],attempted:{},tasksCompleted:[],dailyTasks:{},lastDate:null,calDays:{},bonusDays:{},rewardLedger:[],scavFound:{nature:{},plates:{}},signoffs:{}};
+let state={xp:0,streak:0,currentSet:0,completed:[],attempted:{},tasksCompleted:[],dailyTasks:{},lastDate:null,calDays:{},bonusDays:{},rewardLedger:[],scavFound:{nature:{},plates:{}},signoffs:{},gameWins:0};
 let activeTab='learn',activeFilter='all',openCard=null,calM=5,calY=2026;
 
 function loadState(){
@@ -2886,6 +2910,7 @@ function renderContent(){
   if(activeTab==='scavenger') el.innerHTML=renderScavenger();
   if(activeTab==='bonus')    el.innerHTML=renderBonus();
   if(activeTab==='reward')   el.innerHTML=renderReward();
+  if(activeTab==='game')     {el.innerHTML=renderGame();initGame();}
 }
 
 function renderEducation(){
@@ -3659,6 +3684,174 @@ function ea(s){return String(s).replace(/'/g,'&#039;').replace(/"/g,'&quot;');}
 loadState();updateHeader();renderContent();
 updateBonusTabVisibility();
 setInterval(updateBonusTabVisibility,60000);
+
+/* ══════════════════════════════════════════
+   MEMORY GAME
+   ══════════════════════════════════════════ */
+const POKE_PAIRS = [
+  {emoji:'&#129418;',label:'Cheetkit'},
+  {emoji:'&#128008;',label:'Cheetara'},
+  {emoji:'&#127918;',label:'Pokeball'},
+  {emoji:'&#9889;',label:'Pikachu'},
+  {emoji:'&#128293;',label:'Charizard'},
+  {emoji:'&#128166;',label:'Squirtle'},
+  {emoji:'&#127807;',label:'Bulbasaur'},
+  {emoji:'&#10052;',label:'Glaceon'},
+  {emoji:'&#129360;',label:'Eevee'},
+  {emoji:'&#128080;',label:'Clefairy'},
+  {emoji:'&#128040;',label:'Meowth'},
+  {emoji:'&#127981;',label:'Snorlax'},
+];
+
+const GAME_DIFFS = {
+  easy:   {pairs:6,  cols:4, xp:20, label:'Easy'},
+  medium: {pairs:8,  cols:4, xp:35, label:'Medium'},
+  hard:   {pairs:12, cols:4, xp:60, label:'Hard'},
+};
+
+let gDiff='easy', gCards=[], gFlipped=[], gMatched=0, gMoves=0, gTimer=0, gTimerID=null, gLocked=false, gStarted=false, gWon=false;
+
+function renderGame(){
+  return `<div class="game-wrap">
+    <div class="section-title">&#127918; Pokemon Memory</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.5">Match all the Pokemon pairs. Fewer moves = better score!</p>
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      ${Object.keys(GAME_DIFFS).map(d=>`<button class="diff-btn${gDiff===d?' active':''}" onclick="setDiff('${d}')">${GAME_DIFFS[d].label}<br><span style="font-size:10px;opacity:.7">${GAME_DIFFS[d].pairs*2} cards +${GAME_DIFFS[d].xp} XP</span></button>`).join('')}
+    </div>
+    <div class="game-hud">
+      <div class="hud-pill">Moves <span id="gMoves">${gMoves}</span></div>
+      <div class="hud-pill">Time <span id="gTimer">${gTimer}s</span></div>
+      <div class="hud-pill">Wins <span>${state.gameWins||0}</span></div>
+    </div>
+    <button onclick="startGame()" style="width:100%;padding:12px;background:var(--poke-blue);color:#fff;border:none;border-radius:12px;font-family:var(--font-d);font-size:20px;letter-spacing:1px;cursor:pointer;margin-bottom:12px">
+      ${gStarted&&!gWon?'RESTART':'START GAME'} &#127918;
+    </button>
+    <div class="game-board ${gDiff}" id="gameBoard"></div>
+    <div id="gameWinBanner"></div>
+  </div>`;
+}
+
+function initGame(){
+  if(gTimerID){clearInterval(gTimerID);gTimerID=null;}
+  if(!gStarted){renderBoard();return;}
+  renderBoard();
+  if(!gWon){
+    gTimerID=setInterval(()=>{
+      gTimer++;
+      const el=document.getElementById('gTimer');
+      if(el)el.textContent=gTimer+'s';
+    },1000);
+  }
+}
+
+function renderBoard(){
+  const board=document.getElementById('gameBoard');
+  if(!board)return;
+  if(!gStarted){board.innerHTML='<div style="text-align:center;padding:30px;color:var(--muted);font-size:13px">Hit Start Game to play!</div>';return;}
+  board.innerHTML=gCards.map((card,i)=>{
+    const isFlipped=card.flipped||card.matched;
+    const cls='mem-card'+(isFlipped?' flipped':'')+(card.matched?' matched':'')+(card.wrong?' wrong':'');
+    return `<div class="${cls}" id="mc${i}" onclick="flipCard(${i})">
+      <div class="mem-card-inner">
+        <div class="mem-face mem-back">&#129418;</div>
+        <div class="mem-face mem-front">
+          <div class="mem-emoji">${card.emoji}</div>
+          <div class="mem-label">${card.label}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function setDiff(d){
+  gDiff=d;gStarted=false;gWon=false;gCards=[];gFlipped=[];gMatched=0;gMoves=0;gTimer=0;
+  if(gTimerID){clearInterval(gTimerID);gTimerID=null;}
+  renderContent();
+}
+
+function startGame(){
+  if(gTimerID){clearInterval(gTimerID);gTimerID=null;}
+  const cfg=GAME_DIFFS[gDiff];
+  const pool=POKE_PAIRS.slice(0,cfg.pairs);
+  const deck=[...pool,...pool].map((p,i)=>({...p,id:i,pairId:i%cfg.pairs,flipped:false,matched:false,wrong:false}));
+  // Fisher-Yates shuffle
+  for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];}
+  gCards=deck;gFlipped=[];gMatched=0;gMoves=0;gTimer=0;gStarted=true;gWon=false;gLocked=false;
+  const movesEl=document.getElementById('gMoves');if(movesEl)movesEl.textContent='0';
+  const timerEl=document.getElementById('gTimer');if(timerEl)timerEl.textContent='0s';
+  document.getElementById('gameWinBanner').innerHTML='';
+  renderBoard();
+  gTimerID=setInterval(()=>{
+    gTimer++;
+    const el=document.getElementById('gTimer');
+    if(el)el.textContent=gTimer+'s';
+  },1000);
+}
+
+function flipCard(i){
+  if(gLocked||!gStarted||gWon)return;
+  const card=gCards[i];
+  if(card.flipped||card.matched)return;
+  if(gFlipped.length>=2)return;
+  card.flipped=true;
+  gFlipped.push(i);
+  // Animate just this card
+  const el=document.getElementById('mc'+i);
+  if(el)el.classList.add('flipped');
+  if(gFlipped.length===2){
+    gMoves++;
+    const movesEl=document.getElementById('gMoves');
+    if(movesEl)movesEl.textContent=gMoves;
+    gLocked=true;
+    const [a,b]=gFlipped;
+    setTimeout(()=>{
+      if(gCards[a].pairId===gCards[b].pairId){
+        gCards[a].matched=true;gCards[b].matched=true;
+        const ea=document.getElementById('mc'+a),eb=document.getElementById('mc'+b);
+        if(ea)ea.classList.add('matched');if(eb)eb.classList.add('matched');
+        gMatched++;
+        gFlipped=[];gLocked=false;
+        if(gMatched===GAME_DIFFS[gDiff].pairs){onWin();}
+      } else {
+        gCards[a].wrong=true;gCards[b].wrong=true;
+        const ea=document.getElementById('mc'+a),eb=document.getElementById('mc'+b);
+        if(ea)ea.classList.add('wrong');if(eb)eb.classList.add('wrong');
+        setTimeout(()=>{
+          gCards[a].flipped=false;gCards[a].wrong=false;
+          gCards[b].flipped=false;gCards[b].wrong=false;
+          const fa=document.getElementById('mc'+a),fb=document.getElementById('mc'+b);
+          if(fa){fa.classList.remove('flipped','wrong');}
+          if(fb){fb.classList.remove('flipped','wrong');}
+          gFlipped=[];gLocked=false;
+        },700);
+      }
+    },600);
+  }
+}
+
+function onWin(){
+  if(gTimerID){clearInterval(gTimerID);gTimerID=null;}
+  gWon=true;
+  const cfg=GAME_DIFFS[gDiff];
+  // Bonus XP for fewer moves
+  const perfect=cfg.pairs;
+  const bonus=gMoves<=perfect+2?20:gMoves<=perfect+6?10:0;
+  const totalXP=cfg.xp+bonus;
+  state.gameWins=(state.gameWins||0)+1;
+  awardXP(totalXP);
+  const grade=gMoves<=perfect+2?'Perfect!':gMoves<=perfect+6?'Great!':'Nice job!';
+  const banner=document.getElementById('gameWinBanner');
+  if(banner){
+    banner.innerHTML=`<div class="game-win-banner">
+      <div style="font-size:36px;margin-bottom:6px">&#127942;</div>
+      <div style="font-family:var(--font-d);font-size:24px;color:var(--poke-blue);letter-spacing:1px">${grade}</div>
+      <div style="font-size:14px;font-weight:700;margin:6px 0">${gMoves} moves &bull; ${gTimer}s &bull; +${totalXP} XP${bonus>0?' (includes +'+bonus+' bonus!)':''}</div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Total wins this summer: ${state.gameWins}</div>
+      <button onclick="startGame()" style="background:var(--poke-blue);color:#fff;border:none;border-radius:10px;padding:11px 28px;font-family:var(--font-d);font-size:18px;letter-spacing:1px;cursor:pointer">PLAY AGAIN &#127918;</button>
+    </div>`;
+  }
+}
+
 </script>
 </body>
 </html>
